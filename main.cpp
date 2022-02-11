@@ -1,27 +1,13 @@
-#include<SFML/Graphics.hpp>
+#include"Engine/Engine.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(512, 512), "window");
-
-	window.setFramerateLimit(60);
-	sf::Event event;
-	while (window.isOpen())
+	Engine engine;
+	while (engine.windowIsOpen())
 	{
-		window.clear();
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			default:
-				break;
-			}
-		}
-
-		window.display();
+		engine.update();
+		engine.render();
+		engine.draw();
 	}
 	return 0;
 }

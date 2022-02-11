@@ -16,10 +16,70 @@
     <Filter Include="Libraries">
       <UniqueIdentifier>{43f9ec9b-a1f5-4635-8e35-cb951207c1e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{fa4fa540-0afe-4a92-ae05-195a6dcb3a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Audio">
+      <UniqueIdentifier>{fb697a42-277a-46e8-89ed-9289159e4d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Keyboard">
+      <UniqueIdentifier>{8e52897b-626a-43ee-928f-f4149be10c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Mouse">
+      <UniqueIdentifier>{3d1b306d-0b11-441a-9abb-cff6040d4eae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game">
+      <UniqueIdentifier>{6c838185-7ce7-4887-a3ab-b5fa352d3d97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Journal">
+      <UniqueIdentifier>{865178c0-dbf9-4864-82d8-f83f0e8d0db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Global">
+      <UniqueIdentifier>{640d60a6-2b21-4498-9ab5-360bf58104ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Window">
+      <UniqueIdentifier>{8be1aca4-b544-4011-af15-5a0a9dab953a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Exit.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Journal.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Menu.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Settings.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\System.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Window\Window.cpp">
+      <Filter>Source Files\Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Global\Button.cpp">
+      <Filter>Source Files\Engine\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Global\Support function.cpp">
+      <Filter>Source Files\Engine\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Keyboard\Keyboard.cpp">
+      <Filter>Source Files\Engine\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Mouse\Mouse.cpp">
+      <Filter>Source Files\Engine\Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -653,6 +713,45 @@
     </ClInclude>
     <ClInclude Include="extlibs\include\SFML\Window\WindowStyle.hpp">
       <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Exit.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Journal.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Menu.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Settings.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\State.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\System.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Window\Window.h">
+      <Filter>Source Files\Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Global\Button.h">
+      <Filter>Source Files\Engine\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Global\Support function.h">
+      <Filter>Source Files\Engine\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Keyboard\Keyboard.h">
+      <Filter>Source Files\Engine\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Mouse\Mouse.h">
+      <Filter>Source Files\Engine\Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

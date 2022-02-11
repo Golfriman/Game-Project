@@ -371,6 +371,18 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Exit.cpp" />
+    <ClCompile Include="Engine\Game.cpp" />
+    <ClCompile Include="Engine\Global\Button.cpp" />
+    <ClCompile Include="Engine\Global\Support function.cpp" />
+    <ClCompile Include="Engine\Journal.cpp" />
+    <ClCompile Include="Engine\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="Engine\Menu.cpp" />
+    <ClCompile Include="Engine\Mouse\Mouse.cpp" />
+    <ClCompile Include="Engine\Settings.cpp" />
+    <ClCompile Include="Engine\System.cpp" />
+    <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -489,6 +501,19 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <Library Include="extlibs\lib\x86\vorbisfile.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Exit.h" />
+    <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Engine\Global\Button.h" />
+    <ClInclude Include="Engine\Global\Support function.h" />
+    <ClInclude Include="Engine\Journal.h" />
+    <ClInclude Include="Engine\Keyboard\Keyboard.h" />
+    <ClInclude Include="Engine\Menu.h" />
+    <ClInclude Include="Engine\Mouse\Mouse.h" />
+    <ClInclude Include="Engine\Settings.h" />
+    <ClInclude Include="Engine\State.h" />
+    <ClInclude Include="Engine\System.h" />
+    <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="extlibs\include\SFML\Audio.hpp" />
     <ClInclude Include="extlibs\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="extlibs\include\SFML\Audio\Export.hpp" />
