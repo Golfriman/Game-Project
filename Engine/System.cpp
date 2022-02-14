@@ -7,7 +7,7 @@ System::System()
     state = 0;
     window.setWindow();
     mouse = new Mouse(window.getHandle());
-    if (!titleFont->loadFromFile("resources\\Fonts\\sansation.ttf") || !normalFont->loadFromFile("resources\\Fonts\\sansation.ttf"))
+    if (!titleFont->loadFromFile("resources\\Fonts\\ShadowsIntoLightTwo-Regular.ttf") || !normalFont->loadFromFile("resources\\Fonts\\Montserrat-Regular.ttf"))
     {
         window.getHandle()->close();
         window.getHandle()->create(sf::VideoMode(300, 50), "Error");

@@ -22,6 +22,7 @@ namespace subState
 		sf::RenderWindow* window;
 		Keyboard* keyboard;
 		Mouse* mouse;
+		Audio* audio;
 		int* state;
 		sf::Font* titleFont;
 		sf::Font* normalFont;
@@ -35,6 +36,7 @@ namespace subState
 		bool isPressed;
 		int stateNow, stateLast;
 		int* substate;
+		sf::Sound sound;
 	public:
 		MainMenu(System& system, int* substate);
 		void update()override;
@@ -48,6 +50,7 @@ namespace subState
 		sf::RenderWindow* window;
 		Keyboard* keyboard;
 		Mouse* mouse;
+		Audio* audio;
 		sf::Font* titleFont;
 		sf::Font* normalFont;
 
@@ -59,6 +62,7 @@ namespace subState
 		int positionAnswersNow;
 		bool isPressed;
 		int* substate;
+		sf::Sound sound;
 
 	public:
 		ExitMenu(System& system, int* substate);

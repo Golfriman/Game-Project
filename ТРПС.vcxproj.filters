@@ -40,6 +40,15 @@
     <Filter Include="Source Files\Engine\Window">
       <UniqueIdentifier>{8be1aca4-b544-4011-af15-5a0a9dab953a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Game\Items">
+      <UniqueIdentifier>{48743de3-fa76-4235-a89b-688a5196ceb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game\Level">
+      <UniqueIdentifier>{8cbb3c05-03d4-4768-858a-09eae0f59488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game\Player">
+      <UniqueIdentifier>{3cdb18c3-596c-4ddf-a1fc-879faf773dc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Mouse\Mouse.cpp">
       <Filter>Source Files\Engine\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Audio\Audio.cpp">
+      <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -752,6 +764,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Mouse\Mouse.h">
       <Filter>Source Files\Engine\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Audio\Audio.h">
+      <Filter>Source Files\Engine\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

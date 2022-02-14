@@ -19,4 +19,6 @@ class Keyboard
 public:
 	Keyboard();
 	Key& getConfig();
+
+	/*Key& changeKey(sf::Keyboard::Key& externalKey);*/
 };

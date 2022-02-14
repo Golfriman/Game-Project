@@ -13,6 +13,7 @@ Engine::Engine()
 	window = system.getHandle();
 	stateEngine = *state;
 	stateGame[*state]->createSource();
+	system.getAudio().playBackgroundMusic(system.getAudio().getBackgroundPath("Crushed Dreams"));
 }
 
 void Engine::update()

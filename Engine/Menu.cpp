@@ -47,6 +47,7 @@ void Menu::draw()
 
 subState::MainMenu::MainMenu(System& system, int* substate)
 {
+	audio = &system.getAudio();
 	window = system.getHandle();
 	keyboard = &system.getKeyboard();
 	state = &system.getState();
@@ -88,7 +89,10 @@ void subState::MainMenu::update()
 			}
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().accept))
 			{
+				sound.setVolume(audio->getEffectVolume());
+				sound.setBuffer(audio->getEffects("Click"));
 				*state = stateNow + 1;
+				sound.play();
 			}
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().escape))
 			{
@@ -123,7 +127,10 @@ void subState::MainMenu::update()
 				Coordinate cursor{ convert.x, convert.y };
 				if (menu[cursor])
 				{
+					sound.setVolume(audio->getEffectVolume());
+					sound.setBuffer(audio->getEffects("Click"));
 					*state = stateNow + 1;
+					sound.play();
 				}
 			}
 		}
@@ -181,6 +188,7 @@ subState::ExitMenu::ExitMenu(System& system, int* substate)
 {
 	transparency = nullptr;
 	highlight = nullptr;
+	audio = &system.getAudio();
 	window = system.getHandle();
 	keyboard = &system.getKeyboard();
 	mouse = system.getMouse();
@@ -213,10 +221,16 @@ void subState::ExitMenu::update()
 			{
 				if (positionAnswersNow == 0)
 				{
+					sound.setVolume(audio->getEffectVolume());
+					sound.setBuffer(audio->getEffects("Click"));
+					sound.play();
 					*substate = 0;
 				}
 				else
 				{
+					sound.setVolume(audio->getEffectVolume());
+					sound.setBuffer(audio->getEffects("Click"));
+					sound.play();
 					*substate = 0;
 					window->close();
 					return;
@@ -248,10 +262,16 @@ void subState::ExitMenu::update()
 			{
 				if (positionAnswersNow == 0)
 				{
+					sound.setVolume(audio->getEffectVolume());
+					sound.setBuffer(audio->getEffects("Click"));
+					sound.play();
 					*substate = 0;
 				}
 				else
 				{
+					sound.setVolume(audio->getEffectVolume());
+					sound.setBuffer(audio->getEffects("Click"));
+					sound.play();
 					window->close();
 					return;
 				}
