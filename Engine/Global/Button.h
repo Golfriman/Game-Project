@@ -3,39 +3,49 @@
 #include<unordered_map>
 #include<iostream>
 #include<functional>
-struct Coordinate
-{
-    short x, y;
-    bool operator==(const Coordinate& other)const;
-    bool operator!=(const Coordinate& other)const;
-};
 
-namespace std
+class ModeButton
 {
-    template<>
-    struct hash<Coordinate>
+    sf::Texture* idleTexture, * hoverTexture, * activeTexture, * switchOnTexture, * switchOffTexture;
+public:
+    ModeButton(sf::Texture* idleTexture = nullptr, sf::Texture* hoverTexture = nullptr, sf::Texture* activeTexture = nullptr, sf::Texture* switchOnTexture = nullptr, sf::Texture* switchOffTexture = nullptr);
+    sf::Texture* getIdle()
     {
-        std::size_t operator()(const Coordinate& object)const
-        {
-            return std::hash<short>()(object.x) ^ std::hash<short>()(object.y) << 1;
-        }
-    };
-}
+        return idleTexture;
+    }
+    sf::Texture* getHover()
+    {
+        return hoverTexture;
+    }
+    sf::Texture* getActive()
+    {
+        return activeTexture;
+    }
+    sf::Texture* getSwitchOn()
+    {
+        return switchOnTexture;
+    }
+    sf::Texture* getSwitchOff()
+    {
+        return switchOffTexture;
+    }
+
+};
 
 class Button
 {
     sf::RectangleShape* rect;
-    sf::Text* text;
-    sf::Color* idleColor, * hoverColor, * activeColor, *switchOnColor, *switchOffColor;
-    sf::Texture* idleTexture, * hoverTexture, * activeTexture, *switchOnTexture, *switchOffTexture;
+    ModeButton* mode;
+   
     int stateColor, id;
-    std::function<void()> onClick;
+ 
+    std::function<void()>* onClick;
 public:
     Button() = default;
     Button(const Button& copySource) = delete;
     Button& operator=(const Button& copySource) = delete;
 
-    Button(int id,short& xPosition, short& yPosition, short& width, short& height, sf::Text* text = nullptr, sf::Color* idleColor = nullptr, sf::Color* hoverColor = nullptr, sf::Color* activeColor = nullptr, sf::Color* switchOnColor = nullptr, sf::Color* switchOffColor = nullptr,sf::Texture* idleTexture = nullptr, sf::Texture* hoverTexture = nullptr, sf::Texture* activeTexture = nullptr, sf::Texture* switchOnTexture = nullptr, sf::Texture* switchOffTexture = nullptr);
+    Button(int id,short& xPosition, short& yPosition, short& width, short& height, sf::Texture* idleTexture = nullptr, sf::Texture* hoverTexture = nullptr, sf::Texture* activeTexture = nullptr, sf::Texture* switchOnTexture = nullptr, sf::Texture* switchOffTexture = nullptr);
     
     void setIdle();
    
@@ -47,17 +57,17 @@ public:
     
     void setOff();
     
-    sf::RectangleShape& getRect();
-
-    sf::Text* getText();
+    sf::RectangleShape& getRect() const;
 
     int& getStateColor();
 
     int& getState();
 
-    void setOnClick(std::function<void()>* onClick);
+    void setOnClick(std::function<void()>& onClick);
 
     void startClick();
+
+    bool containsCursor(sf::Vector2f& const coordinate);
 
     ~Button();
 };

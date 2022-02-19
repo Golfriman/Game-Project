@@ -7,11 +7,11 @@ System::System()
     state = 0;
     window.setWindow();
     mouse = new Mouse(window.getHandle());
-    if (!titleFont->loadFromFile("resources\\Fonts\\ShadowsIntoLightTwo-Regular.ttf") || !normalFont->loadFromFile("resources\\Fonts\\Montserrat-Regular.ttf"))
+    if (!titleFont->loadFromFile("resources//Fonts//ShadowsIntoLightTwo-Regular.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))
     {
         window.getHandle()->close();
         window.getHandle()->create(sf::VideoMode(300, 50), "Error");
-        /*Логика тут вся*/
+        /*Logic*/
     }
 }
 

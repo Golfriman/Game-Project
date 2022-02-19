@@ -6,8 +6,18 @@ namespace subState
 	class SubMenu
 	{
 	protected:
-		sf::Color* transparency;
-		sf::Color* highlight;
+		sf::Texture* transparency;
+		sf::Texture* highlight;
+		sf::Font* titleFont;
+		sf::Font* normalFont;
+		sf::RenderWindow* window;
+		Keyboard* keyboard;
+		Mouse* mouse;
+		Audio* audio;
+		int* substate;
+		sf::Sound sound;
+		bool isPressed;
+		void playClickEffect();
 	public:
 		SubMenu() = default;
 		virtual void update() = 0;
@@ -19,24 +29,14 @@ namespace subState
 	};
 	class MainMenu : public SubMenu
 	{
-		sf::RenderWindow* window;
-		Keyboard* keyboard;
-		Mouse* mouse;
-		Audio* audio;
 		int* state;
-		sf::Font* titleFont;
-		sf::Font* normalFont;
-		//Основа
-		
+	
 		sf::Texture* menuWallpaper;
-		std::unordered_map<Coordinate, Button*> menu;
-		std::vector<Coordinate> menuPoint;
-		sf::String* text;
-		Coordinate last;
-		bool isPressed;
+		std::vector<Button*> menu;
+		sf::String* string;
+		sf::Text* text;
+		sf::Vector2f last;
 		int stateNow, stateLast;
-		int* substate;
-		sf::Sound sound;
 	public:
 		MainMenu(System& system, int* substate);
 		void update()override;
@@ -47,22 +47,11 @@ namespace subState
 	};
 	class ExitMenu : public SubMenu
 	{
-		sf::RenderWindow* window;
-		Keyboard* keyboard;
-		Mouse* mouse;
-		Audio* audio;
-		sf::Font* titleFont;
-		sf::Font* normalFont;
-
-		std::unordered_map<Coordinate, Button*> exit;
-		std::vector<Coordinate> exitPoint;
+		std::vector<Button*> exit;
 		sf::String* answers;
-		sf::Text* question;
-
+		sf::Text* text;
+		sf::Vector2f last;
 		int positionAnswersNow;
-		bool isPressed;
-		int* substate;
-		sf::Sound sound;
 
 	public:
 		ExitMenu(System& system, int* substate);
@@ -79,8 +68,6 @@ class Menu:public State
 	std::vector<subState::SubMenu*> subMenu;
 	int substate;
 	bool isDelete;
-
-
 public:
 	Menu(System& system);
 	void createSource();

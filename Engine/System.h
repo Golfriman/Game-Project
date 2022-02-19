@@ -17,7 +17,7 @@ class System
 	sf::Font* normalFont;
 
 public:
-	System(/*Тут будет лог файл с сохранением*/);
+	System(/*Log file*/);
 	
 	sf::RenderWindow* getHandle();
 	Window& getWindow();

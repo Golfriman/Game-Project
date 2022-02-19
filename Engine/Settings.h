@@ -6,7 +6,6 @@ class Settings : public State
 {
 	int* state;
 	int lastState, nowState;
-	sf::Color* transparency, * highlight;
 	sf::Font* titleFont;
 	sf::Font* normallFont;
 	sf::Text* text;
@@ -16,8 +15,7 @@ class Settings : public State
 	Mouse* mouse;
 	sf::RenderWindow* handle;
 	sf::Sound sound;
-	std::unordered_map<Coordinate, Button*> settingsButton;
-	std::vector<Coordinate> settingsButtonPoint;
+	std::vector<Button*> settingsButton;
 
 	std::function<void()> switchFullscreen;
 	std::function<void()> leftSize;
@@ -38,6 +36,8 @@ class Settings : public State
 	int effectVolume;
 	int dialogVolume;
 	sf::Texture* texture;
+	bool isFullscreen, isLimitFPS;
+	void playEffects();
 public:
 	Settings(System& system);
 	void createSource()override;

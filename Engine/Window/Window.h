@@ -20,5 +20,7 @@ public:
 	void switchLimitFPS();
 	void leftChangeResolution();
 	void rightChangeResolution();
+	bool& isFull();
+	bool& isLimit();
 	~Window();
 };

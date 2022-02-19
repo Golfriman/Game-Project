@@ -14,8 +14,7 @@ class Journal : public State
 	sf::Font* normallFont;
 	sf::Texture* texture;
 	sf::RectangleShape rect;
-	std::unordered_map<Coordinate, Button*> buttonJournal;
-	std::vector<Coordinate> buttonJournalPoint;
+	std::vector<Button*> buttonJournal;
 	sf::Color* idle;
 	sf::Sound sound;
 	bool isDelete;

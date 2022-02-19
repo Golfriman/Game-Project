@@ -94,6 +94,16 @@ void Window::rightChangeResolution()
 	window->setSize(sf::Vector2u(width[stateWindow], height[stateWindow]));
 }
 
+bool& Window::isFull()
+{
+	return isFullscreen;
+}
+
+bool& Window::isLimit()
+{
+	return isLimitFPS;
+}
+
 Window::~Window()
 {
 	if (window != nullptr)

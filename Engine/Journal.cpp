@@ -23,15 +23,14 @@ void Journal::createSource()
 	idle = new sf::Color(0, 0, 255);
 	text = new sf::Text[2];
 	setText("Journal", text[0], *titleFont, 800, 64, *white, 64);
-	sf::String rus = u8"Здесь ничего нет. Просто разработчики устали, пока делали другое...";
-	sf::String str = sf::String::fromUtf8(rus.begin(), rus.end());
-	setText(str, text[1], *normallFont, 10, 200, *white, 36);
+	sf::String rus = "I'm boring";
+	setText(rus, text[1], *normallFont, 10, 200, *white, 36);
 	texture = new sf::Texture;
-	loadTexture("resources\\Image\\Textures\\dream.jpg", texture);
+	loadTexture("resources//Image//Textures//dream.jpg", texture);
 	rect.setTexture(texture);
 	rect.setSize(sf::Vector2f(626, 626));
 	rect.setPosition(647, 327);
-	insertButton(0, buttonJournal, buttonJournalPoint, 100, 900, 187, 50, 36, "Back", normallFont, *white, idle);
+	insertButton(0, buttonJournal, 100, 900, 187, 50);
 }
 
 void Journal::removeSource()
@@ -40,13 +39,12 @@ void Journal::removeSource()
 	deleteObject(white);
 	deleteObject(idle);
 	deleteArrayObject(text);
-	for (auto& coordinate : buttonJournalPoint)
+	for (auto& object : buttonJournal)
 	{
-		deleteObject(buttonJournal[coordinate]);
+		deleteObject(object);
 	}
 	deleteObject(texture);
 	buttonJournal.clear();
-	buttonJournalPoint.clear();
 }
 
 void Journal::update()
@@ -73,13 +71,16 @@ void Journal::update()
 			if (event.key.code == sf::Mouse::Left)
 			{
 				sf::Vector2f convert = mouse->getCoordinate();
-				Coordinate cursor{ convert.x, convert.y };
-				if (buttonJournal[cursor])
+				for (auto& object : buttonJournal)
 				{
-					sound.setBuffer(audio->getEffects("Click"));
-					*state = 0;
-					sound.setVolume(audio->getEffectVolume());
-					sound.play();
+					if (object->containsCursor(convert))
+					{
+						sound.setBuffer(audio->getEffects("Click"));
+						*state = 0;
+						sound.setVolume(audio->getEffectVolume());
+						sound.play();
+						break;
+					}
 				}
 			}
 		}
@@ -100,10 +101,9 @@ void Journal::draw()
 			window->draw(text[i]);
 		}
 		window->draw(rect);
-		for (auto& coordinate : buttonJournalPoint)
+		for (auto& object : buttonJournal)
 		{
-			window->draw(buttonJournal[coordinate]->getRect());
-			window->draw(*buttonJournal[coordinate]->getText());
+			window->draw(object->getRect());
 		}
 	}
 	return;

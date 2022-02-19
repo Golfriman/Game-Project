@@ -2,6 +2,7 @@
 
 Menu::Menu(System& system)
 {
+
 	subMenu.resize(2);
 	subMenu[0] = new subState::MainMenu(system, &substate);
 	subMenu[1] = new subState::ExitMenu(system, &substate);
@@ -57,12 +58,14 @@ subState::MainMenu::MainMenu(System& system, int* substate)
 	transparency = nullptr;
 	highlight = nullptr;
 	menuWallpaper = nullptr;
+	string = nullptr;
 	text = nullptr;
 	last = { -1, -1 };
 	isPressed = false;
 	stateNow = 0;
 	stateLast = 0;
 	this->substate = substate;
+	sound.setVolume(audio->getEffectVolume());
 }
 
 void subState::MainMenu::update()
@@ -89,10 +92,9 @@ void subState::MainMenu::update()
 			}
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().accept))
 			{
-				sound.setVolume(audio->getEffectVolume());
-				sound.setBuffer(audio->getEffects("Click"));
+				
+				playClickEffect();
 				*state = stateNow + 1;
-				sound.play();
 			}
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().escape))
 			{
@@ -106,31 +108,38 @@ void subState::MainMenu::update()
 		if (event.type == sf::Event::MouseMoved)
 		{
 			sf::Vector2f convert = mouse->getCoordinate();
-			Coordinate cursor{ convert.x, convert.y };
-			if (menu[last] && menu[last]->getStateColor() == 1)
+			for (auto& object : menu)
 			{
-
-				stateLast = menu[last]->getState();
+				if (object->containsCursor(last) && object->getStateColor() == 1)
+				{
+					stateLast = object->getState();
+					break;
+				}
 			}
-			if (menu[cursor] && menu[cursor]->getStateColor() == 0)
+			for (auto& object : menu)
 			{
-				last = cursor;
-				menu[menuPoint[stateNow]]->setIdle();
-				stateNow = menu[cursor]->getState();
+				if (object->containsCursor(convert) && object->getStateColor() == 0)
+				{
+					last = convert;
+					menu[stateNow]->setIdle();
+					stateNow = object->getState();
+					break;
+				}
 			}
 		}
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
 			if (event.key.code == sf::Mouse::Left)
 			{
-				sf::Vector2f convert = mouse->getCoordinate();
-				Coordinate cursor{ convert.x, convert.y };
-				if (menu[cursor])
+				sf::Vector2f cursor = mouse->getCoordinate();
+				for (auto& object : menu)
 				{
-					sound.setVolume(audio->getEffectVolume());
-					sound.setBuffer(audio->getEffects("Click"));
-					*state = stateNow + 1;
-					sound.play();
+					if (object->containsCursor(cursor))
+					{
+						playClickEffect();
+						*state = stateNow + 1;
+						break;
+					}
 				}
 			}
 		}
@@ -139,8 +148,8 @@ void subState::MainMenu::update()
 
 void subState::MainMenu::render()
 {
-	menu[menuPoint[stateLast]]->setIdle();
-	menu[menuPoint[stateNow]]->setHover();
+	menu[stateLast]->setIdle();
+	menu[stateNow]->setHover();
 }
 
 void subState::MainMenu::draw()
@@ -149,25 +158,31 @@ void subState::MainMenu::draw()
 	window->draw(wall);
 	for (int i = 0; i < 4; i++)
 	{
-		window->draw(menu[menuPoint[i]]->getRect());
-		window->draw(*menu[menuPoint[i]]->getText());
+		window->draw(menu[i]->getRect());
+
+		window->draw(text[i]);
 	}
 }
 
 void subState::MainMenu::createSource()
 {
-	transparency = new sf::Color(sf::Color(0, 0, 0, 0));
-	highlight = new sf::Color(sf::Color::Red);
+	transparency = new sf::Texture;
+	highlight = new sf::Texture;
+	loadTexture("resources//Image//Textures//red.png", highlight);
+	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
-	loadTexture("resources\\Image\\Textures\\tower2.jpg", menuWallpaper);
-	text = new sf::String[4];
-	text[0] = "New game";
-	text[1] = "Settings";
-	text[2] = "Journal";
-	text[3] = "Exit";
+	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
+	string = new sf::String[4];
+	string[0] = "New game";
+	string[1] = "Settings";
+	string[2] = "Journal";
+	string[3] = "Exit";
+	text = new sf::Text[4];
+	sf::Color white = sf::Color::White;
 	for (int i = 0; i < 4; i++)
 	{
-		insertButton(i, menu, menuPoint, 20, 700 + i * 35, 200, 30, 25, text[i], titleFont, sf::Color::White, transparency, highlight);
+		insertButton(i, menu, 20, 700 + i * 35, 200, 30, transparency, highlight);
+		setText(string[i], text[i], *normalFont, 20, 700 + i * 35, white, 25);
 	}
 	
 }
@@ -176,12 +191,14 @@ void subState::MainMenu::deleteSource()
 {
 	deleteObject(menuWallpaper);
 	deleteArrayObject(text);
-	for (auto& coordinate : menuPoint)
+	deleteArrayObject(string);
+	deleteObject(transparency);
+	deleteObject(highlight);
+	for (auto& object: menu)
 	{
-		deleteObject(menu[coordinate]);
+		deleteObject(object);
 	}
 	menu.clear();
-	menuPoint.clear();
 }
 
 subState::ExitMenu::ExitMenu(System& system, int* substate)
@@ -195,10 +212,11 @@ subState::ExitMenu::ExitMenu(System& system, int* substate)
 	titleFont = system.getTitleFont();
 	normalFont = system.getNormalFont();
 	answers = nullptr;
-	question = nullptr;
+	text = nullptr;
 	positionAnswersNow = 0;
 	isPressed = false;
 	this->substate = substate;
+	sound.setVolume(audio->getEffectVolume());
 }
 
 void subState::ExitMenu::update()
@@ -221,16 +239,13 @@ void subState::ExitMenu::update()
 			{
 				if (positionAnswersNow == 0)
 				{
-					sound.setVolume(audio->getEffectVolume());
-					sound.setBuffer(audio->getEffects("Click"));
-					sound.play();
+					playClickEffect();
 					*substate = 0;
+					break;
 				}
 				else
 				{
-					sound.setVolume(audio->getEffectVolume());
-					sound.setBuffer(audio->getEffects("Click"));
-					sound.play();
+					playClickEffect();
 					*substate = 0;
 					window->close();
 					return;
@@ -247,33 +262,34 @@ void subState::ExitMenu::update()
 		}
 		if (event2.type == sf::Event::MouseMoved)
 		{
-			sf::Vector2f convert = mouse->getCoordinate();
-			Coordinate cursor{ convert.x, convert.y };
-			if (exit[cursor] && exit[cursor]->getStateColor() == 0)
+			sf::Vector2f cursor = mouse->getCoordinate();
+			for (auto& object : exit)
 			{
-				positionAnswersNow = exit[cursor]->getState();
+				if (object->containsCursor(cursor) && object->getStateColor() == 0)
+				{
+					positionAnswersNow = object->getState();
+					break;
+				}
 			}
 		}
 		if (event2.type == sf::Event::MouseButtonPressed)
 		{
 			sf::Vector2f convert = mouse->getCoordinate();
-			Coordinate cursor{ convert.x, convert.y };
-			if (exit[cursor])
+			for (auto& object : exit)
 			{
-				if (positionAnswersNow == 0)
+				if (object->containsCursor(convert))
 				{
-					sound.setVolume(audio->getEffectVolume());
-					sound.setBuffer(audio->getEffects("Click"));
-					sound.play();
-					*substate = 0;
-				}
-				else
-				{
-					sound.setVolume(audio->getEffectVolume());
-					sound.setBuffer(audio->getEffects("Click"));
-					sound.play();
-					window->close();
-					return;
+					if (positionAnswersNow == 0)
+					{
+						playClickEffect();
+						*substate = 0;
+					}
+					else
+					{
+						playClickEffect();
+						window->close();
+						return;
+					}
 				}
 			}
 		}
@@ -282,32 +298,36 @@ void subState::ExitMenu::update()
 
 void subState::ExitMenu::render()
 {
-	exit[exitPoint[positionAnswersNow]]->setHover();
-	exit[exitPoint[abs(positionAnswersNow - 1)]]->setIdle();
+	exit[positionAnswersNow]->setHover();
+	exit[abs(positionAnswersNow - 1)]->setIdle();
 }
 
 void subState::ExitMenu::draw()
 {
-	window->draw(exit[exitPoint[0]]->getRect());
-	window->draw(*exit[exitPoint[0]]->getText());
-	window->draw(exit[exitPoint[1]]->getRect());
-	window->draw(*exit[exitPoint[1]]->getText());
-	window->draw(*question);
+	window->draw(exit[0]->getRect());
+	window->draw(exit[1]->getRect());
+	window->draw(text[0]);
+	window->draw(text[1]);
+	window->draw(text[2]);
 }
 
 void subState::ExitMenu::createSource()
 {
-	transparency = new sf::Color(sf::Color(0, 0, 0, 0));
-	highlight = new sf::Color(sf::Color::Red);
+	transparency = new sf::Texture;
+	highlight = new sf::Texture;
+	loadTexture("resources//Image//Textures//red.png", highlight);
+	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	answers = new sf::String[2];
 	answers[0] = "No";
 	answers[1] = "Yes";
-	question = new sf::Text;
+	text = new sf::Text[3];
 	sf::Color white = sf::Color::White;
-	setText("Are you sure you want to go back to your desktop?", *question, *titleFont, 540, 500, white, 40);
+	setText("Are you sure you want to go back to your desktop?", text[2], *titleFont, 540, 500, white, 40);
 	for (int i = 0; i < 2; i++)
 	{
-		insertButton(i, exit, exitPoint, 600 + i * 50, 600, 40, 30, 25, answers[i], normalFont, sf::Color::White, transparency, highlight);
+		insertButton(i, exit, 600 + i * 50, 600, 40, 30, transparency, highlight);
+		sf::Color white = sf::Color::White;
+		setText(answers[i], text[i], *normalFont, 600 + i * 50, 600, white, 25);
 	}
 }
 
@@ -316,11 +336,17 @@ void subState::ExitMenu::deleteSource()
 	deleteObject(transparency);
 	deleteObject(highlight);
 	deleteArrayObject(answers);
-	deleteObject(question);
-	for (auto& coordinate : exitPoint)
+	deleteArrayObject(text);
+	for (auto& object : exit)
 	{
-		deleteObject(exit[coordinate]);
+		deleteObject(object);
 	}
 	exit.clear();
-	exitPoint.clear();
+}
+
+
+void subState::SubMenu::playClickEffect()
+{
+	sound.setBuffer(audio->getEffects("Click"));
+	sound.play();
 }
