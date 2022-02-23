@@ -57,19 +57,7 @@ sf::Font* System::getNormalFont()
 
 System::~System()
 {
-    if (normalFont)
-    {
-        delete normalFont;
-        normalFont = nullptr;
-    }
-    if (titleFont)
-    {
-        delete titleFont;
-        titleFont = nullptr;
-    }
-    if (mouse)
-    {
-        delete mouse;
-        mouse = nullptr;
-    }
+    deleteObject(normalFont);
+    deleteObject(titleFont);
+    deleteObject(mouse);
 }

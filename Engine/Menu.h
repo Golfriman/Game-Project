@@ -19,7 +19,7 @@ namespace subState
 		bool isPressed;
 		void playClickEffect();
 	public:
-		SubMenu() = default;
+		SubMenu();
 		virtual void update() = 0;
 		virtual void render() = 0;
 		virtual void draw() = 0;
@@ -33,7 +33,7 @@ namespace subState
 	
 		sf::Texture* menuWallpaper;
 		std::vector<Button*> menu;
-		sf::String* string;
+		sf::String string[4];
 		sf::Text* text;
 		sf::Vector2f last;
 		int stateNow, stateLast;
@@ -75,4 +75,5 @@ public:
 	void update();
 	void render();
 	void draw();
+	~Menu();
 };

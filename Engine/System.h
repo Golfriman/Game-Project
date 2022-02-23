@@ -4,6 +4,7 @@
 #include"Keyboard/Keyboard.h"
 #include"Window/Window.h"
 #include"Mouse/Mouse.h"
+#include"Global/Support function.h"
 
 
 class System

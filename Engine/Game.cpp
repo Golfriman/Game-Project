@@ -16,7 +16,7 @@ void Game::createSource()
 	font = new sf::Font;
 	loadFont("resources\\Fonts\\sansation.ttf", *font);
 	text = new sf::Text;
-	setText("Game", *text, *font, 220, 15, *white, 10);
+	setText("Game", *text, font, 220, 15, *white, 10);
 }
 
 void Game::removeSource()

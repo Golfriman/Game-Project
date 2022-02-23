@@ -106,9 +106,8 @@ bool& Window::isLimit()
 
 Window::~Window()
 {
-	if (window != nullptr)
-	{
-		delete window;
-		window = nullptr;
-	}
+	delete window;
+	window = nullptr;
+	delete camera;
+	camera = nullptr;
 }

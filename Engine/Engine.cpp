@@ -47,8 +47,9 @@ bool Engine::windowIsOpen()
 Engine::~Engine()
 {
 	stateGame[*state]->removeSource();
-	for (auto& object : stateGame)
+	for (auto object : stateGame)
 	{
 		deleteObject(object);
 	}
+	stateGame.clear();
 }

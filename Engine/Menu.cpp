@@ -46,6 +46,15 @@ void Menu::draw()
 	}
 }
 
+Menu::~Menu()
+{
+	for (auto& object : subMenu)
+	{
+		deleteObject(object);
+	}
+	subMenu.clear();
+}
+
 subState::MainMenu::MainMenu(System& system, int* substate)
 {
 	audio = &system.getAudio();
@@ -58,7 +67,6 @@ subState::MainMenu::MainMenu(System& system, int* substate)
 	transparency = nullptr;
 	highlight = nullptr;
 	menuWallpaper = nullptr;
-	string = nullptr;
 	text = nullptr;
 	last = { -1, -1 };
 	isPressed = false;
@@ -172,7 +180,6 @@ void subState::MainMenu::createSource()
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
 	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
-	string = new sf::String[4];
 	string[0] = "New game";
 	string[1] = "Settings";
 	string[2] = "Journal";
@@ -182,7 +189,7 @@ void subState::MainMenu::createSource()
 	for (int i = 0; i < 4; i++)
 	{
 		insertButton(i, menu, 20, 700 + i * 35, 200, 30, transparency, highlight);
-		setText(string[i], text[i], *normalFont, 20, 700 + i * 35, white, 25);
+		setText(string[i], text[i], normalFont, 20, 700 + i * 35, white, 25);
 	}
 	
 }
@@ -191,7 +198,6 @@ void subState::MainMenu::deleteSource()
 {
 	deleteObject(menuWallpaper);
 	deleteArrayObject(text);
-	deleteArrayObject(string);
 	deleteObject(transparency);
 	deleteObject(highlight);
 	for (auto& object: menu)
@@ -322,12 +328,12 @@ void subState::ExitMenu::createSource()
 	answers[1] = "Yes";
 	text = new sf::Text[3];
 	sf::Color white = sf::Color::White;
-	setText("Are you sure you want to go back to your desktop?", text[2], *titleFont, 540, 500, white, 40);
+	setText("Are you sure you want to go back to your desktop?", text[2], titleFont, 540, 500, white, 40);
 	for (int i = 0; i < 2; i++)
 	{
 		insertButton(i, exit, 600 + i * 50, 600, 40, 30, transparency, highlight);
 		sf::Color white = sf::Color::White;
-		setText(answers[i], text[i], *normalFont, 600 + i * 50, 600, white, 25);
+		setText(answers[i], text[i], normalFont, 600 + i * 50, 600, white, 25);
 	}
 }
 
@@ -349,4 +355,17 @@ void subState::SubMenu::playClickEffect()
 {
 	sound.setBuffer(audio->getEffects("Click"));
 	sound.play();
+}
+
+subState::SubMenu::SubMenu()
+{
+	transparency = nullptr;
+	highlight = nullptr;
+	titleFont = nullptr;
+	normalFont = nullptr;
+	window = nullptr;
+	keyboard = nullptr;
+	mouse = nullptr;
+	audio = nullptr;
+	substate = nullptr;
 }

@@ -74,11 +74,8 @@ void Button::startClick()
 
 Button::~Button()
 {
-    if (rect)
-    {
-        delete rect;
-        rect = nullptr;
-    }
+    delete rect;
+    rect = nullptr;
     delete mode;
     mode = nullptr;
 }

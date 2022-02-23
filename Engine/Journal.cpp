@@ -22,9 +22,9 @@ void Journal::createSource()
 	white = new sf::Color(sf::Color::White);
 	idle = new sf::Color(0, 0, 255);
 	text = new sf::Text[2];
-	setText("Journal", text[0], *titleFont, 800, 64, *white, 64);
+	setText("Journal", text[0], titleFont, 800, 64, *white, 64);
 	sf::String rus = "I'm boring";
-	setText(rus, text[1], *normallFont, 10, 200, *white, 36);
+	setText(rus, text[1], normallFont, 10, 200, *white, 36);
 	texture = new sf::Texture;
 	loadTexture("resources//Image//Textures//dream.jpg", texture);
 	rect.setTexture(texture);

@@ -16,10 +16,10 @@ void loadTexture(sf::String path, sf::Texture* texture)
     }
 }
 
-void setText(sf::String string, sf::Text& text, const sf::Font& font, int xPostion, int yPosition, sf::Color& color, int size)
+void setText(sf::String string, sf::Text& text, const sf::Font* font, int xPostion, int yPosition, sf::Color& color, int size)
 {
     text.setString(string);
-    text.setFont(font);
+    text.setFont(*font);
     text.setFillColor(color);
     text.setPosition(xPostion, yPosition);
     text.setCharacterSize(size);
