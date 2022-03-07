@@ -382,6 +382,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClCompile Include="Engine\Menu.cpp" />
     <ClCompile Include="Engine\Mouse\Mouse.cpp" />
     <ClCompile Include="Engine\Settings.cpp" />
+    <ClCompile Include="Engine\State.cpp" />
     <ClCompile Include="Engine\System.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="main.cpp" />

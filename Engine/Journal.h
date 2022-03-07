@@ -5,13 +5,7 @@ class Journal : public State
 {
 	sf::Color* white;
 	sf::Text* text;
-	sf::RenderWindow *window;
 	int* state;
-	Keyboard* keyboard;
-	Audio* audio;
-	Mouse* mouse;
-	sf::Font* titleFont;
-	sf::Font* normallFont;
 	sf::Texture* texture;
 	sf::RectangleShape rect;
 	std::vector<Button*> buttonJournal;

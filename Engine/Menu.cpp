@@ -180,7 +180,7 @@ void subState::MainMenu::createSource()
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
 	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
-	string[0] = "New game";
+	string[0] = "Start Game";
 	string[1] = "Settings";
 	string[2] = "Journal";
 	string[3] = "Exit";

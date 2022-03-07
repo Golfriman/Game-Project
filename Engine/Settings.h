@@ -6,14 +6,7 @@ class Settings : public State
 {
 	int* state;
 	int lastState, nowState;
-	sf::Font* titleFont;
-	sf::Font* normallFont;
 	sf::Text* text;
-	Window* window;
-	Audio* audio;
-	Keyboard* keyboard;
-	Mouse* mouse;
-	sf::RenderWindow* handle;
 	sf::Sound sound;
 	std::vector<Button*> settingsButton;
 

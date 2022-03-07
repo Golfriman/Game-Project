@@ -3,7 +3,6 @@
 
 class Exit : public State
 {
-	sf::RenderWindow* window;
 public:
 	Exit(System& system);
 	void removeSource()override;

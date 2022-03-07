@@ -2,7 +2,7 @@
 
 Journal::Journal(System& system)
 {
-	window = system.getHandle();
+	handle = system.getHandle();
 	mouse = system.getMouse();
 	state = &system.getState();
 	keyboard = &system.getKeyboard();
@@ -50,11 +50,11 @@ void Journal::removeSource()
 void Journal::update()
 {
 	sf::Event event;
-	while (window->pollEvent(event))
+	while (handle->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			window->close();
+			handle->close();
 		}
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -98,12 +98,12 @@ void Journal::draw()
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			window->draw(text[i]);
+			handle->draw(text[i]);
 		}
-		window->draw(rect);
+		handle->draw(rect);
 		for (auto& object : buttonJournal)
 		{
-			window->draw(object->getRect());
+			handle->draw(object->getRect());
 		}
 	}
 	return;

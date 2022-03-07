@@ -2,7 +2,7 @@
 
 Exit::Exit(System& system)
 {
-	window = system.getHandle();
+	handle = system.getHandle();
 }
 
 void Exit::removeSource()
@@ -17,7 +17,7 @@ void Exit::createSource()
 
 void Exit::update()
 {
-	window->close();
+	handle->close();
 }
 
 void Exit::render()

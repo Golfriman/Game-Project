@@ -3,9 +3,8 @@
 Game::Game(System& system)
 {
 	state = &system.getState();
-	window = system.getHandle();
+	handle = system.getHandle();
 	keyboard = &system.getKeyboard();
-	font = nullptr;
 	text = nullptr;
 	white = nullptr;
 }
@@ -13,27 +12,24 @@ Game::Game(System& system)
 void Game::createSource()
 {
 	white = new sf::Color(sf::Color::White);
-	font = new sf::Font;
-	loadFont("resources\\Fonts\\sansation.ttf", *font);
 	text = new sf::Text;
-	setText("Game", *text, font, 220, 15, *white, 10);
+	setText("Game", *text, titleFont, 220, 15, *white, 10);
 }
 
 void Game::removeSource()
 {
 	deleteObject(white);
-	deleteObject(font);
 	deleteObject(text);
 }
 
 void Game::update()
 {
 	sf::Event event;
-	while (window->pollEvent(event))
+	while (handle->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			window->close();
+			handle->close();
 		}
 	}
 }
@@ -45,6 +41,6 @@ void Game::render()
 
 void Game::draw()
 {
-	window->draw(*text);
+	handle->draw(*text);
 	return;
 }

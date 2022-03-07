@@ -181,9 +181,8 @@ void Settings::createSource()
 	insertButton(9, settingsButton, 1333, 495, 18, 16, &texture[1]);
 	settingsButton[9]->setOnClick(rightDialog);
 	setText("Back", text[26], normallFont, 492, 818, white, 24);
-	sf::Color buttonBack = sf::Color(28, 25, 37);
 	loadTexture("resources//Image//Textures//Color(28,25,37).png", &texture[4]);
-	insertButton(10, settingsButton, 432, 808, 157, 98, &texture[4]);
+	insertButton(10, settingsButton, 432, 808, 187, 50, &texture[4]);
 	settingsButton[10]->setOnClick(cancel);
 	setText("Default", text[27], normallFont, 1130, 818, white, 24);
 	setText("Apply", text[28], normallFont, 1360, 818, white, 24);
@@ -192,8 +191,6 @@ void Settings::createSource()
 	setText(std::to_string(backgroundVolume), text[30], normallFont, 1304, 398, white, 24);
 	setText(std::to_string(effectVolume), text[31], normallFont, 1304, 443, white, 24);
 	setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
-
-
 }
 
 void Settings::removeSource()
