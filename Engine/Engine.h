@@ -5,6 +5,7 @@
 #include"Journal.h"
 #include"Exit.h"
 #include<unordered_map>
+#include<thread>
 
 class Engine
 {
@@ -13,6 +14,8 @@ class Engine
 	std::vector<State*> stateGame;
 	System system;
 	sf::RenderWindow* window;
+	bool isLoadSource;
+	void showLoadScreen();
 public:
 	Engine();
 	void update();

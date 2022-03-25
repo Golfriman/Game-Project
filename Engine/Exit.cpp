@@ -1,6 +1,6 @@
 #include "Exit.h"
 
-Exit::Exit(System& system)
+Exit::Exit(System& system, bool* isLoadSource)
 {
 	handle = system.getHandle();
 }

@@ -94,7 +94,7 @@
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
     <ClCompile Include="Engine\State.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

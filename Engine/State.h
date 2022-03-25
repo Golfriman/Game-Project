@@ -12,6 +12,7 @@ protected:
 	sf::RenderWindow* handle;
 	sf::Font* titleFont;
 	sf::Font* normallFont;
+	bool* isLoadSource;
 public:
 	State();
 	virtual void createSource() = 0;

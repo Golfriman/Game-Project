@@ -32,7 +32,7 @@ class Settings : public State
 	bool isFullscreen, isLimitFPS;
 	void playEffects();
 public:
-	Settings(System& system);
+	Settings(System& system, bool* isLoadSource);
 	void createSource()override;
 	void removeSource()override;
 	void update();

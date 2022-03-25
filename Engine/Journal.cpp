@@ -1,7 +1,8 @@
 #include "Journal.h"
 
-Journal::Journal(System& system)
+Journal::Journal(System& system, bool *isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	handle = system.getHandle();
 	mouse = system.getMouse();
 	state = &system.getState();
@@ -18,6 +19,7 @@ Journal::Journal(System& system)
 
 void Journal::createSource()
 {
+
 	isDelete = false;
 	white = new sf::Color(sf::Color::White);
 	idle = new sf::Color(0, 0, 255);
@@ -31,6 +33,7 @@ void Journal::createSource()
 	rect.setSize(sf::Vector2f(626, 626));
 	rect.setPosition(647, 327);
 	insertButton(0, buttonJournal, 100, 900, 187, 50);
+	*isLoadSource = true;
 }
 
 void Journal::removeSource()

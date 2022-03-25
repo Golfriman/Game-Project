@@ -13,7 +13,7 @@ class Journal : public State
 	sf::Sound sound;
 	bool isDelete;
 public:
-	Journal(System& system);
+	Journal(System& system, bool* isLoadSource);
 	void createSource()override;
 	void removeSource()override;
 	void update();

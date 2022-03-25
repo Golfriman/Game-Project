@@ -17,6 +17,7 @@ namespace subState
 		int* substate;
 		sf::Sound sound;
 		bool isPressed;
+		bool* isLoadSource;
 		void playClickEffect();
 	public:
 		SubMenu();
@@ -24,7 +25,7 @@ namespace subState
 		virtual void render() = 0;
 		virtual void draw() = 0;
 		virtual void createSource() = 0;
-		virtual void deleteSource() = 0;
+		virtual void removeSource() = 0;
 		virtual ~SubMenu() = default;
 	};
 	class MainMenu : public SubMenu
@@ -38,12 +39,12 @@ namespace subState
 		sf::Vector2f last;
 		int stateNow, stateLast;
 	public:
-		MainMenu(System& system, int* substate);
+		MainMenu(System& system, int* substate, bool* isLoadSource);
 		void update()override;
 		void render()override;
 		void draw()override;
 		void createSource() override;
-		void deleteSource() override;
+		void removeSource() override;
 	};
 	class ExitMenu : public SubMenu
 	{
@@ -54,12 +55,12 @@ namespace subState
 		int positionAnswersNow;
 
 	public:
-		ExitMenu(System& system, int* substate);
+		ExitMenu(System& system, int* substate, bool* isLoadSource);
 		void update()override;
 		void render()override;
 		void draw()override;
 		void createSource()override;
-		void deleteSource()override;
+		void removeSource()override;
 	};
 }
 
@@ -69,7 +70,7 @@ class Menu:public State
 	int substate;
 	bool isDelete;
 public:
-	Menu(System& system);
+	Menu(System& system,bool* isLoadSource);
 	void createSource();
 	void removeSource();
 	void update();

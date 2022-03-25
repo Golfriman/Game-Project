@@ -6,8 +6,9 @@ void Settings::playEffects()
 	sound.play();
 }
 
-Settings::Settings(System& system)
+Settings::Settings(System& system, bool* isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	wallpaper.setSize(sf::Vector2f(1088, 668));
 	wallpaper.setFillColor(sf::Color(72, 111, 106));
 	wallpaper.setPosition(416, 206);
@@ -191,6 +192,7 @@ void Settings::createSource()
 	setText(std::to_string(backgroundVolume), text[30], normallFont, 1304, 398, white, 24);
 	setText(std::to_string(effectVolume), text[31], normallFont, 1304, 443, white, 24);
 	setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
+	*isLoadSource = true;
 }
 
 void Settings::removeSource()

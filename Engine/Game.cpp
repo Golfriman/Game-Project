@@ -1,7 +1,8 @@
 #include "Game.h"
 
-Game::Game(System& system)
+Game::Game(System& system, bool *isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	state = &system.getState();
 	handle = system.getHandle();
 	keyboard = &system.getKeyboard();
@@ -14,6 +15,7 @@ void Game::createSource()
 	white = new sf::Color(sf::Color::White);
 	text = new sf::Text;
 	setText("Game", *text, titleFont, 220, 15, *white, 10);
+	*isLoadSource = true;
 }
 
 void Game::removeSource()

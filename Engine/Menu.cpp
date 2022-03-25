@@ -1,11 +1,11 @@
 #include"Menu.h"
 
-Menu::Menu(System& system)
+Menu::Menu(System& system, bool* isLoadSource)
 {
-
+	this->isLoadSource = isLoadSource;
 	subMenu.resize(2);
-	subMenu[0] = new subState::MainMenu(system, &substate);
-	subMenu[1] = new subState::ExitMenu(system, &substate);
+	subMenu[0] = new subState::MainMenu(system, &substate, isLoadSource);
+	subMenu[1] = new subState::ExitMenu(system, &substate, isLoadSource);
 	substate = 0;
 	isDelete = false;
 }
@@ -24,7 +24,7 @@ void Menu::removeSource()
 	isDelete = true;
 	for (auto& object : subMenu)
 	{
-		object->deleteSource();
+		object->removeSource();
 	}
 }
 
@@ -55,8 +55,9 @@ Menu::~Menu()
 	subMenu.clear();
 }
 
-subState::MainMenu::MainMenu(System& system, int* substate)
+subState::MainMenu::MainMenu(System& system, int* substate, bool* isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	audio = &system.getAudio();
 	window = system.getHandle();
 	keyboard = &system.getKeyboard();
@@ -191,10 +192,11 @@ void subState::MainMenu::createSource()
 		insertButton(i, menu, 20, 700 + i * 35, 200, 30, transparency, highlight);
 		setText(string[i], text[i], normalFont, 20, 700 + i * 35, white, 25);
 	}
+	*isLoadSource = true;
 	
 }
 
-void subState::MainMenu::deleteSource()
+void subState::MainMenu::removeSource()
 {
 	deleteObject(menuWallpaper);
 	deleteArrayObject(text);
@@ -207,8 +209,9 @@ void subState::MainMenu::deleteSource()
 	menu.clear();
 }
 
-subState::ExitMenu::ExitMenu(System& system, int* substate)
+subState::ExitMenu::ExitMenu(System& system, int* substate, bool* isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	transparency = nullptr;
 	highlight = nullptr;
 	audio = &system.getAudio();
@@ -223,6 +226,7 @@ subState::ExitMenu::ExitMenu(System& system, int* substate)
 	isPressed = false;
 	this->substate = substate;
 	sound.setVolume(audio->getEffectVolume());
+
 }
 
 void subState::ExitMenu::update()
@@ -335,9 +339,10 @@ void subState::ExitMenu::createSource()
 		sf::Color white = sf::Color::White;
 		setText(answers[i], text[i], normalFont, 600 + i * 50, 600, white, 25);
 	}
+	*isLoadSource = true;
 }
 
-void subState::ExitMenu::deleteSource()
+void subState::ExitMenu::removeSource()
 {
 	deleteObject(transparency);
 	deleteObject(highlight);
