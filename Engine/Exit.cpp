@@ -2,6 +2,7 @@
 
 Exit::Exit(System& system, bool* isLoadSource)
 {
+	this->isLoadSource = isLoadSource;
 	handle = system.getHandle();
 }
 
@@ -12,6 +13,7 @@ void Exit::removeSource()
 
 void Exit::createSource()
 {
+	*isLoadSource = true;
 	return;
 }
 
