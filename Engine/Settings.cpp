@@ -149,22 +149,13 @@ void Settings::createSource()
 	insertButton(3, settingsButton, 862, 497, 18, 16, &texture[1]);
 	settingsButton[3]->setOnClick(rightSize);
 	setText("Keyboard shortcut", text[5], normallFont, 476, 536, white, 36);
-	setText("Right", text[6], normallFont, 476, 596, white, 24);
-	setText("D", text[7], normallFont, 779, 596, white, 24);
-	setText("Left", text[8], normallFont, 476, 641, white, 24);
-	setText("A", text[9], normallFont, 779, 641, white, 24);
-	setText("Down", text[10], normallFont, 476, 686, white, 24);
-	setText("S", text[11], normallFont, 779, 686, white, 24);
-	setText("Up", text[12], normallFont, 476, 731, white, 24);
-	setText("W", text[13], normallFont, 779, 731, white, 24);
-	setText("Accept", text[14], normallFont, 953, 596, white, 24);
-	setText("Enter", text[15], normallFont, 1267, 596, white, 24);
-	setText("Cancel", text[16], normallFont, 953, 641, white, 24);
-	setText("Escape", text[17], normallFont, 1267, 641, white, 24);
-	setText("Inventory", text[18], normallFont, 953, 686, white, 24);
-	setText("I", text[19], normallFont, 1267, 686, white, 24);
-	setText("Hide HUD", text[20], normallFont, 953, 731, white, 24);
-	setText("H", text[21], normallFont, 1267, 731, white, 24);
+
+	setText("Cancel", text[16], normallFont, 476, 596, white, 24);
+	setText("Escape", text[17], normallFont, 779, 596, white, 24);
+	setText("Inventory", text[18], normallFont, 476, 641, white, 24);
+	setText("I", text[19], normallFont, 779, 641, white, 24);
+	setText("Hide HUD", text[20], normallFont, 476, 686, white, 24);
+	setText("H", text[21], normallFont, 779, 686, white, 24);
 	setText("Audio", text[22], normallFont, 953, 338, white, 36);
 	setText("Background Music", text[23], normallFont, 953, 398, white, 24);
 	insertButton(4, settingsButton, 1267, 405, 18, 16, &texture[0]);
@@ -218,21 +209,7 @@ void Settings::update()
 		}
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if (event.key.code == keyboard->getConfig().down)
-			{
-				lastState = nowState;
-				nowState = nowState + 1 >= 10 ? 0 : nowState + 1;
-			}
-			if (event.key.code == keyboard->getConfig().up)
-			{
-				lastState = nowState;
-				nowState = nowState - 1 < 0 ? 10 : nowState - 1;
-			}
-			if (event.key.code == keyboard->getConfig().accept)
-			{
-				settingsButton[nowState]->startClick();
-			}
-			if (event.key.code == keyboard->getConfig().escape)
+			if (event.key.code == keyboard->getConfig("Escape"))
 			{
 				*state = 0;
 			}

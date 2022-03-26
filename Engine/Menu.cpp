@@ -89,23 +89,7 @@ void subState::MainMenu::update()
 		if (event.type == sf::Event::KeyPressed && !(isPressed))
 		{
 			isPressed = true;
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().up))
-			{
-				stateLast = stateNow;
-				stateNow = stateNow - 1 >= 0 ? stateNow - 1 : 3;
-			}
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().down))
-			{
-				stateLast = stateNow;
-				stateNow = stateNow + 1 < 4 ? stateNow + 1 : 0;
-			}
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().accept))
-			{
-				
-				playClickEffect();
-				*state = stateNow + 1;
-			}
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().escape))
+			if (sf::Keyboard::isKeyPressed(keyboard->getConfig("Escape")))
 			{
 				*substate = 1;
 			}
@@ -241,27 +225,7 @@ void subState::ExitMenu::update()
 		if (event2.type == sf::Event::KeyPressed && !(isPressed))
 		{
 			isPressed = true;
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().left) || sf::Keyboard::isKeyPressed(keyboard->getConfig().right))
-			{
-				positionAnswersNow = positionAnswersNow == 0 ? 1 : 0;
-			}
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().accept))
-			{
-				if (positionAnswersNow == 0)
-				{
-					playClickEffect();
-					*substate = 0;
-					break;
-				}
-				else
-				{
-					playClickEffect();
-					*substate = 0;
-					window->close();
-					return;
-				}
-			}
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().escape))
+			if (sf::Keyboard::isKeyPressed(keyboard->getConfig("Escape")))
 			{
 				*substate = 0;
 			}

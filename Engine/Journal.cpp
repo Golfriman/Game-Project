@@ -61,7 +61,7 @@ void Journal::update()
 		}
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if (sf::Keyboard::isKeyPressed(keyboard->getConfig().escape) || sf::Keyboard::isKeyPressed(keyboard->getConfig().accept))
+			if (sf::Keyboard::isKeyPressed(keyboard->getConfig("Escape")))
 			{
 				sound.setBuffer(audio->getEffects("Click"));
 				*state = 0;
