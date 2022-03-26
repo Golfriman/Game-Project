@@ -12,5 +12,4 @@ public:
 	virtual void execute() = 0;
 	void create();
 	Items* kill();
-
 };

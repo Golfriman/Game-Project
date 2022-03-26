@@ -40,14 +40,20 @@
     <Filter Include="Source Files\Engine\Window">
       <UniqueIdentifier>{8be1aca4-b544-4011-af15-5a0a9dab953a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\NewFilter1">
+      <UniqueIdentifier>{2f604922-34bd-44bb-8e46-5ce473f9cb99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game\Tower State">
+      <UniqueIdentifier>{847e3b91-3ec2-4f5d-a1ec-a7a86a902a9d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Engine\Game\Items">
-      <UniqueIdentifier>{48743de3-fa76-4235-a89b-688a5196ceb7}</UniqueIdentifier>
+      <UniqueIdentifier>{6e210618-ff95-469a-85b9-b58162888082}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Game\Level">
-      <UniqueIdentifier>{8cbb3c05-03d4-4768-858a-09eae0f59488}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine\Game\Tower State\Enimies">
+      <UniqueIdentifier>{81e304ff-f09e-489a-89f2-156eba35a53c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Game\Player">
-      <UniqueIdentifier>{3cdb18c3-596c-4ddf-a1fc-879faf773dc7}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine\Game\Tower State\BlacksmithEvent">
+      <UniqueIdentifier>{7cdd3131-fb5c-42ba-873d-0bfbb1de6db3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="Engine\State.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Characteristics.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -770,6 +779,54 @@
     </ClInclude>
     <ClInclude Include="Engine\Audio\Audio.h">
       <Filter>Source Files\Engine\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\TowerState.h">
+      <Filter>Source Files\Engine\Game\Tower State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Unit.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Characteristics.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\Battle.h">
+      <Filter>Source Files\Engine\Game\Tower State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Hero.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Items\PotionHealth.h">
+      <Filter>Source Files\Engine\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Items\PotionDamage.h">
+      <Filter>Source Files\Engine\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Inventory.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Items\Items.h">
+      <Filter>Source Files\Engine\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Items\Bandages.h">
+      <Filter>Source Files\Engine\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\Enimies\Enimies.h">
+      <Filter>Source Files\Engine\Game\Tower State\Enimies</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\Enimies\Intellect.h">
+      <Filter>Source Files\Engine\Game\Tower State\Enimies</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Dice.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\RandomEvent.h">
+      <Filter>Source Files\Engine\Game\Tower State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\Blacksmith.h">
+      <Filter>Source Files\Engine\Game\Tower State</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithEvent.h">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

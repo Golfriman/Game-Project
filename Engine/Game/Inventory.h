@@ -3,7 +3,8 @@
 #include"Items/Items.h"
 #include"Hero.h"
 
-class Inventory : private std::vector<Items*>
+
+class Inventory : private std::vector<std::pair<Items*, Button*>>
 {
 	static constexpr uint8_t maxSizeInventory = 12;
 	size_t postionCursor;

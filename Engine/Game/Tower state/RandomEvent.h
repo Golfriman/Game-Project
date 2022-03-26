@@ -1,16 +1,13 @@
 #pragma once
 #include"TowerState.h"
-#include"Enimies/Enimies.h"
-#include<vector>
 
-class Battle: public TowerState
+class RandomEvent : public TowerState
 {
-	std::vector<Enimies*> enimiesInTheRoom;
 public:
 	void update();
 	void render();
 	void draw();
 	void createSource();
 	void removeSource();
-	~Battle();
+	~RandomEvent();
 };
