@@ -5,6 +5,7 @@
 class UpgradeWeapon : public BlacksmithEvent
 {
 public:
+
 	void update();
 	void render();
 	void draw();

@@ -4,7 +4,6 @@
 
 class Settings : public State
 {
-	int* state;
 	int lastState, nowState;
 	sf::Text* text;
 	sf::Sound sound;

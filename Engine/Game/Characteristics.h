@@ -22,5 +22,5 @@ public:
 	void debuff();
 	void changeArmorPoints(uint8_t armorPoints);
 	bool isDead();
-
+	void setBleeding(bool isBleeding);
 };

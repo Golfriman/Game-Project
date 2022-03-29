@@ -5,5 +5,11 @@
 
 class Dice
 {
+	std::mt19937 *mersenne;
+	std::uniform_int_distribution<int> *random;
 
+	int roll();
+public:
+	Dice();
+	~Dice();
 };

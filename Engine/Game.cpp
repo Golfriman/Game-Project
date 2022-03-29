@@ -2,47 +2,43 @@
 
 Game::Game(System& system, bool *isLoadSource)
 {
+	idGame = -1;
+	idTowerStates = new size_t(- 1);
+	towerstates.resize(15);
 	this->isLoadSource = isLoadSource;
-	state = &system.getState();
-	handle = system.getHandle();
-	keyboard = &system.getKeyboard();
-	text = nullptr;
-	white = nullptr;
+	initSystemComponent(system);
 }
 
 void Game::createSource()
 {
-	white = new sf::Color(sf::Color::White);
-	text = new sf::Text;
-	setText("Game", *text, titleFont, 220, 15, *white, 10);
-	*isLoadSource = true;
+	/*Загрузка ресурсов*/
 }
 
 void Game::removeSource()
 {
-	deleteObject(white);
-	deleteObject(text);
+	/*Удаление ресурсов*/
 }
 
 void Game::update()
 {
-	sf::Event event;
-	while (handle->pollEvent(event))
+	towerstates[idGame]->update();
+	if (idGame != *idTowerStates)
 	{
-		if (event.type == sf::Event::Closed)
-		{
-			handle->close();
-		}
+		towerstates[idGame]->removeSource();
+		towerstates[*idTowerStates]->createSource();
+		idGame = *idTowerStates;
 	}
 }
 
 void Game::render()
 {
+	towerstates[idGame]->render();
 	return;
 }
 
 void Game::draw()
 {
-	handle->draw(*text);
+
+	towerstates[idGame]->draw();
 	return;
 }

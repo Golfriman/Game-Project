@@ -5,7 +5,6 @@ class Journal : public State
 {
 	sf::Color* white;
 	sf::Text* text;
-	int* state;
 	sf::Texture* texture;
 	sf::RectangleShape rect;
 	std::vector<Button*> buttonJournal;

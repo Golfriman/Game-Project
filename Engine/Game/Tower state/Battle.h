@@ -7,6 +7,7 @@ class Battle: public TowerState
 {
 	std::vector<Enimies*> enimiesInTheRoom;
 public:
+	Battle(System& system);
 	void update();
 	void render();
 	void draw();

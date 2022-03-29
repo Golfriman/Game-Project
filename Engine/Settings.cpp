@@ -12,13 +12,7 @@ Settings::Settings(System& system, bool* isLoadSource)
 	wallpaper.setSize(sf::Vector2f(1088, 668));
 	wallpaper.setFillColor(sf::Color(72, 111, 106));
 	wallpaper.setPosition(416, 206);
-	state = &system.getState();
-	audio = &system.getAudio();
-	handle = system.getHandle();
-	keyboard = &system.getKeyboard();
-	mouse = system.getMouse();
-	titleFont = system.getTitleFont();
-	normallFont = system.getNormalFont();
+	initSystemComponent(system);
 	isFullscreen = system.getWindow().isFull();
 	isLimitFPS = system.getWindow().isLimit();
 	text = nullptr;

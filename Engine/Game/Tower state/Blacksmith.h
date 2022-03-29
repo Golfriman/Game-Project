@@ -7,10 +7,11 @@ class BlackSmith : public TowerState
 {
 	std::vector<BlacksmithEvent*> events;
 public:
-	void update() = 0;
-	void render() = 0;
-	void draw() = 0;
-	void createSource() = 0;
-	void removeSource() = 0;
-	~BlackSmith() = default;
+	BlackSmith(System& system);
+	void update();
+	void render();
+	void draw();
+	void createSource();
+	void removeSource();
+	~BlackSmith();
 };

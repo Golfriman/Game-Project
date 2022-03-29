@@ -9,5 +9,5 @@ protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 public:
 	virtual void use(Unit* unit) = 0;
-	virtual void show();
+	virtual void show() = 0;
 };

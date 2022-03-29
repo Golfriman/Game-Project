@@ -4,7 +4,8 @@
 
 class State
 {
-protected: 
+protected:
+	int *state;
 	Window* window;
 	Audio* audio;
 	Keyboard* keyboard;
@@ -13,6 +14,7 @@ protected:
 	sf::Font* titleFont;
 	sf::Font* normallFont;
 	bool* isLoadSource;
+	void initSystemComponent(System& system);
 public:
 	State();
 	virtual void createSource() = 0;

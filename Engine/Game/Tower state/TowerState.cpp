@@ -1,6 +1,6 @@
-#include "State.h"
+#include "TowerState.h"
 
-void State::initSystemComponent(System& system)
+void TowerState::initSystemComponent(System& system)
 {
 	handle = system.getHandle();
 	mouse = system.getMouse();
@@ -9,13 +9,4 @@ void State::initSystemComponent(System& system)
 	audio = &system.getAudio();
 	titleFont = system.getTitleFont();
 	normallFont = system.getNormalFont();
-}
-
-State::State()
-{
-	this->window = nullptr;
-	this->audio = nullptr;
-	this->mouse = nullptr;
-	this->keyboard = nullptr;
-	this->handle = nullptr;
 }

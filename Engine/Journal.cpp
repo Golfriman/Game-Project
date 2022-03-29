@@ -3,13 +3,7 @@
 Journal::Journal(System& system, bool *isLoadSource)
 {
 	this->isLoadSource = isLoadSource;
-	handle = system.getHandle();
-	mouse = system.getMouse();
-	state = &system.getState();
-	keyboard = &system.getKeyboard();
-	audio = &system.getAudio();
-	titleFont = system.getTitleFont();
-	normallFont = system.getNormalFont();
+	initSystemComponent(system);
 	white = nullptr;
 	text = nullptr;
 	texture = nullptr;
@@ -19,7 +13,6 @@ Journal::Journal(System& system, bool *isLoadSource)
 
 void Journal::createSource()
 {
-
 	isDelete = false;
 	white = new sf::Color(sf::Color::White);
 	idle = new sf::Color(0, 0, 255);

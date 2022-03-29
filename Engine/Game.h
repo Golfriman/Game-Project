@@ -1,11 +1,12 @@
 #pragma once
 #include"State.h"
+#include"./Game/Tower state/TowerState.h"
 
 class Game : public State
 {
-	int* state;
-	sf::Text* text;
-	sf::Color *white;
+	std::vector<TowerState*> towerstates;
+	size_t *idTowerStates;
+	size_t idGame;
 public:
 	Game(System& system, bool* isLoadSource);
 	void createSource()override;
