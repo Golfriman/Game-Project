@@ -61,7 +61,6 @@ subState::MainMenu::MainMenu(System& system, int* substate, bool* isLoadSource)
 	audio = &system.getAudio();
 	window = system.getHandle();
 	keyboard = &system.getKeyboard();
-	state = &system.getState();
 	mouse = system.getMouse();
 	titleFont = system.getTitleFont();
 	normalFont = system.getNormalFont();
@@ -72,7 +71,6 @@ subState::MainMenu::MainMenu(System& system, int* substate, bool* isLoadSource)
 	last = { -1, -1 };
 	isPressed = false;
 	stateNow = 0;
-	stateLast = 0;
 	this->substate = substate;
 	sound.setVolume(audio->getEffectVolume());
 }
@@ -101,24 +99,19 @@ void subState::MainMenu::update()
 		if (event.type == sf::Event::MouseMoved)
 		{
 			sf::Vector2f convert = mouse->getCoordinate();
-			for (auto& object : menu)
-			{
-				if (object->containsCursor(last) && object->getStateColor() == 1)
-				{
-					stateLast = object->getState();
-					break;
-				}
-			}
+
+			menu[stateNow]->setIdle();
 			for (auto& object : menu)
 			{
 				if (object->containsCursor(convert) && object->getStateColor() == 0)
 				{
-					last = convert;
-					menu[stateNow]->setIdle();
+					isHover = true;
 					stateNow = object->getState();
 					break;
 				}
 			}
+
+
 		}
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
@@ -130,7 +123,7 @@ void subState::MainMenu::update()
 					if (object->containsCursor(cursor))
 					{
 						playClickEffect();
-						*state = stateNow + 1;
+						throw stateNow + 1;
 						break;
 					}
 				}
@@ -141,8 +134,11 @@ void subState::MainMenu::update()
 
 void subState::MainMenu::render()
 {
-	menu[stateLast]->setIdle();
-	menu[stateNow]->setHover();
+	if (isHover)
+	{
+		isHover = false;
+		menu[stateNow]->setHover();
+	}
 }
 
 void subState::MainMenu::draw()
@@ -152,7 +148,6 @@ void subState::MainMenu::draw()
 	for (int i = 0; i < 4; i++)
 	{
 		window->draw(menu[i]->getRect());
-
 		window->draw(text[i]);
 	}
 }
@@ -237,10 +232,12 @@ void subState::ExitMenu::update()
 		if (event2.type == sf::Event::MouseMoved)
 		{
 			sf::Vector2f cursor = mouse->getCoordinate();
+			exit[positionAnswersNow]->setIdle();
 			for (auto& object : exit)
 			{
 				if (object->containsCursor(cursor) && object->getStateColor() == 0)
 				{
+					isHover = true;
 					positionAnswersNow = object->getState();
 					break;
 				}
@@ -272,8 +269,11 @@ void subState::ExitMenu::update()
 
 void subState::ExitMenu::render()
 {
-	exit[positionAnswersNow]->setHover();
-	exit[abs(positionAnswersNow - 1)]->setIdle();
+	if (isHover)
+	{
+		isHover = false;
+		exit[positionAnswersNow]->setHover();
+	}
 }
 
 void subState::ExitMenu::draw()

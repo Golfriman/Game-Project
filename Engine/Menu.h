@@ -17,6 +17,7 @@ namespace subState
 		int* substate;
 		sf::Sound sound;
 		bool isPressed;
+		bool isHover;
 		bool* isLoadSource;
 		void playClickEffect();
 	public:
@@ -30,14 +31,13 @@ namespace subState
 	};
 	class MainMenu : public SubMenu
 	{
-		int* state;
 	
 		sf::Texture* menuWallpaper;
 		std::vector<Button*> menu;
 		sf::String string[4];
 		sf::Text* text;
 		sf::Vector2f last;
-		int stateNow, stateLast;
+		int stateNow;
 	public:
 		MainMenu(System& system, int* substate, bool* isLoadSource);
 		void update()override;

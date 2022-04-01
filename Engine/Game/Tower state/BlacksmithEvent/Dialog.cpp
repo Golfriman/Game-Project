@@ -12,6 +12,11 @@ void Dialog::draw()
 {
 }
 
+void Dialog::hud()
+{
+	/*...*/
+}
+
 void Dialog::createSource()
 {
 }

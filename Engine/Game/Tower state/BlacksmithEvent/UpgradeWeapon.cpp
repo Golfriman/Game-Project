@@ -12,6 +12,11 @@ void UpgradeWeapon::draw()
 {
 }
 
+void UpgradeWeapon::hud()
+{
+	/*...*/
+}
+
 void UpgradeWeapon::createSource()
 {
 }

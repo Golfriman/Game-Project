@@ -7,7 +7,7 @@ RandomEvent::RandomEvent(System& system)
 
 void RandomEvent::update()
 {
-	sf::Event event;
+	/*sf::Event event;*/
 }
 
 void RandomEvent::render()
@@ -16,6 +16,11 @@ void RandomEvent::render()
 
 void RandomEvent::draw()
 {
+}
+
+void RandomEvent::hud()
+{
+	/*...*/
 }
 
 void RandomEvent::createSource()

@@ -13,11 +13,11 @@ class System
 	Audio audio;
 	Keyboard keyboard;
 	Mouse* mouse;
-	int state;
 	sf::Font* titleFont;
 	sf::Font* normalFont;
 
 public:
+
 	System(/*Log file*/);
 	
 	sf::RenderWindow* getHandle();
@@ -25,7 +25,6 @@ public:
 	Audio& getAudio();
 	Keyboard& getKeyboard();
 	Mouse* getMouse();
-	int& getState();
 	sf::Font* getTitleFont();
 	sf::Font* getNormalFont();
 	~System();

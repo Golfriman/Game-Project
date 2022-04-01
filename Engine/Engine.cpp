@@ -31,40 +31,36 @@ Engine::Engine()
 	stateGame[2] = new Settings(system, &isLoadSource);
 	stateGame[3] = new Journal(system, &isLoadSource);
 	stateGame[4] = new Exit(system, &isLoadSource);
-	state = &system.getState();
 	window = system.getHandle();
-	stateEngine = *state;
-	stateGame[*state]->createSource();
+	stateEngine = 0;
+	stateGame[stateEngine]->createSource();
 	system.getAudio().playBackgroundMusic(system.getAudio().getBackgroundPath("Crushed Dreams"));
 }
 
 void Engine::update()
 {
 	system.getHandle()->clear();
-	stateGame[*state]->update();
-	if (stateEngine != *state)
-	{
+	try {
+		stateGame[stateEngine]->update();
+	}
+	catch(int id) {
 		stateGame[stateEngine]->removeSource();
 		isLoadSource = false;
-		sf::Thread createSource([this]() {
-			stateGame[*state]->createSource();
-			});
-
-	
+		sf::Thread createSource([this, id]() { stateGame[id]->createSource(); });
 		createSource.launch();
 		showLoadScreen();
-		stateEngine = *state;
+		stateEngine = id;
 	}
 }
 
 void Engine::render()
 {
-	stateGame[*state]->render();
+	stateGame[stateEngine]->render();
 }
 
 void Engine::draw()
 {
-	stateGame[*state]->draw();
+	stateGame[stateEngine]->draw();
 	system.getHandle()->display();
 }
 
@@ -75,7 +71,7 @@ bool Engine::windowIsOpen()
 
 Engine::~Engine()
 {
-	stateGame[*state]->removeSource();
+	stateGame[stateEngine]->removeSource();
 	for (auto object : stateGame)
 	{
 		deleteObject(object);

@@ -57,9 +57,9 @@ void Journal::update()
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig("Escape")))
 			{
 				sound.setBuffer(audio->getEffects("Click"));
-				*state = 0;
 				sound.setVolume(audio->getEffectVolume());
 				sound.play();
+				throw 0;
 			}
 		}
 		if (event.type == sf::Event::MouseButtonPressed)
@@ -72,10 +72,9 @@ void Journal::update()
 					if (object->containsCursor(convert))
 					{
 						sound.setBuffer(audio->getEffects("Click"));
-						*state = 0;
 						sound.setVolume(audio->getEffectVolume());
 						sound.play();
-						break;
+						throw 0;
 					}
 				}
 			}

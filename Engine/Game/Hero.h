@@ -16,4 +16,5 @@ public:
 	Inventory* openInventory();
 	uint16_t& getCoins();
 	void setCoins(uint16_t coins);
+	~Hero();
 };

@@ -4,7 +4,6 @@ System::System()
 {
     titleFont = new sf::Font;
     normalFont = new sf::Font;
-    state = 0;
     window.setWindow();
     mouse = new Mouse(window.getHandle());
     if (!titleFont->loadFromFile("resources//Fonts//ShadowsIntoLightTwo-Regular.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))
@@ -40,10 +39,6 @@ Mouse* System::getMouse()
     return mouse;
 }
 
-int& System::getState()
-{
-    return state;
-}
 
 sf::Font* System::getTitleFont()
 {

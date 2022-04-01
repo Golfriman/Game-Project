@@ -7,6 +7,14 @@ Battle::Battle(System& system)
 
 void Battle::update()
 {
+	sf::Event event;
+	while (handle->pollEvent(event))
+	{
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+
+		}
+	}
 }
 
 void Battle::render()
@@ -14,6 +22,10 @@ void Battle::render()
 }
 
 void Battle::draw()
+{
+}
+
+void Battle::hud()
 {
 }
 

@@ -112,8 +112,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 	};
 	cancel = [&]()->void
 	{
-		*state = 0;
 		sound.play();
+		throw 0;
 	};
 	lastState = 0;
 	nowState = 0;
@@ -205,7 +205,7 @@ void Settings::update()
 		{
 			if (event.key.code == keyboard->getConfig("Escape"))
 			{
-				*state = 0;
+				throw 0;
 			}
 		}
 		if (event.type == sf::Event::MouseButtonPressed)

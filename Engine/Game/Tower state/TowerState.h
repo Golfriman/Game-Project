@@ -6,7 +6,6 @@
 class TowerState
 {
 protected:
-	int* state;
 	sf::Texture* wallpaper;
 	sf::RenderWindow* handle;
 	Audio* audio;
@@ -21,5 +20,6 @@ public:
 	virtual void draw() = 0;
 	virtual void createSource() = 0;
 	virtual void removeSource() = 0;
+	virtual void hud() = 0;
 	virtual ~TowerState() = default;
 };

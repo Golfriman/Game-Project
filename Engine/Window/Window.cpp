@@ -83,7 +83,7 @@ void Window::switchLimitFPS()
 void Window::leftChangeResolution()
 {
 	if (isFullscreen) return;
-	stateWindow = stateWindow + 1 > 4 ? 3 : stateWindow + 1;
+	stateWindow = stateWindow + 1 > 4 ? 4 : stateWindow + 1;
 	window->setSize(sf::Vector2u(width[stateWindow], height[stateWindow]));
 }
 

@@ -9,7 +9,6 @@
 
 class Engine
 {
-	int *state;
 	int stateEngine;
 	std::vector<State*> stateGame;
 	System system;

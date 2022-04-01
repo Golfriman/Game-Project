@@ -12,6 +12,11 @@ void Farewell::draw()
 {
 }
 
+void Farewell::hud()
+{
+	/*...*/
+}
+
 void Farewell::createSource()
 {
 }

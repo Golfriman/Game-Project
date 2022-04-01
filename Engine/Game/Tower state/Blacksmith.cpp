@@ -17,6 +17,11 @@ void BlackSmith::draw()
 {
 }
 
+void BlackSmith::hud()
+{
+	/*..*/
+}
+
 void BlackSmith::createSource()
 {
 }

@@ -135,17 +135,17 @@
     <ClCompile Include="Engine\Game\Tower state\Enimies\Enimies.cpp">
       <Filter>Source Files\Engine\Game\Tower State\Enimies</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\Dialog.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Game\Unit.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\Farewell.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\Dialog.cpp">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\UpgradeWeapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Unit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

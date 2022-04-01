@@ -5,7 +5,6 @@
 class State
 {
 protected:
-	int *state;
 	Window* window;
 	Audio* audio;
 	Keyboard* keyboard;

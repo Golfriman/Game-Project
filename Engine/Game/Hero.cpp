@@ -29,3 +29,8 @@ void Hero::setCoins(uint16_t coins)
 {
 	this->coins = coins;
 }
+
+Hero::~Hero()
+{
+	delete characterisitcs;
+}
