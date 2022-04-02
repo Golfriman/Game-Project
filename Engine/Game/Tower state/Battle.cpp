@@ -1,8 +1,8 @@
 #include"Battle.h"
 
-Battle::Battle(System& system)
+Battle::Battle(System& system, Hero* hero)
 {
-	initSystemComponent(system);
+	init(system, hero);
 }
 
 void Battle::update()
@@ -23,6 +23,7 @@ void Battle::render()
 
 void Battle::draw()
 {
+	std::cout << "Battle\n";
 }
 
 void Battle::hud()

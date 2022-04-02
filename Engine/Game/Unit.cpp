@@ -17,3 +17,9 @@ bool Unit::isDead()
 {
     return false;
 }
+
+Unit::~Unit()
+{
+    delete characterisitcs;
+    characterisitcs = nullptr;
+}

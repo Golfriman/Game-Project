@@ -1,4 +1,6 @@
 #include"Engine/Engine.h"
+//Отключаем предупреждение об использовании enum
+#pragma warning(suppress: 26812)
 struct Leaks
 {
 	~Leaks()

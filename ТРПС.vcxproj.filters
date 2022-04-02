@@ -147,6 +147,9 @@
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\UpgradeWeapon.cpp">
       <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\InventoryScreen.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="extlibs\bin\x64\sfml-audio-2.dll">
@@ -878,6 +881,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Tower state\BlacksmithEvent\Farewell.h">
       <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\InventoryScreen.h">
+      <Filter>Source Files\Engine\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

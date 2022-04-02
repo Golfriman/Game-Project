@@ -379,6 +379,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClCompile Include="Engine\Game\Dice.cpp" />
     <ClCompile Include="Engine\Game\Hero.cpp" />
     <ClCompile Include="Engine\Game\Inventory.cpp" />
+    <ClCompile Include="Engine\Game\InventoryScreen.cpp" />
     <ClCompile Include="Engine\Game\Items\Bandages.cpp" />
     <ClCompile Include="Engine\Game\Items\Items.cpp" />
     <ClCompile Include="Engine\Game\Items\PotionDamage.cpp" />
@@ -528,6 +529,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClInclude Include="Engine\Game\Dice.h" />
     <ClInclude Include="Engine\Game\Hero.h" />
     <ClInclude Include="Engine\Game\Inventory.h" />
+    <ClInclude Include="Engine\Game\InventoryScreen.h" />
     <ClInclude Include="Engine\Game\Items\Bandages.h" />
     <ClInclude Include="Engine\Game\Items\PotionHealth.h" />
     <ClInclude Include="Engine\Game\Items\Items.h" />

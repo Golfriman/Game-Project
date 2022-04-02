@@ -30,6 +30,7 @@ class Settings : public State
 	sf::Texture* texture;
 	bool isFullscreen, isLimitFPS;
 	void playEffects();
+	void createUI(sf::Color &white, sf::Color &red);
 public:
 	Settings(System& system, bool* isLoadSource);
 	void createSource()override;

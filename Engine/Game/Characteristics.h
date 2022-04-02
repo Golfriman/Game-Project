@@ -13,7 +13,7 @@ class Characteristics
 	bool isBuffHealth;
 	bool isDebuffBleeding;
 public:
-	Characteristics(uint8_t damage, uint8_t hp, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn, uint8_t armorPoints);
+	Characteristics(uint8_t damage, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn, uint8_t armorPoints);
 	void changeHealth(uint8_t variable);
 	void changeCharacterisitics(uint8_t damage, uint8_t hp, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn);
 	void setBuff(bool variable);

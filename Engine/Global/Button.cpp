@@ -80,7 +80,7 @@ Button::~Button()
     mode = nullptr;
 }
 
-bool Button::containsCursor(sf::Vector2f& const coordinate)
+bool Button::containsCursor(const sf::Vector2f& coordinate)
 {
     return rect->getGlobalBounds().contains(coordinate);
 }

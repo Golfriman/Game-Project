@@ -1,8 +1,8 @@
 #include "RandomEvent.h"
 
-RandomEvent::RandomEvent(System& system)
+RandomEvent::RandomEvent(System& system, Hero* hero)
 {
-	initSystemComponent(system);
+	init(system, hero);
 }
 
 void RandomEvent::update()

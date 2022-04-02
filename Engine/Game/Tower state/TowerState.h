@@ -2,10 +2,12 @@
 #include"../../System.h"
 #include"../../Global/Button.h"
 #include"../../Global/Support function.h"
+#include"../Hero.h"
 
 class TowerState
 {
 protected:
+	Hero* hero;
 	sf::Texture* wallpaper;
 	sf::RenderWindow* handle;
 	Audio* audio;
@@ -13,8 +15,9 @@ protected:
 	Mouse* mouse;
 	sf::Font* titleFont;
 	sf::Font* normallFont;
-	void initSystemComponent(System& system);
+	void init(System& system, Hero* hero);
 public:
+	TowerState();
 	virtual void update() = 0;
 	virtual void render() = 0;
 	virtual void draw() = 0;

@@ -8,7 +8,7 @@ Hero::Hero(Characteristics* character)
 
 void Hero::addInventory(Items* item)
 {
-	inventory->addItem(std::move(*item));
+	inventory->addItem(std::move(* item));
 }
 
 void Hero::execute()
@@ -32,5 +32,6 @@ void Hero::setCoins(uint16_t coins)
 
 Hero::~Hero()
 {
-	delete characterisitcs;
+	delete inventory;
+	inventory = nullptr;
 }

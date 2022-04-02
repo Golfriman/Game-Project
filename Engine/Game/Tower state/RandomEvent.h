@@ -4,7 +4,7 @@
 class RandomEvent : public TowerState
 {
 public:
-	RandomEvent(System& system);
+	RandomEvent(System& system, Hero* hero);
 	void update();
 	void render();
 	void draw();

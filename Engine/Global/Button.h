@@ -67,7 +67,7 @@ public:
 
     void startClick();
 
-    bool containsCursor(sf::Vector2f& const coordinate);
+    bool containsCursor(const sf::Vector2f& coordinate);
 
     ~Button();
 };

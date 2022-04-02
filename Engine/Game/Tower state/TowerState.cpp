@@ -1,6 +1,6 @@
 #include "TowerState.h"
 
-void TowerState::initSystemComponent(System& system)
+void TowerState::init(System& system, Hero* hero)
 {
 	handle = system.getHandle();
 	mouse = system.getMouse();
@@ -8,4 +8,16 @@ void TowerState::initSystemComponent(System& system)
 	audio = &system.getAudio();
 	titleFont = system.getTitleFont();
 	normallFont = system.getNormalFont();
+	this->hero = hero;
+}
+
+TowerState::TowerState()
+{
+	hero = nullptr;
+	handle = nullptr;
+	audio = nullptr;
+	keyboard = nullptr;
+	mouse = nullptr;
+	titleFont = nullptr;
+	normallFont = nullptr;
 }

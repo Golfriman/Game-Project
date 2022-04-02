@@ -13,5 +13,5 @@ public:
 	void updateStateAnimation();
 	Characteristics* getCharacteristics();
 	bool isDead();
-	virtual ~Unit() = default;
+	virtual ~Unit();
 };
