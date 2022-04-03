@@ -2,12 +2,12 @@
 
 void TowerState::init(System& system, Hero* hero)
 {
-	handle = system.getHandle();
-	mouse = system.getMouse();
-	keyboard = &system.getKeyboard();
-	audio = &system.getAudio();
-	titleFont = system.getTitleFont();
-	normallFont = system.getNormalFont();
+	this->handle = system.getHandle();
+	this->mouse = system.getMouse();
+	this->keyboard = &system.getKeyboard();
+	this->audio = &system.getAudio();
+	this->titleFont = system.getTitleFont();
+	this->normallFont = system.getNormalFont();
 	this->hero = hero;
 }
 
@@ -18,6 +18,4 @@ TowerState::TowerState()
 	audio = nullptr;
 	keyboard = nullptr;
 	mouse = nullptr;
-	titleFont = nullptr;
-	normallFont = nullptr;
 }

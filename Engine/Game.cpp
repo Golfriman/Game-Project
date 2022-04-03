@@ -3,6 +3,8 @@
 void Game::generateLevel(System& system)
 {
 	std::vector<TowerState*> level;
+	mersenne->seed(reinterpret_cast<unsigned int>(this));
+	std::random_device rm;
 	std::uniform_int_distribution<int> battle(5, 7);
 	std::uniform_int_distribution<> randomEvents(5, 6);
 
@@ -16,7 +18,7 @@ void Game::generateLevel(System& system)
 		level.push_back(new RandomEvent(system, hero));
 	}
 
-	std::ranges::shuffle(level, *mersenne);
+	std::ranges::shuffle(level, rm);
 	for (int i = 0, size = level.size(); i < size; i++)
 	{
 		towerstates.push_back(level[i]);
@@ -30,26 +32,28 @@ void Game::createUI()
 	//Кнопка инвентаря
 	insertButton(0, buttons, 1454, 954, 80, 77, /*Текстуры*/&texture[1]);
 	buttons[0]->setOnClick(clickInventory);
-
 	//Кнопка выпадающего меню в углу
 	insertButton(1, buttons, 35, 34, 80, 80, /*Текстуры*/ &texture[0]);
 	buttons[1]->setOnClick(clickDropMenu);
 
+	setText(L"Dream Tower уровень", *infoLevel, titleFont, 150, 49, *white, 48);
+	setText(std::to_string(level), *numberLevel, titleFont, 580, 49, *white, 48);
+
 	//Кнопка продолжить
-	setText("Continue", text[0], normallFont, 115, 35, *white, 36);
-	insertButton(2, buttons, 115, 35, 210, 50, &texture[2]);
+	setText(L"Продолжить", text[0], normallFont, 115, 35, *white, 36);
+	insertButton(2, buttons, 115, 35, 280, 50, &texture[2]);
 	buttons[2]->setOnClick(clickDropMenu);
 	//Кнопка начать заново
-	setText("Restart", text[1], normallFont, 115, 85, *white, 36);
-	insertButton(3, buttons, 115, 85, 210, 50, &texture[2]);
+	setText(L"Перезапуск", text[1], normallFont, 115, 85, *white, 36);
+	insertButton(3, buttons, 115, 85, 280, 50, &texture[2]);
 	buttons[3]->setOnClick(clickRestart);
 	//Кнопка настройки
-	setText("Settings", text[2], normallFont, 115, 135, *white, 36);
-	insertButton(4, buttons, 115, 135, 210, 50, &texture[2]);
+	setText(L"Настройки", text[2], normallFont, 115, 135, *white, 36);
+	insertButton(4, buttons, 115, 135, 280, 50, &texture[2]);
 	buttons[4]->setOnClick(clickSettings);
 	//Кнопка выйти в главное меню
-	setText("Main menu", text[3], normallFont, 115, 185, *white, 36);
-	insertButton(5, buttons, 115, 185, 210, 50, &texture[2]);
+	setText(L"Главное меню", text[3], normallFont, 115, 185, *white, 36);
+	insertButton(5, buttons, 115, 185, 280, 50, &texture[2]);
 	buttons[5]->setOnClick(clickMainMenu);
 }
 
@@ -62,7 +66,7 @@ Game::Game(System& system, bool *isLoadSource)
 	showHUD = true;
 	hero = nullptr;
 	mersenne = nullptr;
-	isDelete = false;
+	isDelete = true;
 
 	clickInventory = [this]()->void {
 		if (!isPressedInventory)
@@ -118,14 +122,17 @@ void Game::createSource()
 	hero = new Hero(new Characteristics(5, 20, 3, 4, 5, 1));
 	inventoryScreen = new InventoryScreen(*system, hero);
 	towerstates.push_back(inventoryScreen);
-	level = 2;
+	level = 1;
 	isPressedInventory = false;
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
 	towerstates[idGame]->createSource();
+	towerstates[0]->createSource();
 	texture = new sf::Texture[3];
 	white = new sf::Color(sf::Color::White);
 	text = new sf::Text[4];
+	infoLevel = new sf::Text;
+	numberLevel = new sf::Text;
 	loadTexture("resources//Image//Textures//burger.png", &texture[0]);
 	loadTexture("resources//Image//Textures//inventory.png", &texture[1]);
 	loadTexture("resources//Image//Textures//teal.png", &texture[2]);
@@ -137,6 +144,8 @@ void Game::createSource()
 void Game::removeSource()
 {
 	isDelete = true;
+	towerstates[idInventory]->removeSource();
+	towerstates[idGame]->removeSource();
 	for (size_t i = 0, size = towerstates.size(); i < size; i++)
 	{
 		deleteObject(towerstates[i]);
@@ -144,9 +153,11 @@ void Game::removeSource()
 	towerstates.clear();
 	deleteObject(mersenne);
 	deleteObject(hero);
+	deleteObject(infoLevel);
 	deleteArrayObject(texture);
 	deleteArrayObject(text);
 	deleteObject(white);
+	deleteObject(numberLevel);
 	for (auto& elem : buttons)
 	{
 		deleteObject(elem);
@@ -216,13 +227,14 @@ void Game::update()
 		}
 		else
 		{
-			for (int i = 2, size = towerstates.size(); i < size; i++)
+			for (int i = 1, size = towerstates.size(); i < size; i++)
 			{
 				deleteObject(towerstates[i]);
 			}
 			generateLevel(*system);
-			idGame = 0;
+			idGame = 1;
 			level++;
+			numberLevel->setString(std::to_string(level));
 		}
 	}
 }
@@ -239,6 +251,7 @@ void Game::draw()
 	{
 		handle->draw(buttons[0]->getRect());
 		handle->draw(buttons[1]->getRect());
+
 		if (isDropMenu)
 		{
 			for (int i = 0; i < 4; i++)
@@ -246,6 +259,11 @@ void Game::draw()
 				handle->draw(buttons[i + 2]->getRect());
 				handle->draw(text[i]);
 			}
+		}
+		else
+		{
+			handle->draw(*infoLevel);
+			handle->draw(*numberLevel);
 		}
 		towerstates[idGame]->hud();
 	}

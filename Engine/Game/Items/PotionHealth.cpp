@@ -4,8 +4,9 @@ PotionHealth::PotionHealth()
 {
 }
 
-void PotionHealth::show()
+sf::String PotionHealth::show()
 {
+	return sf::String{};
 }
 
 void PotionHealth::use(Unit* unit)

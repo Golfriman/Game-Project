@@ -160,10 +160,10 @@ void subState::MainMenu::createSource()
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
 	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
-	string[0] = "Start Game";
-	string[1] = "Settings";
-	string[2] = "Journal";
-	string[3] = "Exit";
+	string[0] = L"Начать игру";
+	string[1] = L"Настройки";
+	string[2] = L"Журнал";
+	string[3] = L"Выход";
 	text = new sf::Text[4];
 	sf::Color white = sf::Color::White;
 	for (int i = 0; i < 4; i++)
@@ -216,6 +216,7 @@ void subState::ExitMenu::update()
 		if (event2.type == sf::Event::Closed)
 		{
 			window->close();
+			break;
 		}
 		if (event2.type == sf::Event::KeyPressed && !(isPressed))
 		{
@@ -292,11 +293,11 @@ void subState::ExitMenu::createSource()
 	loadTexture("resources//Image//Textures//red.png", highlight);
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	answers = new sf::String[2];
-	answers[0] = "No";
-	answers[1] = "Yes";
+	answers[0] = L"Нет";
+	answers[1] = L"Да";
 	text = new sf::Text[3];
 	sf::Color white = sf::Color::White;
-	setText("Are you sure you want to go back to your desktop?", text[2], titleFont, 540, 500, white, 40);
+	setText(L"Выдействительно хотите покинуть игру?", text[2], titleFont, 540, 500, white, 40);
 	for (int i = 0; i < 2; i++)
 	{
 		insertButton(i, exit, 600 + i * 50, 600, 40, 30, transparency, highlight);

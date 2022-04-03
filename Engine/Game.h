@@ -29,6 +29,8 @@ class Game : public State
 	std::mt19937* mersenne;
 	sf::Texture* texture;
 	sf::Text* text;
+	sf::Text* infoLevel;
+	sf::Text* numberLevel;
 	sf::Color *white;
 	System* system;
 	void generateLevel(System& system);

@@ -5,6 +5,6 @@ class PotionHealth : public Items
 {
 public:
 	PotionHealth();
-	void show()override;
+	sf::String show()override;
 	void use(Unit* unit)override;
 };

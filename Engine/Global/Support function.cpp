@@ -1,10 +1,11 @@
 #include "Support function.h"
 
+
 void loadFont(const sf::String path, sf::Font& font)
 {
     if (!font.loadFromFile(path))
     {
-        
+        exit(1);
     }
 }
 
@@ -12,7 +13,7 @@ void loadTexture(sf::String path, sf::Texture* texture)
 {
     if (!texture->loadFromFile(path))
     {
-        std::cerr << "Error";
+        exit(1);
     }
 }
 
@@ -29,5 +30,4 @@ void insertButton(int id, std::vector<Button*>& vector, short xPosition, short y
 {
     Button* button = new Button(id ,xPosition, yPosition, width, height, idleTexture, hoverTexture, activeTexture, switchOnTexture, switchOffTexture);
     vector.push_back(button);
-    std::cout << sizeof(*button) << '\t';
 }

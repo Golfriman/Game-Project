@@ -6,7 +6,7 @@ System::System()
     normalFont = new sf::Font;
     window.setWindow();
     mouse = new Mouse(window.getHandle());
-    if (!titleFont->loadFromFile("resources//Fonts//ShadowsIntoLightTwo-Regular.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))
+    if (!titleFont->loadFromFile("resources//Fonts//littletroublegirlbv.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))
     {
         window.getHandle()->close();
         window.getHandle()->create(sf::VideoMode(300, 50), "Error");

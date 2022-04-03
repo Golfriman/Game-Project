@@ -10,7 +10,8 @@ void PotionDamage::use(Unit* unit)
 	unit->getCharacteristics()->buff();
 }
 
-void PotionDamage::show()
+sf::String PotionDamage::show()
 {
+	return sf::String{};
 	//Вывести на экран информацию о данном зелье
 }

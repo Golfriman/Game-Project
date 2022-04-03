@@ -6,7 +6,8 @@ void Bandages::use(Unit* unit)
 	unit->getCharacteristics()->setBleeding(false);
 }
 
-void Bandages::show()
+sf::String Bandages::show()
 {
+	return sf::String{};
 	//Вывести информацию
 }

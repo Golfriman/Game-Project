@@ -9,5 +9,5 @@ class PotionDamage: public Items
 public:
 	PotionDamage();
 	void use(Unit* unit) override;
-	void show() override;
+	sf::String show() override;
 };

@@ -27,7 +27,7 @@ void Inventory::useItem(size_t position, Unit* hero)
 	at(position)->use(hero);
 }
 
-void Inventory::showInfo(size_t position)
+sf::String Inventory::showInfo(size_t position)
 {
-	at(position)->show();
+	return at(position)->show();
 }
