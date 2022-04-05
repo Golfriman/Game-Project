@@ -67,7 +67,7 @@ subState::MainMenu::MainMenu(System& system, int* substate, bool* isLoadSource)
 	transparency = nullptr;
 	highlight = nullptr;
 	menuWallpaper = nullptr;
-	text = nullptr;
+	menuText = nullptr;
 	last = { -1, -1 };
 	isPressed = false;
 	stateNow = 0;
@@ -148,7 +148,7 @@ void subState::MainMenu::draw()
 	for (int i = 0; i < 4; i++)
 	{
 		window->draw(menu[i]->getRect());
-		window->draw(text[i]);
+		window->draw(menuText[i]);
 	}
 }
 
@@ -160,16 +160,16 @@ void subState::MainMenu::createSource()
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
 	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
-	string[0] = L"Начать игру";
-	string[1] = L"Настройки";
-	string[2] = L"Журнал";
-	string[3] = L"Выход";
-	text = new sf::Text[4];
+	menuString[0] = L"Начать игру";
+	menuString[1] = L"Настройки";
+	menuString[2] = L"Журнал";
+	menuString[3] = L"Выход";
+	menuText = new sf::Text[4];
 	sf::Color white = sf::Color::White;
 	for (int i = 0; i < 4; i++)
 	{
 		insertButton(i, menu, 20, 700 + i * 35, 200, 30, transparency, highlight);
-		setText(string[i], text[i], normalFont, 20, 700 + i * 35, white, 25);
+		setText(menuString[i], menuText[i], normalFont, 20, 700 + i * 35, white, 25);
 	}
 	*isLoadSource = true;
 	
@@ -178,7 +178,7 @@ void subState::MainMenu::createSource()
 void subState::MainMenu::removeSource()
 {
 	deleteObject(menuWallpaper);
-	deleteArrayObject(text);
+	deleteArrayObject(menuText);
 	deleteObject(transparency);
 	deleteObject(highlight);
 	for (auto& object: menu)

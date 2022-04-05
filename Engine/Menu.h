@@ -34,8 +34,8 @@ namespace subState
 	
 		sf::Texture* menuWallpaper;
 		std::vector<Button*> menu;
-		sf::String string[4];
-		sf::Text* text;
+		sf::String menuString[4];
+		sf::Text* menuText;
 		sf::Vector2f last;
 		int stateNow;
 	public:

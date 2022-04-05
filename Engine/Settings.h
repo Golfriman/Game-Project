@@ -4,7 +4,6 @@
 
 class Settings : public State
 {
-	int lastState, nowState;
 	sf::Text* text;
 	sf::Sound sound;
 	std::vector<Button*> settingsButton;
@@ -27,7 +26,7 @@ class Settings : public State
 	int backgroundVolume;
 	int effectVolume;
 	int dialogVolume;
-	sf::Texture* texture;
+	sf::Texture* textureButton;
 	bool isFullscreen, isLimitFPS;
 	void playEffects();
 	void createUI(sf::Color &white, sf::Color &red);

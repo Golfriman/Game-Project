@@ -8,6 +8,7 @@ void State::initSystemComponent(System& system)
 	audio = &system.getAudio();
 	titleFont = system.getTitleFont();
 	normallFont = system.getNormalFont();
+	event = system.getEvent();
 }
 
 State::State()
@@ -17,4 +18,5 @@ State::State()
 	this->mouse = nullptr;
 	this->keyboard = nullptr;
 	this->handle = nullptr;
+	this->event = nullptr;
 }

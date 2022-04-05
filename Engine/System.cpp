@@ -2,6 +2,7 @@
 
 System::System()
 {
+    event = new sf::Event;
     titleFont = new sf::Font;
     normalFont = new sf::Font;
     window.setWindow();
@@ -9,7 +10,7 @@ System::System()
     if (!titleFont->loadFromFile("resources//Fonts//littletroublegirlbv.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))
     {
         window.getHandle()->close();
-        window.getHandle()->create(sf::VideoMode(300, 50), "Error");
+        window.getHandle()->create(sf::VideoMode(300, 200), "Error");
         /*Logic*/
     }
 }
@@ -50,9 +51,15 @@ sf::Font* System::getNormalFont()
     return normalFont;
 }
 
+sf::Event* System::getEvent()
+{
+    return event;
+}
+
 System::~System()
 {
     deleteObject(normalFont);
     deleteObject(titleFont);
     deleteObject(mouse);
+    deleteObject(event);
 }

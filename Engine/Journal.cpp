@@ -17,9 +17,8 @@ void Journal::createSource()
 	white = new sf::Color(sf::Color::White);
 	idle = new sf::Color(0, 0, 255);
 	text = new sf::Text[2];
-	setText("Journal", text[0], titleFont, 800, 64, *white, 64);
-	sf::String rus = "I'm boring";
-	setText(rus, text[1], normallFont, 10, 200, *white, 36);
+	setText(L"Журнал", text[0], titleFont, 800, 64, *white, 64);
+	setText(L"Я усталъ", text[1], normallFont, 10, 200, *white, 36);
 	texture = new sf::Texture;
 	loadTexture("resources//Image//Textures//dream.jpg", texture);
 	rect.setTexture(texture);
@@ -45,14 +44,13 @@ void Journal::removeSource()
 
 void Journal::update()
 {
-	sf::Event event;
-	while (handle->pollEvent(event))
+	while (handle->pollEvent(*event))
 	{
-		if (event.type == sf::Event::Closed)
+		if (event->type == sf::Event::Closed)
 		{
 			handle->close();
 		}
-		if (event.type == sf::Event::KeyPressed)
+		if (event->type == sf::Event::KeyPressed)
 		{
 			if (sf::Keyboard::isKeyPressed(keyboard->getConfig("Escape")))
 			{
@@ -62,9 +60,9 @@ void Journal::update()
 				throw 0;
 			}
 		}
-		if (event.type == sf::Event::MouseButtonPressed)
+		if (event->type == sf::Event::MouseButtonPressed)
 		{
-			if (event.key.code == sf::Mouse::Left)
+			if (event->key.code == sf::Mouse::Left)
 			{
 				sf::Vector2f convert = mouse->getCoordinate();
 				for (auto& object : buttonJournal)
@@ -91,15 +89,7 @@ void Journal::draw()
 {
 	if (!isDelete)
 	{
-		for (int i = 0; i < 2; i++)
-		{
-			handle->draw(text[i]);
-		}
-		handle->draw(rect);
-		for (auto& object : buttonJournal)
-		{
-			handle->draw(object->getRect());
-		}
+		this->removeSource();
 	}
 	return;
 }

@@ -9,10 +9,12 @@ void TowerState::init(System& system, Hero* hero)
 	this->titleFont = system.getTitleFont();
 	this->normallFont = system.getNormalFont();
 	this->hero = hero;
+	this->event = system.getEvent();
 }
 
 TowerState::TowerState()
 {
+	event = nullptr;
 	hero = nullptr;
 	handle = nullptr;
 	audio = nullptr;

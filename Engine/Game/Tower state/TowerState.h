@@ -7,6 +7,7 @@
 class TowerState
 {
 protected:
+	sf::Event* event;
 	Hero* hero;
 	sf::Texture* wallpaper;
 	sf::RenderWindow* handle;

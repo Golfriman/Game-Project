@@ -6,7 +6,7 @@ void Game::generateLevel(System& system)
 	mersenne->seed(reinterpret_cast<unsigned int>(this));
 	std::random_device rm;
 	std::uniform_int_distribution<int> battle(5, 7);
-	std::uniform_int_distribution<> randomEvents(5, 6);
+	std::uniform_int_distribution<int> randomEvents(5, 6);
 
 	for (size_t i = 0, size = battle(*mersenne); i < size; i++)
 	{
@@ -145,7 +145,14 @@ void Game::removeSource()
 {
 	isDelete = true;
 	towerstates[idInventory]->removeSource();
-	towerstates[idGame]->removeSource();
+	if (idGame == idInventory)
+	{
+		towerstates[lastID]->removeSource();
+	}
+	else
+	{
+		towerstates[idGame]->removeSource();
+	}
 	for (size_t i = 0, size = towerstates.size(); i < size; i++)
 	{
 		deleteObject(towerstates[i]);
@@ -170,36 +177,36 @@ void Game::removeSource()
 void Game::update()
 {
 	try {
-		sf::Event event;
-		while (handle->pollEvent(event))
+		while (handle->pollEvent(*event))
 		{
-			if (event.type == sf::Event::KeyReleased)
+
+			if (event->type == sf::Event::KeyReleased)
 			{
-				if (event.key.code == keyboard->getConfig("Escape"))
+				if (event->key.code == keyboard->getConfig("Escape"))
 				{
 					clickDropMenu();
 				}
-				if (event.key.code == keyboard->getConfig("I"))
+				if (event->key.code == keyboard->getConfig("I"))
 				{
 					clickInventory();
 				}
-				if (event.key.code == keyboard->getConfig("H"))
+				if (event->key.code == keyboard->getConfig("H"))
 				{
 					showHUD = !showHUD;
 				}
 			}
-			if (event.type == sf::Event::Closed)
+			if (event->type == sf::Event::Closed)
 			{
 				handle->close();
 				break;
 			}
-			if (event.type == sf::Event::MouseMoved)
+			if (event->type == sf::Event::MouseMoved)
 			{
 
 			}
-			if (event.type == sf::Event::MouseButtonPressed)
+			if (event->type == sf::Event::MouseButtonPressed)
 			{
-				if (event.key.code == sf::Mouse::Left)
+				if (event->key.code == sf::Mouse::Left)
 				{
 					sf::Vector2f coordinate = mouse->getCoordinate();
 					for (auto& ui : buttons)
@@ -211,8 +218,10 @@ void Game::update()
 					}
 				}
 			}
+			towerstates[idGame]->update();
 		}
-		towerstates[idGame]->update();
+
+
 	}
 	catch(int id) {
 		if (id >= 0 && id < towerstates.size())

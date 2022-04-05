@@ -5,6 +5,7 @@
 class State
 {
 protected:
+	sf::Event* event;
 	Window* window;
 	Audio* audio;
 	Keyboard* keyboard;

@@ -15,10 +15,10 @@ class System
 	Mouse* mouse;
 	sf::Font* titleFont;
 	sf::Font* normalFont;
-
+	sf::Event* event;
 public:
 
-	System(/*Log file*/);
+	System();
 	
 	sf::RenderWindow* getHandle();
 	Window& getWindow();
@@ -27,5 +27,6 @@ public:
 	Mouse* getMouse();
 	sf::Font* getTitleFont();
 	sf::Font* getNormalFont();
+	sf::Event* getEvent();
 	~System();
 };

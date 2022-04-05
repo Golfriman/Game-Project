@@ -1,13 +1,20 @@
 #include "Bandages.h"
 
-void Bandages::use(Unit* unit)
+Bandages::Bandages()
 {
-	unit->getCharacteristics()->changeHealth(1);
-	unit->getCharacteristics()->setBleeding(false);
+	textureItem = new sf::Texture;
+	info = L"Бинты хорошее средство, чтобы остановить кровотечение,\nи немного позволяет восстановить здоровья";
+	loadTexture("resources//Image//Textures//band.png", textureItem);
 }
 
-sf::String Bandages::show()
+void Bandages::use(Unit* unit)
 {
-	return sf::String{};
-	//Вывести информацию
+	std::cout << "use bandages";
 }
+
+Bandages::~Bandages()
+{
+	delete textureItem;
+	textureItem = nullptr;
+}
+

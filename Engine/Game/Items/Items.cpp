@@ -3,6 +3,20 @@
 void Items::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	//TODO доделать метод draw
-	sf::Sprite sprite;
-	sprite.setTexture(*textureItem);
+	sf::RectangleShape shape;
+	shape.setPosition(x, y);
+	shape.setSize(sf::Vector2f(100, 100));
+	shape.setTexture(textureItem);
+	target.draw(shape);
+}
+
+sf::String Items::show()
+{
+	return info;
+}
+
+void Items::setPositionTexture(float x, float y)
+{
+	this->x = x;
+	this->y = y;
 }

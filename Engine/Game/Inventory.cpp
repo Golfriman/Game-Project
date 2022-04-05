@@ -1,17 +1,35 @@
 #include "Inventory.h"
 
+void Inventory::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (size_t i = 0; i < 2; i++)
+	{
+		for (size_t j = 0; j < 7; j++)
+		{
+			int id = i * 7 + j; // 7 - это максимум по одной стороне
+			if (inventory[id])
+			{
+				inventory[id]->setPositionTexture(j * 117 + 559, 120 * i + 251);
+				target.draw(*inventory[id]);
+			}
+		}
+	}
+}
+
 Inventory::Inventory()
 {
-	resize(maxSizeInventory);
+	inventory.resize(maxSizeInventory);
+	Items* item = new Bandages;
+	inventory[7] = std::move(item);
 }
 
 void Inventory::addItem(Items&& item)
 {
 	for (size_t i = 0; i < maxSizeInventory; i++)
 	{
-		if (at(i) == nullptr)
+		if (inventory[i] == nullptr)
 		{
-			at(i) = &item;
+			inventory[i] = &item;
 			return;
 		}
 	}
@@ -19,15 +37,22 @@ void Inventory::addItem(Items&& item)
 
 void Inventory::removeItem(size_t position)
 {
-	delete at(position);
+	delete inventory[position];
+	inventory[position] = nullptr;
 }
 
 void Inventory::useItem(size_t position, Unit* hero)
 {
-	at(position)->use(hero);
+	inventory[position]->use(hero);
+	removeItem(position);
 }
 
 sf::String Inventory::showInfo(size_t position)
 {
-	return at(position)->show();
+	return inventory[position]->show();
+}
+
+Items* Inventory::getItem(size_t position) const
+{
+	return inventory[position];
 }

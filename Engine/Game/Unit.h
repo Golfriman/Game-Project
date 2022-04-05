@@ -5,7 +5,7 @@ class Unit
 {
 protected:
 	Characteristics* characterisitcs;
-	sf::Sprite* sprite;
+	sf::Sprite* spriteUnit;
 	uint8_t stateAnimationSprite;
 public:
 	virtual void execute() = 0;
