@@ -53,6 +53,11 @@ void Settings::createUI(sf::Color& white, sf::Color& red)
 	loadTexture("resources//Image//Textures//Color(28,25,37).png", &textureButton[4]);
 	insertButton(10, settingsButton, 432, 808, 187, 50, &textureButton[4]);
 	settingsButton[10]->setOnClick(cancel);
+
+	loadTexture("resources//Image//Textures//red.png", &textureButton[5]);
+	insertButton(11, settingsButton, 1301, 808, 187, 50, &textureButton[5]);
+	settingsButton[11]->setOnClick(applySettings);
+
 	setText(L"По умолчанию", text[27], normallFont, 1130, 818, white, 24);
 	setText(L"Принять", text[28], normallFont, 1360, 818, white, 24);
 	sf::String size = std::to_string(handle->getSize().x) + "x" + std::to_string(handle->getSize().y);
@@ -166,6 +171,21 @@ Settings::Settings(System& system, bool* isLoadSource)
 		setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
 		sound.play();
 	};
+
+	applySettings = [&]()->void
+	{
+		saveSettings->addNote("BackgroundPath", audio->getBackgroundPath);
+		saveSettings->addNote("BackgroundVolume", audio->getBackgroundVolume);
+		saveSettings->addNote("Dialog", audio->getDialog);
+		saveSettings->addNote("Fullscreen", window->isFull);
+		saveSettings->addNote("LimitFPS", window->isLimit);
+		saveSettings->addNote("IndexResolution", window->saveVar);
+
+
+
+		saveSettings->saveFile();
+	}
+
 	cancel = [&]()->void
 	{
 		sound.play();

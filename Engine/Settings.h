@@ -18,6 +18,7 @@ class Settings : public State
 	std::function<void()> rightEffects;
 	std::function<void()> leftDialog;
 	std::function<void()> rightDialog;
+	std::function<void()> applySettings;
 	
 	std::function<void()> cancel;
 	sf::RectangleShape wallpaper;

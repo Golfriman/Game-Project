@@ -22,5 +22,6 @@ public:
 	void rightChangeResolution();
 	bool& isFull();
 	bool& isLimit();
+	int& saveVar();
 	~Window();
 };

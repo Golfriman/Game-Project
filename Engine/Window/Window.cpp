@@ -18,7 +18,6 @@ Window::Window()
 
 void Window::setWindow()
 {
-	stateWindow = 0;
 	isFullscreen = false;
 	isLimitFPS = true;
 	window = new sf::RenderWindow(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
@@ -102,6 +101,11 @@ bool& Window::isFull()
 bool& Window::isLimit()
 {
 	return isLimitFPS;
+}
+
+int& Window::saveVar()
+{
+	return stateWindow;
 }
 
 Window::~Window()
