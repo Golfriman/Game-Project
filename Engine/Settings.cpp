@@ -81,7 +81,7 @@ Settings::Settings(System& system, bool* isLoadSource)
 		width = system.getHandle()->getSize().x;
 		height = system.getHandle()->getSize().y;
 		sf::String size = std::to_string(width) + "x" + std::to_string(height);
-		setText(size, text[29], normallFont, 735, 488, white, 24);
+		setText(size, text[29], normallFont, 735 - size.getSize()*0.639f, 488, white, 24);
 		isFullscreen = system.getWindow().isFull();
 		sound.play();
 	};
@@ -122,7 +122,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->setBackgroundVolume();
 		sf::Color white = sf::Color::White;
 		backgroundVolume = audio->getBackgroundVolume();
-		setText(std::to_string(backgroundVolume), text[30], normallFont, 1304, 398, white, 24);
+		sf::String volume = std::to_string(backgroundVolume);
+		setText(volume, text[30], normallFont, 1304 - volume.getSize() * 5, 398, white, 24);
 		sound.play();
 	};
 	rightBackgroundMusic = [&]()->void
@@ -131,7 +132,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->setBackgroundVolume();
 		backgroundVolume = audio->getBackgroundVolume();
 		sf::Color white = sf::Color::White;
-		setText(std::to_string(backgroundVolume), text[30], normallFont, 1304, 398, white, 24);
+		sf::String volume = std::to_string(backgroundVolume);
+		setText(volume, text[30], normallFont, 1304 - volume.getSize()*5, 398, white, 24);
 		sound.play();
 	};
 	leftEffects = [&]()
@@ -139,7 +141,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->left(audio->getEffectVolume());
 		effectVolume = audio->getEffectVolume();
 		sf::Color white = sf::Color::White;
-		setText(std::to_string(effectVolume), text[31], normallFont, 1304, 443, white, 24);
+		sf::String volume = std::to_string(effectVolume);
+		setText(volume, text[31], normallFont, 1304 - volume.getSize()*5, 443, white, 24);
 		playEffects();
 	};
 	rightEffects = [&]()->void
@@ -147,7 +150,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->right(audio->getEffectVolume());
 		effectVolume = audio->getEffectVolume();
 		sf::Color white = sf::Color::White;
-		setText(std::to_string(effectVolume), text[31], normallFont, 1304, 443, white, 24);
+		sf::String volume = std::to_string(effectVolume);
+		setText(volume, text[31], normallFont, 1304 - volume.getSize()*5, 443, white, 24);
 		playEffects();
 	};
 	leftDialog = [&]()
@@ -155,7 +159,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->left(audio->getDialogVolume());
 		dialogVolume = audio->getDialogVolume();
 		sf::Color white = sf::Color::White;
-		setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
+		sf::String volume = std::to_string(dialogVolume);
+		setText(volume, text[32], normallFont, 1304 - volume.getSize()*5, 488, white, 24);
 		sound.play();
 	};
 	rightDialog = [&]()->void
@@ -163,7 +168,8 @@ Settings::Settings(System& system, bool* isLoadSource)
 		audio->right(audio->getDialogVolume());
 		dialogVolume = audio->getDialogVolume();
 		sf::Color white = sf::Color::White;
-		setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
+		sf::String volume = std::to_string(dialogVolume);
+		setText(volume, text[32], normallFont, 1304 - volume.getSize() *5, 488, white, 24);
 		sound.play();
 	};
 	cancel = [&]()->void
@@ -171,7 +177,6 @@ Settings::Settings(System& system, bool* isLoadSource)
 		sound.play();
 		throw 0;
 	};
-
 }
 
 void Settings::createSource()

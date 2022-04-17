@@ -526,6 +526,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClInclude Include="Engine\Exit.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\Game\Characteristics.h" />
+    <ClInclude Include="Engine\Game\DeathScreen.h" />
     <ClInclude Include="Engine\Game\Dice.h" />
     <ClInclude Include="Engine\Game\Hero.h" />
     <ClInclude Include="Engine\Game\Inventory.h" />
@@ -540,7 +541,6 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClInclude Include="Engine\Game\Tower state\BlacksmithEvent\Farewell.h" />
     <ClInclude Include="Engine\Game\Tower state\BlacksmithEvent\UpgradeWeapon.h" />
     <ClInclude Include="Engine\Game\Tower state\Enimies\Enimies.h" />
-    <ClInclude Include="Engine\Game\Tower state\Enimies\Intellect.h" />
     <ClInclude Include="Engine\Game\Tower state\RandomEvent.h" />
     <ClInclude Include="Engine\Game\Unit.h" />
     <ClInclude Include="Engine\Game\Tower state\Battle.h" />

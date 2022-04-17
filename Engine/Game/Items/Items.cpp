@@ -5,7 +5,7 @@ void Items::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	//TODO доделать метод draw
 	sf::RectangleShape shape;
 	shape.setPosition(x, y);
-	shape.setSize(sf::Vector2f(100, 100));
+	shape.setSize(sf::Vector2f(140, 140));
 	shape.setTexture(textureItem);
 	target.draw(shape);
 }

@@ -4,15 +4,14 @@ void InventoryScreen::createUI()
 {
 	for (size_t i = 0; i < 2; i++)
 	{
-		for (size_t j = 0; j < 7; j++)
+		for (size_t j = 0; j < 6; j++)
 		{
-			int id = i * 7 + j ; // 7 - это максимум по одной стороне
-			insertButton(id, buttonsInventoryScreen, j * 117 + 559, 120 * i + 251, 100, 100, &texture[0], &texture[1]);
+			int id = i * 6 + j ; // 6 - это максимум по одной стороне
+			insertButton(id, buttonsInventoryScreen, j * 153 + 506, 172 * i + 318, 140, 140, &texture[0], &texture[1], &texture[3]);
 		}
 	}
-	setText(L"Инвентарь", *title, titleFont, 839, 174, white, 48);
+	setText(L"Инвентарь", *title, titleFont, 837, 237, white, 48);
 }
-
 void InventoryScreen::createDropMenu()
 {
 	sf::String textDropMenu[2];
@@ -21,19 +20,21 @@ void InventoryScreen::createDropMenu()
 	dropMenuUI = new sf::Text[2];
 	for (int i = 0; i < 2; i++)
 	{
-		insertButton(i, buttonsDropMenu, 564 + i * 299, 949, 238, 49, &texture[1]);
+		insertButton(i, buttonsDropMenu, 564 + i * 299, 949, 238, 49, &texture[2]);
 		setText(textDropMenu[i], dropMenuUI[i], normallFont, 564 + i * 299, 949, white, 24);
 	}
 	dropItem = [this]()
 	{
 		inventory->removeItem(positionCreateDropMenu);
 		itemInfo->setString(L"");
+		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
 		isCreated = false;
 	};
 	useItem = [this]()
 	{
 		inventory->useItem(positionCreateDropMenu, hero);
 		itemInfo->setString(L"");
+		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
 		isCreated = false;
 	};
 	buttonsDropMenu[1]->setOnClick(dropItem);
@@ -56,18 +57,17 @@ InventoryScreen::InventoryScreen(System& system, Hero* hero)
 {
 	positionCreateDropMenu = 0;
 	this->inventory = hero->openInventory();
-	init(system, hero);
+	init(system, hero, nullptr);
 	red = sf::Color::Red;
 	white = sf::Color::White;
 	isCreated = false;
 	isDropMenu = false;
 	textArea.setSize(sf::Vector2f(869, 273));
-	inventoryArea.setSize(sf::Vector2f(828, 493));
+	inventoryArea.setSize(sf::Vector2f(999, 571));
 	textArea.setPosition(512, 758);
-	inventoryArea.setPosition(546, 145);
+	inventoryArea.setPosition(460, 172);
 	sf::Color area(0x19, 0x1C, 0x25);
 	textArea.setFillColor(area);
-	inventoryArea.setFillColor(area);
 }
 
 void InventoryScreen::update()
@@ -171,16 +171,28 @@ void InventoryScreen::render()
 {
 	if(isCreated)
 	{
-	setText(inventory->showInfo(positionCreateDropMenu), *itemInfo, normallFont, 563, 802, white, 24);
+		setText(inventory->showInfo(positionCreateDropMenu), *itemInfo, normallFont, 563, 802, white, 24);
+		buttonsInventoryScreen[positionCreateDropMenu]->setActive();
+	}
+	if (isHover)
+	{
+		buttonsInventoryScreen[positionHoverItem]->setHover();
+		isHover = false;
 	}
 }
 
 void InventoryScreen::createSource()
 {
 	itemInfo = new sf::Text;
-	texture = new sf::Texture[2];
+	texture = new sf::Texture[4];
 	loadTexture("resources//Image//Textures//rect.png", &texture[0]);
-	loadTexture("resources//Image//Textures//red.png", &texture[1]);
+	loadTexture("resources//Image//Textures//hover.png", &texture[1]);
+	loadTexture("resources//Image//Textures//red.png", &texture[2]);
+	loadTexture("resources//Image//Textures//activate.png", &texture[3]);
+	inventoryAreaTexture = new sf::Texture;
+	loadTexture("resources//Image//Textures//inventoryArea.png", inventoryAreaTexture);
+	inventoryAreaTexture->setSmooth(true);
+	inventoryArea.setTexture(inventoryAreaTexture);
 	title = new sf::Text;
 	createUI();
 }
@@ -199,6 +211,7 @@ void InventoryScreen::removeSource()
 	{
 		removeDropMenu();
 	}
+	deleteObject(inventoryAreaTexture);
 }
 
 void InventoryScreen::hud()

@@ -7,7 +7,7 @@ class BlackSmith : public TowerState
 {
 	std::vector<BlacksmithEvent*> events;
 public:
-	BlackSmith(System& system, Hero* hero);
+	BlackSmith(System& system, Hero* hero, bool* isLoadSource);
 	void update();
 	void render();
 	void draw();

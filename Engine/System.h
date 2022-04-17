@@ -9,6 +9,8 @@
 
 class System
 {
+	/*Класс сохранения*/
+
 	Window window;
 	Audio audio;
 	Keyboard keyboard;

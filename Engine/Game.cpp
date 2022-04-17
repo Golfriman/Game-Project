@@ -1,8 +1,9 @@
 #include "Game.h"
+#include"Engine.h"
 
 void Game::generateLevel(System& system)
 {
-	std::vector<TowerState*> level;
+	std::vector<TowerState*> levelGame;
 	mersenne->seed(reinterpret_cast<unsigned int>(this));
 	std::random_device rm;
 	std::uniform_int_distribution<int> battle(5, 7);
@@ -10,21 +11,21 @@ void Game::generateLevel(System& system)
 
 	for (size_t i = 0, size = battle(*mersenne); i < size; i++)
 	{
-		level.push_back(new Battle(system, hero));
+		levelGame.push_back(new Battle(system, hero, level, isLoadSource));
 	}
 
 	for (size_t i = 0, size = randomEvents(*mersenne); i < size; i++)
 	{
-		level.push_back(new RandomEvent(system, hero));
+		levelGame.push_back(new RandomEvent(system, hero, isLoadSource));
 	}
 
-	std::ranges::shuffle(level, rm);
-	for (int i = 0, size = level.size(); i < size; i++)
+	std::shuffle(levelGame.begin(), levelGame.end(), rm);
+	for (int i = 0, size = levelGame.size(); i < size; i++)
 	{
-		towerstates.push_back(level[i]);
+		towerstates.push_back(levelGame[i]);
 	}
 
-	towerstates.push_back(new BlackSmith(system, hero));
+	towerstates.push_back(new BlackSmith(system, hero, isLoadSource ));
 }
 
 void Game::createUI()
@@ -119,7 +120,7 @@ void Game::createSource()
 	isPressedInventory = false;
 	isPressedSettings = false;
 	mersenne = new std::mt19937({ reinterpret_cast<unsigned int>(this) });
-	hero = new Hero(new Characteristics(5, 20, 3, 4, 5, 1));
+	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1), titleFont);
 	inventoryScreen = new InventoryScreen(*system, hero);
 	towerstates.push_back(inventoryScreen);
 	level = 1;
@@ -136,6 +137,10 @@ void Game::createSource()
 	loadTexture("resources//Image//Textures//burger.png", &texture[0]);
 	loadTexture("resources//Image//Textures//inventory.png", &texture[1]);
 	loadTexture("resources//Image//Textures//teal.png", &texture[2]);
+	textureHero = new sf::Texture;
+	textureHero->setSmooth(true);
+	loadTexture("resources//Image//Textures//heroFloor1.png", textureHero);
+	hero->setTextureHero(textureHero);
 	createUI();
 
 	*isLoadSource = true;
@@ -157,6 +162,7 @@ void Game::removeSource()
 	{
 		deleteObject(towerstates[i]);
 	}
+	deleteObject(textureHero);
 	towerstates.clear();
 	deleteObject(mersenne);
 	deleteObject(hero);
@@ -209,25 +215,56 @@ void Game::update()
 				if (event->key.code == sf::Mouse::Left)
 				{
 					sf::Vector2f coordinate = mouse->getCoordinate();
-					for (auto& ui : buttons)
+					for (int i = 0; i < 2; i++)
 					{
-						if (ui->containsCursor(coordinate))
+						if (buttons[i]->containsCursor(coordinate))
 						{
-							ui->startClick();
+							buttons[i]->startClick();
+							return;
+						}
+					}
+					if (isDropMenu)
+					{
+						for (int i = 2; i < 6; i++)
+						{
+							if (buttons[i]->containsCursor(coordinate))
+							{
+								buttons[i]->startClick();
+								return;
+							}
 						}
 					}
 				}
 			}
 			towerstates[idGame]->update();
 		}
-
-
 	}
 	catch(int id) {
 		if (id >= 0 && id < towerstates.size())
 		{
 			towerstates[idGame]->removeSource();
-			towerstates[id]->createSource();
+			*isLoadSource = false;
+			sf::Thread createSource([this, id]() { towerstates[id]->createSource(); });
+			createSource.launch();
+			sf::Clock clock;
+			sf::Text text;
+			text.setFont(*titleFont);
+			while (!isLoadSource)
+			{
+				
+				sf::String point;
+				sf::String string = "Loading";
+				
+				if (clock.getElapsedTime().asMilliseconds() > 200)
+				{
+					point = point.getSize() >= 5 ? "" : point + ".";
+					clock.restart();
+				}
+				handle->clear();
+				text.setString(string + point);
+				handle->draw(text);
+				handle->display();
+			}
 			idGame = id;
 		}
 		else if (id == -1)
@@ -243,6 +280,9 @@ void Game::update()
 			generateLevel(*system);
 			idGame = 1;
 			level++;
+			sf::String path = "resources//Image//Textures//heroFloor" + std::to_string(level) + ".png";
+			loadTexture(path, textureHero);
+			hero->setTextureHero(textureHero);
 			numberLevel->setString(std::to_string(level));
 		}
 	}

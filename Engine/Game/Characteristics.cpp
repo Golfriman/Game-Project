@@ -14,26 +14,29 @@ Characteristics::Characteristics(uint8_t damage, uint8_t maxHP, uint8_t lucky, u
 	this->decased = false;
 }
 
-void Characteristics::changeHealth(uint8_t variable)
+void Characteristics::changeHealth(int8_t variable)
 {
-	uint8_t temp = this->healthPoint + variable;
-	if (temp > maxHealth)
-	{
-		this->healthPoint = maxHealth;
-	}
-	else if(temp < 0)
+	if (variable < 0 && this->healthPoint < abs(variable))
 	{
 		decased = true;
-		healthPoint = -1;
+		healthPoint = 0;
+		return;
+	}
+	else if (maxHealth - healthPoint < variable)
+	{
+		healthPoint = maxHealth;
+		return;
 	}
 	else
 	{
-		this->healthPoint = temp;
+		this->healthPoint = this->healthPoint+ variable;
+		return;
 	}
 }
 
 void Characteristics::changeCharacterisitics(uint8_t damage, uint8_t hp, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn)
 {
+	decased = false;
 	this->damage += damage;
 	this->healthPoint += hp;
 	this->maxHealth += maxHP;
@@ -70,4 +73,24 @@ bool Characteristics::isDead()
 void Characteristics::setBleeding(bool isBleeding)
 {
 	this->isDebuffBleeding = isBleeding;
+}
+
+uint8_t& Characteristics::getNumberOfAction()
+{
+	return numberOfActionsPerTurn;
+}
+
+uint8_t Characteristics::getDamage()
+{
+	return damage;
+}
+
+uint8_t Characteristics::getMaxHealth()
+{
+	return maxHealth;
+}
+
+uint8_t Characteristics::getHealthPoint()
+{
+	return healthPoint;
 }

@@ -7,8 +7,8 @@
 
 #include"./Game/Hero.h"
 #include<random>
-#include<ranges>
 
+class Engine;
 
 class Game : public State
 {
@@ -28,6 +28,7 @@ class Game : public State
 	int lastID;
 	std::mt19937* mersenne;
 	sf::Texture* texture;
+	sf::Texture* textureHero;
 	sf::Text* text;
 	sf::Text* infoLevel;
 	sf::Text* numberLevel;

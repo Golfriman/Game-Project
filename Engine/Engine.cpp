@@ -55,13 +55,13 @@ void Engine::update()
 
 void Engine::render()
 {
-	stateGame[stateEngine]->render();
+ 	stateGame[stateEngine]->render();
 }
 
 void Engine::draw()
 {
 	stateGame[stateEngine]->draw();
-	system.getHandle()->display();
+	window->display();
 }
 
 bool Engine::windowIsOpen()

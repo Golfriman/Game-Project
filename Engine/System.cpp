@@ -2,6 +2,7 @@
 
 System::System()
 {
+    
     event = new sf::Event;
     titleFont = new sf::Font;
     normalFont = new sf::Font;

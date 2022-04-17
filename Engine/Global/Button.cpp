@@ -19,30 +19,30 @@ Button::Button(int id,short& xPosition, short& yPosition, short& width, short& h
 void Button::setIdle()
 {
        stateColor = 0;
-       rect->setTexture(mode->getIdle());
+       rect->setTexture(mode->getIdle(), true);
    }
 
 void Button::setHover()
 {
     stateColor = 1;
-    rect->setTexture(mode->getHover());
+    rect->setTexture(mode->getHover(), true);
 }
 
 void Button::setActive()
 {
     stateColor = 2;
-    rect->setTexture(mode->getActive());
+    rect->setTexture(mode->getActive(), true);
 }
 
 void Button::setOn()
 {
     stateColor = 3;
-    rect->setTexture(mode->getSwitchOn());
+    rect->setTexture(mode->getSwitchOn(), true);
 }
 
 void Button::setOff()
 {
-    rect->setTexture(mode->getSwitchOff());
+    rect->setTexture(mode->getSwitchOff(), true);
 
 }
 
