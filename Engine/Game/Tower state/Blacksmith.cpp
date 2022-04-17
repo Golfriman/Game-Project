@@ -8,9 +8,9 @@ BlackSmith::BlackSmith(System& system, Hero* hero, bool *isLoadSource)
 {
 	init(system, hero, isLoadSource);
 	bEvents.resize(3);
-	bEvents[0] = new Dialog();
-	bEvents[1] = new UpgradeWeapon();
-	bEvents[2] = new Farewell();
+	bEvents[0] = new Dialog(system, hero, isLoadSource);
+	bEvents[1] = new UpgradeWeapon(system, hero, isLoadSource);
+	bEvents[2] = new Farewell(system, hero, isLoadSource);
 }
 
 void BlackSmith::update()

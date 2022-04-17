@@ -159,6 +159,9 @@
     <ClCompile Include="SaveAndLoad\Save.cpp">
       <Filter>Source Files\LoadAndSave</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="extlibs\bin\x64\sfml-audio-2.dll">
