@@ -1,11 +1,12 @@
 #pragma once
 #include"TowerState.h"
 #include<vector>
-#include"BlacksmithEvent/BlacksmithEvent.h"
+
+class BlacksmithEvent;
 
 class BlackSmith : public TowerState
 {
-	std::vector<BlacksmithEvent*> events;
+	std::vector<BlacksmithEvent*> bEvents;
 public:
 	BlackSmith(System& system, Hero* hero, bool* isLoadSource);
 	void update();

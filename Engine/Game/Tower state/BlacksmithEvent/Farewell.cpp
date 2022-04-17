@@ -1,5 +1,10 @@
 #include"Farewell.h"
 
+Farewell::Farewell(System& system, Hero* hero, bool* isLoadSource)
+{
+	init(system, hero, isLoadSource);
+}
+
 void Farewell::update()
 {
 }
