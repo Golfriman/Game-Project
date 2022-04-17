@@ -1,25 +1,24 @@
 #pragma once
-#include"nlohmann/json.hpp"
-#include<fstream>
-#include<iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <iostream>
 #include <string>
-#include <cstdlib>
-#include <typeinfo>
 
 class LoadFile
 {
-
-	std::string serialized;
+	nlohmann::json loadJ;
 public:
 
 
 	void loadFile();
 
-
-	nlohmann::json loadJ = nlohmann::json::parse(serialized);
-
 	template <typename T1>
 
-	void outNote(string key, T1 object);
-
+	void outNote(std::string key, T1& object)
+	{
+		if (!loadJ.empty())
+		{
+			object = loadJ[key].get<T1>();
+		}
+	}
 };

@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Engine\Game\Tower State\BlacksmithEvent">
       <UniqueIdentifier>{7cdd3131-fb5c-42ba-873d-0bfbb1de6db3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\LoadAndSave">
+      <UniqueIdentifier>{818474c2-c2c6-4ebe-9236-bb4fa6e80411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -149,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\InventoryScreen.cpp">
       <Filter>Source Files\Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveAndLoad\Load.cpp">
+      <Filter>Source Files\LoadAndSave</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveAndLoad\Save.cpp">
+      <Filter>Source Files\LoadAndSave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -884,6 +893,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\DeathScreen.h">
       <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveAndLoad\Load.h">
+      <Filter>Source Files\LoadAndSave</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveAndLoad\Save.h">
+      <Filter>Source Files\LoadAndSave</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

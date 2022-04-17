@@ -1,4 +1,6 @@
 #include "Settings.h"
+#include"../SaveAndLoad/Save.h"
+#include"../SaveAndLoad/Load.h"
 
 void Settings::playEffects()
 {
@@ -74,8 +76,7 @@ Settings::Settings(System& system, bool* isLoadSource)
 	wallpaper.setFillColor(sf::Color(72, 111, 106));
 	wallpaper.setPosition(416, 206);
 	initSystemComponent(system);
-	isFullscreen = system.getWindow().isFull();
-	isLimitFPS = system.getWindow().isLimit();
+
 	text = nullptr;
 	sound.setVolume(audio->getEffectVolume());
 	sound.setBuffer(audio->getEffects("Click"));
@@ -89,12 +90,14 @@ Settings::Settings(System& system, bool* isLoadSource)
 		setText(size, text[29], normallFont, 735 - size.getSize()*0.639f, 488, white, 24);
 		isFullscreen = system.getWindow().isFull();
 		sound.play();
+		changeWindow = true;
 	};
 	switchLimitFPS = [&]()->void
 	{
 		system.getWindow().switchLimitFPS();
 		isLimitFPS = system.getWindow().isLimit();
 		sound.play();
+		changeWindow = true;
 	};
 	leftSize = [&]()->void
 	{
@@ -105,6 +108,7 @@ Settings::Settings(System& system, bool* isLoadSource)
 		sf::String size = std::to_string(width) + "x" + std::to_string(height);
 		setText(size, text[29], normallFont, 735, 488, white, 24);
 		sound.play();
+		changeWindow = true;
 	};
 	rightSize = [&]()->void
 	{
@@ -115,12 +119,9 @@ Settings::Settings(System& system, bool* isLoadSource)
 		sf::String size = std::to_string(width) + "x" + std::to_string(height);
 		setText(size, text[29], normallFont, 735, 488, white, 24);
 		sound.play();	
+		changeWindow = true;
 	};
-	width = system.getHandle()->getSize().x;
-	height = system.getHandle()->getSize().y;
-	backgroundVolume = system.getAudio().getBackgroundVolume();
-	effectVolume = system.getAudio().getEffectVolume();
-	dialogVolume = system.getAudio().getDialogVolume();
+
 	leftBackgroundMusic = [&]()->void
 	{
 		audio->left(audio->getBackgroundVolume());
@@ -180,31 +181,56 @@ Settings::Settings(System& system, bool* isLoadSource)
 
 	applySettings = [&]()->void
 	{
-		saveSettings->addNote("BackgroundPath", audio->getBackgroundPath);
-		saveSettings->addNote("BackgroundVolume", audio->getBackgroundVolume);
-		saveSettings->addNote("Dialog", audio->getDialog);
-		saveSettings->addNote("Fullscreen", window->isFull);
-		saveSettings->addNote("LimitFPS", window->isLimit);
-		saveSettings->addNote("IndexResolution", window->saveVar);
+		Save saveSettings;
 
-
-
-		saveSettings->saveFile();
-	}
+		saveSettings.addNote("BackgroundVolume", audio->getBackgroundVolume());
+		saveSettings.addNote("Dialog", audio->getDialogVolume());
+		saveSettings.addNote("Effects", audio->getEffectVolume());
+		saveSettings.addNote("Fullscreen", window->isFull());
+		saveSettings.addNote("LimitFPS", window->isLimit());
+		saveSettings.addNote("IndexResolution", window->saveVar());
+		saveSettings.saveFile();
+		sound.play();
+		changeWindow = false;
+	};
 
 	cancel = [&]()->void
 	{
-		sound.play();
+		LoadFile loadSettings;
+
+		loadSettings.loadFile();
+		loadSettings.outNote("BackgroundVolume", audio->getBackgroundVolume());
+		loadSettings.outNote("Dialog", audio->getDialogVolume());
+		loadSettings.outNote("Effects", audio->getEffectVolume());
+		loadSettings.outNote("Fullscreen", window->isFull());
+		loadSettings.outNote("LimitFPS", window->isLimit());
+		loadSettings.outNote("IndexResolution", window->saveVar());
+		if (changeWindow)
+		{
+			window->setWindow();
+		}
+		audio->setBackgroundVolume();
+		playEffects();
 		throw 0;
 	};
 }
 
 void Settings::createSource()
 {
+	isFullscreen = window->isFull();
+	isLimitFPS= window->isLimit();
+
+	width = handle->getSize().x;
+	height = handle->getSize().y;
+	backgroundVolume = audio->getBackgroundVolume();
+	effectVolume = audio->getEffectVolume();
+	dialogVolume = audio->getDialogVolume();
+	changeWindow = false;
+
 	text = new sf::Text[33];
 	sf::Color white = sf::Color::White;
 	sf::Color red = sf::Color(140, 25, 0);
-	textureButton = new sf::Texture[5];
+	textureButton = new sf::Texture[6];
 	createUI(white, red);
 	*isLoadSource = true;
 }
@@ -212,12 +238,12 @@ void Settings::createSource()
 void Settings::removeSource()
 {
 	deleteArrayObject(text);
+	deleteArrayObject(textureButton);
 	for (auto& object : settingsButton)
 	{
 		deleteObject(object);
 	}
 	settingsButton.clear();
-	deleteArrayObject(textureButton);
 }
 
 void Settings::update()

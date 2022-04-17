@@ -404,6 +404,8 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClCompile Include="Engine\System.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SaveAndLoad\Load.cpp" />
+    <ClCompile Include="SaveAndLoad\Save.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="extlibs\bin\x64\openal32.dll" />
@@ -653,6 +655,8 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClInclude Include="extlibs\include\SFML\Window\Window.hpp" />
     <ClInclude Include="extlibs\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="extlibs\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="SaveAndLoad\Load.h" />
+    <ClInclude Include="SaveAndLoad\Save.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="resources\ball.wav" />

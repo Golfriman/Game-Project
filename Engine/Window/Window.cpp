@@ -12,18 +12,27 @@ Window::Window()
 	height[3] = 1050;
 	width[4] = 1920;
 	height[4] = 1080;
-	window = nullptr;
-	camera = nullptr;
+	camera = new sf::View(sf::FloatRect(0.f, 0.f, 1920.f, 1080.f));
+	window = new sf::RenderWindow(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
+
 }
 
 void Window::setWindow()
 {
-	isFullscreen = false;
-	isLimitFPS = true;
-	window = new sf::RenderWindow(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
-	camera = new sf::View(sf::FloatRect(0.f, 0.f, 1920.f, 1080.f));
+	window->close();
+	if (isFullscreen)
+	{
+		window->create(sf::VideoMode::getDesktopMode(), "Window", sf::Style::Fullscreen | sf::Style::Close);
+	}
+	else
+	{
+		window->create(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
+	}
 	window->setView(*camera);
-	window->setFramerateLimit(60);
+	if (isLimitFPS)
+	{
+		window->setFramerateLimit(60);
+	}
 }
 
 bool Window::isOpen()

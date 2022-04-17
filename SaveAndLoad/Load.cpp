@@ -1,22 +1,19 @@
-#include <Load.h>
+#include "Load.h"
 
 void  LoadFile::loadFile()
 {
 
-	std::ifstream loadSet("Settings.txt");
+	std::ifstream loadSet("resources//Save//Settings.txt");
 
 	if (!loadSet.is_open())
 	{
-
 		std::cerr << "Settings.txt could not be opened!\n";
-		exit(1);
+		return;
 	}
-	else loadSet >> serialized;
+	else
+	{
+		loadSet >> loadJ;
+	}
 
 	loadSet.close();
-}
-
-void LoadFile::outNote(string key, T1 object)
-{
-	object = loadJ[key].get<T1>();
 }

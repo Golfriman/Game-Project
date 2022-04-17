@@ -5,6 +5,7 @@
 #include"Window/Window.h"
 #include"Mouse/Mouse.h"
 #include"Global/Support function.h"
+#include"../SaveAndLoad/Load.h"
 
 
 class System

@@ -9,7 +9,7 @@ void Engine::showLoadScreen()
 		sf::Text text;
 		sf::String point;
 		sf::String string = "Loading";
-		text.setFont(*system.getTitleFont());
+		text.setFont(*system->getTitleFont());
 		if (clock.getElapsedTime().asMilliseconds() > 200)
 		{
 			point = point.getSize() >= 5 ? "" : point + ".";
@@ -24,22 +24,23 @@ void Engine::showLoadScreen()
 
 Engine::Engine()
 {
+	system = new System;
 	isLoadSource = false;
 	stateGame.resize(5);
-	stateGame[0] = new Menu(system, &isLoadSource);
-	stateGame[1] = new Game(system, &isLoadSource);
-	stateGame[2] = new Settings(system, &isLoadSource);
-	stateGame[3] = new Journal(system, &isLoadSource);
-	stateGame[4] = new Exit(system, &isLoadSource);
-	window = system.getHandle();
+	stateGame[0] = new Menu(*system, &isLoadSource);
+	stateGame[1] = new Game(*system, &isLoadSource);
+	stateGame[2] = new Settings(*system, &isLoadSource);
+	stateGame[3] = new Journal(*system, &isLoadSource);
+	stateGame[4] = new Exit(*system, &isLoadSource);
+	window = system->getHandle();
 	stateEngine = 0;
 	stateGame[stateEngine]->createSource();
-	system.getAudio().playBackgroundMusic(system.getAudio().getBackgroundPath("Crushed Dreams"));
+	system->getAudio().playBackgroundMusic(system->getAudio().getBackgroundPath("Crushed Dreams"));
 }
 
 void Engine::update()
 {
-	system.getHandle()->clear();
+	system->getHandle()->clear();
 	try {
 		stateGame[stateEngine]->update();
 	}
@@ -77,4 +78,5 @@ Engine::~Engine()
 		deleteObject(object);
 	}
 	stateGame.clear();
+	deleteObject(system);
 }

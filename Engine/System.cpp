@@ -6,15 +6,18 @@ System::System()
     event = new sf::Event;
     titleFont = new sf::Font;
     normalFont = new sf::Font;
+    LoadFile loadSettings;
 
-    loadSettings->outNote("BackgroundPath", audio->getBackgroundPath);
-    loadSettings->outNote("BackgroundVolume", audio->getBackgroundVolume);
-    loadSettings->outNote("Dialog", audio->getDialog);
-    loadSettings->outNote("Fullscreen", window->isFull);
-    loadSettings->outNote("LimitFPS", window->isLimit);
-    loadSettings->outNote("IndexResolution", window->saveVar);
+    loadSettings.loadFile();
+    loadSettings.outNote("BackgroundVolume", audio.getBackgroundVolume());
+    loadSettings.outNote("Dialog", audio.getDialogVolume());
+    loadSettings.outNote("Effects", audio.getEffectVolume());
+    loadSettings.outNote("Fullscreen", window.isFull());
+    loadSettings.outNote("LimitFPS", window.isLimit());
+    loadSettings.outNote("IndexResolution", window.saveVar());
 
-    loadSettings->loadFile();
+
+
     window.setWindow();
     mouse = new Mouse(window.getHandle());
     if (!titleFont->loadFromFile("resources//Fonts//littletroublegirlbv.TTF") || !normalFont->loadFromFile("resources//Fonts//Montserrat-Regular.TTF"))

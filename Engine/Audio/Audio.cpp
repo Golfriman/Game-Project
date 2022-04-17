@@ -12,9 +12,6 @@ sf::SoundBuffer& Audio::loadSound(sf::String path)
 
 Audio::Audio()
 {
-	backgroundVolume = 50;
-	effectVolume = 50;
-	dialogVolume = 0;
 	sf::SoundBuffer sound;
 	sound.loadFromFile("resources\\Audio\\effects\\button-28.wav");
 	backgroundPath.insert(std::make_pair("Crushed Dreams", "resources\\Audio\\background\\crushed-dreams.wav"));

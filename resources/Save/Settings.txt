@@ -1,0 +1,1 @@
+{"BackgroundVolume":0,"Dialog":0,"Effects":50,"Fullscreen":false,"IndexResolution":0,"LimitFPS":false}

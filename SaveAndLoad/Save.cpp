@@ -1,10 +1,4 @@
-#include <Save.h>
-
-
-void Save::addNote(string key, T object)
-{
-	saveJ[key] = object;
-}
+#include "Save.h"
 
 void Save::saveFile()
 {
@@ -13,7 +7,7 @@ void Save::saveFile()
 
 	std::ofstream saveSet;
 
-	saveSet.open("Settings.txt");
+	saveSet.open("resources//Save//Settings.txt");
 
 	if (!saveSet.is_open())
 	{

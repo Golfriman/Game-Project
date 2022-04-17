@@ -22,6 +22,7 @@ class Settings : public State
 	
 	std::function<void()> cancel;
 	sf::RectangleShape wallpaper;
+	bool changeWindow;
 	int width = 0;
 	int height = 0;
 	int backgroundVolume;

@@ -11,7 +11,7 @@ class Engine
 {
 	int stateEngine;
 	std::vector<State*> stateGame;
-	System system;
+	System* system;
 	sf::RenderWindow* window;
 	bool isLoadSource;
 public:

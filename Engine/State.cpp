@@ -2,6 +2,7 @@
 
 void State::initSystemComponent(System& system)
 {
+	window = &system.getWindow();
 	handle = system.getHandle();
 	mouse = system.getMouse();
 	keyboard = &system.getKeyboard();

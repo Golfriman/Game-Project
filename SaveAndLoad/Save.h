@@ -1,9 +1,8 @@
 #pragma once
-#include"nlohmann/json.hpp"
-#include<fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
 #include <string>
-#include <cstdlib>
-#include <typeinfo>
 
 class Save
 {
@@ -13,7 +12,10 @@ public:
 
 	template <typename T>
 
-	void addNote(string key, T object);
+	void addNote(std::string key, T& object)
+	{
+		saveJ[key] = object;
+	}
 
 	void saveFile();
 
