@@ -14,7 +14,6 @@ class Engine
 	System system;
 	sf::RenderWindow* window;
 	bool isLoadSource;
-	void showLoadScreen();
 public:
 	Engine();
 	void update();
@@ -22,4 +21,5 @@ public:
 	void draw();
 	bool windowIsOpen();
 	~Engine();
+	void showLoadScreen();
 };

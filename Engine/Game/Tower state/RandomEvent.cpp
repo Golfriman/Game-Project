@@ -1,13 +1,16 @@
 #include "RandomEvent.h"
 
-RandomEvent::RandomEvent(System& system, Hero* hero)
+/*Описываем все наши функции тут потому что я не хочу чтобы они были доступны из вне*/
+/*Также можно попробовать тут описать константы*/
+
+RandomEvent::RandomEvent(System& system, Hero* hero, bool*isLoadSource)
 {
-	init(system, hero);
+	init(system, hero, isLoadSource);
 }
 
 void RandomEvent::update()
 {
-	/*sf::Event event;*/
+	
 }
 
 void RandomEvent::render()
@@ -25,6 +28,7 @@ void RandomEvent::hud()
 
 void RandomEvent::createSource()
 {
+	*isLoadSource = true;
 }
 
 void RandomEvent::removeSource()

@@ -3,8 +3,11 @@
 
 class RandomEvent : public TowerState
 {
+	std::vector<Button*> buttons;
+	sf::Texture* texture;
+	sf::Text* text;
 public:
-	RandomEvent(System& system, Hero* hero);
+	RandomEvent(System& system, Hero* hero, bool *isLoadSource);
 	void update();
 	void render();
 	void draw();

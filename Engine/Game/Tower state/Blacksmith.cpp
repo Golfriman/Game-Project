@@ -1,8 +1,8 @@
 #include"Blacksmith.h"
 
-BlackSmith::BlackSmith(System& system, Hero* hero)
+BlackSmith::BlackSmith(System& system, Hero* hero, bool *isLoadSource)
 {
-	init(system, hero);
+	init(system, hero, isLoadSource);
 }
 
 void BlackSmith::update()

@@ -16,6 +16,7 @@ class InventoryScreen: public TowerState
 	sf::Text* dropMenuUI;
 	sf::Text* itemInfo;
 	sf::Texture* texture;
+	sf::Texture* inventoryAreaTexture;
 	sf::RectangleShape textArea;
 	sf::RectangleShape inventoryArea;
 	size_t positionItem;

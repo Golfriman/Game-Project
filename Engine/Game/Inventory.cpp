@@ -4,12 +4,12 @@ void Inventory::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (size_t i = 0; i < 2; i++)
 	{
-		for (size_t j = 0; j < 7; j++)
+		for (size_t j = 0; j < 6; j++)
 		{
-			int id = i * 7 + j; // 7 - это максимум по одной стороне
+			int id = i * 6 + j; // 7 - это максимум по одной стороне
 			if (inventory[id])
 			{
-				inventory[id]->setPositionTexture(j * 117 + 559, 120 * i + 251);
+				inventory[id]->setPositionTexture(j * 153 + 506, 172 * i + 318);
 				target.draw(*inventory[id]);
 			}
 		}

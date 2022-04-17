@@ -83,6 +83,7 @@ void subState::MainMenu::update()
 		if (event.type == sf::Event::Closed)
 		{
 			window->close();
+			break;
 		}
 		if (event.type == sf::Event::KeyPressed && !(isPressed))
 		{
@@ -297,7 +298,7 @@ void subState::ExitMenu::createSource()
 	answers[1] = L"Да";
 	text = new sf::Text[3];
 	sf::Color white = sf::Color::White;
-	setText(L"Выдействительно хотите покинуть игру?", text[2], titleFont, 540, 500, white, 40);
+	setText(L"Вы действительно хотите покинуть игру?", text[2], titleFont, 540, 500, white, 40);
 	for (int i = 0; i < 2; i++)
 	{
 		insertButton(i, exit, 600 + i * 50, 600, 40, 30, transparency, highlight);

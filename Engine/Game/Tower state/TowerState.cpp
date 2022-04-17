@@ -1,6 +1,6 @@
 #include "TowerState.h"
 
-void TowerState::init(System& system, Hero* hero)
+void TowerState::init(System& system, Hero* hero, bool*isLoadSource)
 {
 	this->handle = system.getHandle();
 	this->mouse = system.getMouse();
@@ -10,6 +10,7 @@ void TowerState::init(System& system, Hero* hero)
 	this->normallFont = system.getNormalFont();
 	this->hero = hero;
 	this->event = system.getEvent();
+	this->isLoadSource = isLoadSource;
 }
 
 TowerState::TowerState()

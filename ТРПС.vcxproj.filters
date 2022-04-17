@@ -858,9 +858,6 @@
     <ClInclude Include="Engine\Game\Tower state\Enimies\Enimies.h">
       <Filter>Source Files\Engine\Game\Tower State\Enimies</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Tower state\Enimies\Intellect.h">
-      <Filter>Source Files\Engine\Game\Tower State\Enimies</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Dice.h">
       <Filter>Source Files\Engine\Game</Filter>
     </ClInclude>
@@ -883,6 +880,9 @@
       <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\InventoryScreen.h">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\DeathScreen.h">
       <Filter>Source Files\Engine\Game</Filter>
     </ClInclude>
   </ItemGroup>

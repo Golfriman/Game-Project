@@ -25,9 +25,3 @@ void setText(sf::String string, sf::Text& text, const sf::Font* font, int xPosti
     text.setPosition(xPostion, yPosition);
     text.setCharacterSize(size);
 }
-
-void insertButton(int id, std::vector<Button*>& vector, short xPosition, short yPosition, short width, short height, sf::Texture* idleTexture, sf::Texture* hoverTexture, sf::Texture* activeTexture, sf::Texture *switchOnTexture, sf::Texture *switchOffTexture)
-{
-    Button* button = new Button(id ,xPosition, yPosition, width, height, idleTexture, hoverTexture, activeTexture, switchOnTexture, switchOffTexture);
-    vector.push_back(button);
-}

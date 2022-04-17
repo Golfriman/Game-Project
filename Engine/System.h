@@ -9,8 +9,8 @@
 
 class System
 {
-	Save saveSettings;
-	LoadFile loadSettings;
+	/*Класс сохранения*/
+
 	Window window;
 	Audio audio;
 	Keyboard keyboard;

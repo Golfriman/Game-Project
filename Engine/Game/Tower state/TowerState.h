@@ -7,6 +7,7 @@
 class TowerState
 {
 protected:
+	bool* isLoadSource;
 	sf::Event* event;
 	Hero* hero;
 	sf::Texture* wallpaper;
@@ -16,7 +17,7 @@ protected:
 	Mouse* mouse;
 	sf::Font* titleFont;
 	sf::Font* normallFont;
-	void init(System& system, Hero* hero);
+	void init(System& system, Hero* hero, bool*isLoadSource);
 public:
 	TowerState();
 	virtual void update() = 0;
