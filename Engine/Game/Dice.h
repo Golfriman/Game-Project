@@ -22,6 +22,6 @@ public:
 	bool rollEnd();
 
 	void roll();
-
+	sf::Vector2u valueRoll();
 	~Dice();
 };

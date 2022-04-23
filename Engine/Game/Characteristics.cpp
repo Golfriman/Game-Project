@@ -9,6 +9,7 @@ Characteristics::Characteristics(uint8_t damage, uint8_t maxHP, uint8_t lucky, u
 	this->dexterity = dexterity;
 	this->numberOfActionsPerTurn = numberOfActionsPerTurn;
 	this->armorPoints = armorPoints;
+	numberOfActionsPerTurn_copy = numberOfActionsPerTurn;
 	this->isBuffHealth = false;
 	this->isDebuffBleeding = false;
 	this->decased = false;
@@ -93,4 +94,9 @@ uint8_t Characteristics::getMaxHealth()
 uint8_t Characteristics::getHealthPoint()
 {
 	return healthPoint;
+}
+
+void Characteristics::resetNumOfActionPerTurn()
+{
+	numberOfActionsPerTurn = numberOfActionsPerTurn_copy;
 }

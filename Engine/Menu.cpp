@@ -160,7 +160,7 @@ void subState::MainMenu::createSource()
 	loadTexture("resources//Image//Textures//red.png", highlight);
 	loadTexture("resources//Image//Textures//transparent.png", transparency);
 	menuWallpaper = new sf::Texture;
-	loadTexture("resources//Image//Textures//tower2.jpg", menuWallpaper);
+	loadTexture("resources//Image//Textures//menu.png", menuWallpaper);
 	menuString[0] = L"Начать игру";
 	menuString[1] = L"Настройки";
 	menuString[2] = L"Журнал";
@@ -301,9 +301,9 @@ void subState::ExitMenu::createSource()
 	setText(L"Вы действительно хотите покинуть игру?", text[2], titleFont, 540, 500, white, 40);
 	for (int i = 0; i < 2; i++)
 	{
-		insertButton(i, exit, 600 + i * 50, 600, 40, 30, transparency, highlight);
+		insertButton(i, exit, 600 + i * 75, 600, 40, 30, transparency, highlight);
 		sf::Color white = sf::Color::White;
-		setText(answers[i], text[i], normalFont, 600 + i * 50, 600, white, 25);
+		setText(answers[i], text[i], normalFont, 600 + i * 75, 600, white, 25);
 	}
 	*isLoadSource = true;
 }

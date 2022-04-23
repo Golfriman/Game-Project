@@ -60,8 +60,7 @@ void Settings::createUI(sf::Color& white, sf::Color& red)
 	insertButton(11, settingsButton, 1301, 808, 187, 50, &textureButton[5]);
 	settingsButton[11]->setOnClick(applySettings);
 
-	setText(L"По умолчанию", text[27], normallFont, 1130, 818, white, 24);
-	setText(L"Принять", text[28], normallFont, 1360, 818, white, 24);
+	setText(L"Принять", text[28], normallFont, 1329, 818, white, 24);
 	sf::String size = std::to_string(handle->getSize().x) + "x" + std::to_string(handle->getSize().y);
 	setText(size, text[29], normallFont, 735, 488, white, 24);
 	setText(std::to_string(backgroundVolume), text[30], normallFont, 1304, 398, white, 24);
@@ -69,7 +68,7 @@ void Settings::createUI(sf::Color& white, sf::Color& red)
 	setText(std::to_string(dialogVolume), text[32], normallFont, 1304, 488, white, 24);
 }
 
-Settings::Settings(System& system, bool* isLoadSource)
+Settings::Settings(System& system, bool* isLoadSource, const int& id):id(id)
 {
 	this->isLoadSource = isLoadSource;
 	wallpaper.setSize(sf::Vector2f(1088, 668));
@@ -211,7 +210,7 @@ Settings::Settings(System& system, bool* isLoadSource)
 		}
 		audio->setBackgroundVolume();
 		playEffects();
-		throw 0;
+		throw id;
 	};
 }
 

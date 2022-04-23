@@ -9,6 +9,7 @@ class Characteristics
 	uint8_t dexterity;
 	uint8_t numberOfActionsPerTurn;
 	uint8_t armorPoints;
+	uint8_t numberOfActionsPerTurn_copy;
 	bool decased;
 	bool isBuffHealth;
 	bool isDebuffBleeding;
@@ -27,4 +28,5 @@ public:
 	uint8_t getDamage();
 	uint8_t getMaxHealth();
 	uint8_t getHealthPoint();
+	void resetNumOfActionPerTurn();
 };

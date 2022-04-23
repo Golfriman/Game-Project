@@ -20,7 +20,7 @@ void Game::generateLevel(System& system)
 	}
 
 	std::shuffle(levelGame.begin(), levelGame.end(), rm);
-	for (int i = 0, size = levelGame.size(); i < size; i++)
+	for (size_t i = 0, size = levelGame.size(); i < size; i++)
 	{
 		towerstates.push_back(levelGame[i]);
 	}
@@ -60,6 +60,7 @@ void Game::createUI()
 
 Game::Game(System& system, bool *isLoadSource)
 {
+	this->system = &system;
 	isDropMenu = false;
 	this->isLoadSource = isLoadSource;
 	this->system = &system;
@@ -86,23 +87,13 @@ Game::Game(System& system, bool *isLoadSource)
 	{
 		isDropMenu = !isDropMenu;
 	};
-	clickRestart = [this]() {
+	clickRestart = [&]() {
 		this->removeSource();
 		this->createSource();
+
 	};
 	clickSettings = [this]() {
-		std::cout << "Settings";
-		/*if (!isPressedSettings)
-		{
-			lastID = idGame;
-			idGame = idSettings;
-			isPressedSettings = !isPressedSettings;
-		}
-		else
-		{
-			idGame = lastID;
-			isPressedSettings = !isPressedSettings;
-		}*/
+		throw idSettings;
 	};
 	clickMainMenu = [this]()
 	{
@@ -114,13 +105,15 @@ Game::Game(System& system, bool *isLoadSource)
 void Game::createSource()
 {
 	*isLoadSource = false;
+	settings = new Settings(*system, isLoadSource, idSettings);
+	flag = true;
 	isDelete = false;
 	isDropMenu = false;
 	idGame = 1;
 	isPressedInventory = false;
 	isPressedSettings = false;
 	mersenne = new std::mt19937({ reinterpret_cast<unsigned int>(this) });
-	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1), titleFont);
+	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1));
 	inventoryScreen = new InventoryScreen(*system, hero);
 	towerstates.push_back(inventoryScreen);
 	level = 1;
@@ -135,7 +128,7 @@ void Game::createSource()
 	infoLevel = new sf::Text;
 	numberLevel = new sf::Text;
 	loadTexture("resources//Image//Textures//burger.png", &texture[0]);
-	loadTexture("resources//Image//Textures//inventory.png", &texture[1]);
+	loadTexture("resources//Image//Textures//мешок.png", &texture[1]);
 	loadTexture("resources//Image//Textures//teal.png", &texture[2]);
 	textureHero = new sf::Texture;
 	textureHero->setSmooth(true);
@@ -150,6 +143,8 @@ void Game::removeSource()
 {
 	isDelete = true;
 	towerstates[idInventory]->removeSource();
+	deleteObject(settings);
+	flag = true;
 	if (idGame == idInventory)
 	{
 		towerstates[lastID]->removeSource();
@@ -183,49 +178,41 @@ void Game::removeSource()
 void Game::update()
 {
 	try {
-		while (handle->pollEvent(*event))
+		if (flag)
 		{
-
-			if (event->type == sf::Event::KeyReleased)
-			{
-				if (event->key.code == keyboard->getConfig("Escape"))
-				{
-					clickDropMenu();
-				}
-				if (event->key.code == keyboard->getConfig("I"))
-				{
-					clickInventory();
-				}
-				if (event->key.code == keyboard->getConfig("H"))
-				{
-					showHUD = !showHUD;
-				}
-			}
-			if (event->type == sf::Event::Closed)
-			{
-				handle->close();
-				break;
-			}
-			if (event->type == sf::Event::MouseMoved)
+			while (handle->pollEvent(*event))
 			{
 
-			}
-			if (event->type == sf::Event::MouseButtonPressed)
-			{
-				if (event->key.code == sf::Mouse::Left)
+				if (event->type == sf::Event::KeyReleased)
 				{
-					sf::Vector2f coordinate = mouse->getCoordinate();
-					for (int i = 0; i < 2; i++)
+					if (event->key.code == keyboard->getConfig("Escape"))
 					{
-						if (buttons[i]->containsCursor(coordinate))
-						{
-							buttons[i]->startClick();
-							return;
-						}
+						clickDropMenu();
 					}
-					if (isDropMenu)
+					if (event->key.code == keyboard->getConfig("I"))
 					{
-						for (int i = 2; i < 6; i++)
+						clickInventory();
+					}
+					if (event->key.code == keyboard->getConfig("H"))
+					{
+						showHUD = !showHUD;
+					}
+				}
+				if (event->type == sf::Event::Closed)
+				{
+					handle->close();
+					break;
+				}
+				if (event->type == sf::Event::MouseMoved)
+				{
+
+				}
+				if (event->type == sf::Event::MouseButtonPressed)
+				{
+					if (event->key.code == sf::Mouse::Left)
+					{
+						sf::Vector2f coordinate = mouse->getCoordinate();
+						for (int i = 0; i < 2; i++)
 						{
 							if (buttons[i]->containsCursor(coordinate))
 							{
@@ -233,11 +220,27 @@ void Game::update()
 								return;
 							}
 						}
+						if (isDropMenu)
+						{
+							for (int i = 2; i < 6; i++)
+							{
+								if (buttons[i]->containsCursor(coordinate))
+								{
+									buttons[i]->startClick();
+									return;
+								}
+							}
+						}
 					}
 				}
+				towerstates[idGame]->update();
 			}
-			towerstates[idGame]->update();
 		}
+		else
+		{
+			settings->update();
+		}
+	
 	}
 	catch(int id) {
 		if (id >= 0 && id < towerstates.size())
@@ -271,6 +274,18 @@ void Game::update()
 		{
 			throw 0;
 		}
+		else if (id == -2)
+		{
+			if (flag)
+			{
+				settings->createSource();
+			}
+			else
+			{
+				settings->removeSource();
+			}
+			flag = !flag;
+		}
 		else
 		{
 			for (int i = 1, size = towerstates.size(); i < size; i++)
@@ -290,31 +305,45 @@ void Game::update()
 
 void Game::render()
 {
-	towerstates[idGame]->render();
+	if (flag)
+	{
+		towerstates[idGame]->render();
+	}
+	else
+	{
+		settings->render();
+	}
 }
 
 void Game::draw()
 {
-	towerstates[idGame]->draw();
-	if (showHUD || isPressedInventory)
+	if (flag)
 	{
-		handle->draw(buttons[0]->getRect());
-		handle->draw(buttons[1]->getRect());
+		towerstates[idGame]->draw();
+		if (showHUD || isPressedInventory)
+		{
+			handle->draw(buttons[0]->getRect());
+			handle->draw(buttons[1]->getRect());
 
-		if (isDropMenu)
-		{
-			for (int i = 0; i < 4; i++)
+			if (isDropMenu)
 			{
-				handle->draw(buttons[i + 2]->getRect());
-				handle->draw(text[i]);
+				for (int i = 0; i < 4; i++)
+				{
+					handle->draw(buttons[i + 2]->getRect());
+					handle->draw(text[i]);
+				}
 			}
+			else
+			{
+				handle->draw(*infoLevel);
+				handle->draw(*numberLevel);
+			}
+			towerstates[idGame]->hud();
 		}
-		else
-		{
-			handle->draw(*infoLevel);
-			handle->draw(*numberLevel);
-		}
-		towerstates[idGame]->hud();
+	}
+	else
+	{
+		settings->draw();
 	}
 }
 

@@ -12,6 +12,8 @@ class Battle: public TowerState
 	bool isHover;
 	size_t idHoverButton;
 	std::vector<Enimies*> enimiesInTheRoom;
+	//Это нужно для того чтобы взаимодействовать с врагами...
+	std::vector<Button*> enimiesUI;
 	std::vector<Button*> buttons;
 	std::list<Items*> dropItems;
 	std::list<Button*> dropItemsButton;
@@ -32,6 +34,7 @@ class Battle: public TowerState
 		sf::RectangleShape hp;
 		sf::RectangleShape max;
 		HealthBar(float xPos, float yPos, sf::Font* font, Unit* unit);
+		void update();
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	};
 

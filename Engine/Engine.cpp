@@ -27,11 +27,11 @@ Engine::Engine()
 	system = new System;
 	isLoadSource = false;
 	stateGame.resize(5);
-	stateGame[0] = new Menu(*system, &isLoadSource);
-	stateGame[1] = new Game(*system, &isLoadSource);
-	stateGame[2] = new Settings(*system, &isLoadSource);
-	stateGame[3] = new Journal(*system, &isLoadSource);
-	stateGame[4] = new Exit(*system, &isLoadSource);
+	stateGame[ID_MENU] = new Menu(*system, &isLoadSource);
+	stateGame[ID_GAME] = new Game(*system, &isLoadSource);
+	stateGame[ID_SETTINGS] = new Settings(*system, &isLoadSource, ID_MENU);
+	stateGame[ID_JOURNAL] = new Journal(*system, &isLoadSource);
+	stateGame[ID_EXIT] = new Exit(*system, &isLoadSource);
 	window = system->getHandle();
 	stateEngine = 0;
 	stateGame[stateEngine]->createSource();

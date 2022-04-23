@@ -1,5 +1,6 @@
 #pragma once
 #include"State.h"
+#include"Settings.h"
 #include"./Game/Tower state/Battle.h"
 #include"./Game/Tower state/RandomEvent.h"
 #include"Game/Tower state/Blacksmith.h"
@@ -12,13 +13,16 @@ class Engine;
 
 class Game : public State
 {
+	bool flag;
+	System* system;
+	Settings* settings;
 	std::vector<TowerState*> towerstates;
 	std::vector<Button*> buttons;
 	static constexpr int idInventory = 0;
-	static constexpr int idSettings = 1;
+	static constexpr int idSettings = -2;
 	InventoryScreen* inventoryScreen;
 	bool isDropMenu;
-	size_t idGame;
+	int idGame;
 	int level;
 	Hero* hero;
 	bool showHUD;
@@ -33,7 +37,6 @@ class Game : public State
 	sf::Text* infoLevel;
 	sf::Text* numberLevel;
 	sf::Color *white;
-	System* system;
 	void generateLevel(System& system);
 	void createUI();
 

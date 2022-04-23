@@ -42,9 +42,9 @@ Dice::Dice(float x, float y)
 	mersenne = new std::mt19937(reinterpret_cast<unsigned int>(this));
 	random = new std::uniform_int_distribution<int>(0, 5);
 	dice[0].setPosition(x, y);
-	dice[1].setPosition(x + 200, y);
-	dice[0].setSize(sf::Vector2f(100, 100));
-	dice[1].setSize(sf::Vector2f(100, 100));
+	dice[1].setPosition(x + 210, y);
+	dice[0].setSize(sf::Vector2f(200, 200));
+	dice[1].setSize(sf::Vector2f(200, 200));
 
 	resultRoll.resize(6);
 	for (int i = 0; i < 6; i++)
@@ -70,4 +70,9 @@ void Dice::roll()
 bool Dice::rollEnd()
 {
 	return finish;
+}
+
+sf::Vector2u Dice::valueRoll()
+{
+	return sf::Vector2u(firstDice, secondDice);
 }

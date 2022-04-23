@@ -13,26 +13,30 @@ Window::Window()
 	width[4] = 1920;
 	height[4] = 1080;
 	camera = new sf::View(sf::FloatRect(0.f, 0.f, 1920.f, 1080.f));
-	window = new sf::RenderWindow(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
-
+	window = new sf::RenderWindow();
+	image.loadFromFile("resources//Image//Textures//icon.png");
 }
 
 void Window::setWindow()
 {
-	window->close();
+	if (window->isOpen())
+	{
+		window->close();
+	}
 	if (isFullscreen)
 	{
-		window->create(sf::VideoMode::getDesktopMode(), "Window", sf::Style::Fullscreen | sf::Style::Close);
+		window->create(sf::VideoMode::getDesktopMode(), "Dream Tower", sf::Style::Fullscreen | sf::Style::Close);
 	}
 	else
 	{
-		window->create(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
+		window->create(sf::VideoMode(width[stateWindow], height[stateWindow]), "Dream Tower", sf::Style::Close);
 	}
 	window->setView(*camera);
 	if (isLimitFPS)
 	{
 		window->setFramerateLimit(60);
 	}
+	window->setIcon(267, 275, image.getPixelsPtr());
 }
 
 bool Window::isOpen()
@@ -49,7 +53,7 @@ void Window::switchFullscreen()
 	if (!isFullscreen)
 	{
 		window->close();
-		window->create(sf::VideoMode::getDesktopMode(), "Window", sf::Style::Fullscreen | sf::Style::Close);
+		window->create(sf::VideoMode::getDesktopMode(), "Dream Tower", sf::Style::Fullscreen | sf::Style::Close);
 		window->setView(*camera);
 		isFullscreen = true;
 	}
@@ -58,7 +62,7 @@ void Window::switchFullscreen()
 		sf::Vector2u size = window->getSize();
 
 		window->close();
-		window->create(sf::VideoMode(width[stateWindow], height[stateWindow]), "Window", sf::Style::Close);
+		window->create(sf::VideoMode(width[stateWindow], height[stateWindow]), "Dream Tower", sf::Style::Close);
 		window->setView(*camera);
 		isFullscreen = false;
 	}

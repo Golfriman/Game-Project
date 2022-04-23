@@ -9,6 +9,12 @@
 
 class Engine
 {
+	static constexpr int ID_MENU = 0;
+	static constexpr int ID_GAME = 1;
+	static constexpr int ID_SETTINGS = 2;
+	static constexpr int ID_JOURNAL = 3;
+	static constexpr int ID_EXIT = 4;
+
 	int stateEngine;
 	std::vector<State*> stateGame;
 	System* system;

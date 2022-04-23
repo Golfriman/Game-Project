@@ -7,7 +7,7 @@ class Settings : public State
 	sf::Text* text;
 	sf::Sound sound;
 	std::vector<Button*> settingsButton;
-
+	const int& id;
 	std::function<void()> switchFullscreen;
 	std::function<void()> leftSize;
 	std::function<void()> rightSize;
@@ -33,7 +33,7 @@ class Settings : public State
 	void playEffects();
 	void createUI(sf::Color &white, sf::Color &red);
 public:
-	Settings(System& system, bool* isLoadSource);
+	Settings(System& system, bool* isLoadSource,const int& id);
 	void createSource()override;
 	void removeSource()override;
 	void update();

@@ -9,6 +9,7 @@ class Window
 	bool isLimitFPS;
 	int height[5], width[5];
 	int stateWindow;
+	sf::Image image;
 public:
 	Window();
 	void setWindow();
