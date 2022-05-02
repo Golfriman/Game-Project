@@ -159,8 +159,14 @@
     <ClCompile Include="SaveAndLoad\Save.cpp">
       <Filter>Source Files\LoadAndSave</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.h">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithEvent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.cpp">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
