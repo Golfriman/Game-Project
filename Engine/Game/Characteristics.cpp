@@ -1,6 +1,6 @@
 #include"Characteristics.h"
 
-Characteristics::Characteristics(uint8_t damage, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn, uint8_t armorPoints)
+Characteristics::Characteristics(uint16_t damage, uint16_t maxHP, uint16_t lucky, uint16_t dexterity, uint16_t numberOfActionsPerTurn, uint16_t armorPoints)
 {
 	this->damage = damage;
 	this->healthPoint = maxHP;
@@ -15,7 +15,7 @@ Characteristics::Characteristics(uint8_t damage, uint8_t maxHP, uint8_t lucky, u
 	this->decased = false;
 }
 
-void Characteristics::changeHealth(int8_t variable)
+void Characteristics::changeHealth(int16_t variable)
 {
 	if (variable < 0 && this->healthPoint < abs(variable))
 	{
@@ -35,7 +35,7 @@ void Characteristics::changeHealth(int8_t variable)
 	}
 }
 
-void Characteristics::changeCharacterisitics(uint8_t damage, uint8_t hp, uint8_t maxHP, uint8_t lucky, uint8_t dexterity, uint8_t numberOfActionsPerTurn)
+void Characteristics::changeCharacterisitics(uint16_t damage, uint16_t hp, uint16_t maxHP, uint16_t lucky, uint16_t dexterity, uint16_t numberOfActionsPerTurn)
 {
 	decased = false;
 	this->damage += damage;
@@ -62,7 +62,7 @@ void Characteristics::debuff()
 {
 }
 
-void Characteristics::changeArmorPoints(uint8_t armorPoints)
+void Characteristics::changeArmorPoints(uint16_t armorPoints)
 {
 }
 
@@ -76,22 +76,22 @@ void Characteristics::setBleeding(bool isBleeding)
 	this->isDebuffBleeding = isBleeding;
 }
 
-uint8_t& Characteristics::getNumberOfAction()
+uint16_t& Characteristics::getNumberOfAction()
 {
 	return numberOfActionsPerTurn;
 }
 
-uint8_t Characteristics::getDamage()
+uint16_t Characteristics::getDamage()
 {
 	return damage;
 }
 
-uint8_t Characteristics::getMaxHealth()
+uint16_t Characteristics::getMaxHealth()
 {
 	return maxHealth;
 }
 
-uint8_t Characteristics::getHealthPoint()
+uint16_t Characteristics::getHealthPoint()
 {
 	return healthPoint;
 }

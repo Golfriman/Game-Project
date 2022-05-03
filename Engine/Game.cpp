@@ -74,7 +74,7 @@ Game::Game(System& system, bool *isLoadSource)
 		if (!isPressedInventory)
 		{
 			lastID = idGame;
-			idGame = idInventory;
+			idGame = ID_INVENTORY;
 			isPressedInventory = !isPressedInventory;
 		}
 		else
@@ -88,16 +88,15 @@ Game::Game(System& system, bool *isLoadSource)
 		isDropMenu = !isDropMenu;
 	};
 	clickRestart = [&]() {
-		this->removeSource();
-		this->createSource();
+		throw ID_GAME;
 
 	};
 	clickSettings = [this]() {
-		throw idSettings;
+		throw ID_SETTINGS;
 	};
 	clickMainMenu = [this]()
 	{
-		throw - 1;
+		throw ID_MENU;
 	};
 
 }
@@ -105,7 +104,7 @@ Game::Game(System& system, bool *isLoadSource)
 void Game::createSource()
 {
 	*isLoadSource = false;
-	settings = new Settings(*system, isLoadSource, idSettings);
+	settings = new Settings(*system, isLoadSource, ID_SETTINGS);
 	flag = true;
 	isDelete = false;
 	isDropMenu = false;
@@ -116,7 +115,7 @@ void Game::createSource()
 	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1));
 	inventoryScreen = new InventoryScreen(*system, hero);
 	towerstates.push_back(inventoryScreen);
-	level = 1;
+	level = 2;
 	isPressedInventory = false;
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
@@ -142,12 +141,12 @@ void Game::createSource()
 void Game::removeSource()
 {
 	isDelete = true;
-	towerstates[idInventory]->removeSource();
+	towerstates[ID_INVENTORY]->removeSource();
 	deleteObject(settings);
 	flag = true;
-	if (idGame == idInventory)
+	if (idGame == ID_INVENTORY)
 	{
-		towerstates[lastID]->removeSource();
+		towerstates[idGame]->removeSource();
 	}
 	else
 	{
@@ -243,38 +242,35 @@ void Game::update()
 	
 	}
 	catch(int id) {
-		if (id >= 0 && id < towerstates.size())
+		if (id == ID_NEXT)
 		{
 			towerstates[idGame]->removeSource();
-			*isLoadSource = false;
-			sf::Thread createSource([this, id]() { towerstates[id]->createSource(); });
-			createSource.launch();
-			sf::Clock clock;
-			sf::Text text;
-			text.setFont(*titleFont);
-			while (!isLoadSource)
+			idGame++;
+			if (idGame < towerstates.size())
 			{
-				
-				sf::String point;
-				sf::String string = "Loading";
-				
-				if (clock.getElapsedTime().asMilliseconds() > 200)
-				{
-					point = point.getSize() >= 5 ? "" : point + ".";
-					clock.restart();
-				}
-				handle->clear();
-				text.setString(string + point);
-				handle->draw(text);
-				handle->display();
+				towerstates[idGame]->createSource();
 			}
-			idGame = id;
+			else
+			{
+				for (int i = 1, size = towerstates.size(); i < size; i++)
+				{
+					deleteObject(towerstates[i]);
+				}
+				generateLevel(*system);
+				idGame = 1;
+				level++;
+				sf::String path = "resources//Image//Textures//heroFloor" + std::to_string(level) + ".png";
+				loadTexture(path, textureHero);
+				hero->setTextureHero(textureHero);
+				numberLevel->setString(std::to_string(level));
+			}
+
 		}
-		else if (id == -1)
+		else if (id == ID_MENU)
 		{
-			throw 0;
+			throw ID_MENU;
 		}
-		else if (id == -2)
+		else if (id == ID_SETTINGS)
 		{
 			if (flag)
 			{
@@ -286,19 +282,9 @@ void Game::update()
 			}
 			flag = !flag;
 		}
-		else
+		else if (id == ID_GAME)
 		{
-			for (int i = 1, size = towerstates.size(); i < size; i++)
-			{
-				deleteObject(towerstates[i]);
-			}
-			generateLevel(*system);
-			idGame = 1;
-			level++;
-			sf::String path = "resources//Image//Textures//heroFloor" + std::to_string(level) + ".png";
-			loadTexture(path, textureHero);
-			hero->setTextureHero(textureHero);
-			numberLevel->setString(std::to_string(level));
+			throw ID_GAME;
 		}
 	}
 }

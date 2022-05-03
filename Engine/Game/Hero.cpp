@@ -2,11 +2,11 @@
 
 Hero::Hero(Characteristics* character)
 {
-	spriteUnit->setPosition(500, 250);
-	spriteUnit->setSize(sf::Vector2f(233.f, 450.f));
+	spriteUnit->setPosition(576.f,333.f);
+	spriteUnit->setSize(sf::Vector2f(233, 450));
 	this->characterisitcs = character;
 	inventory = new Inventory;
-	dice = new Dice(76, 850);
+	dice = new Dice(97.f, 850.f);
 	no_modifyCharacteristics = new Characteristics(*character);
 }
 

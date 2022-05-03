@@ -1,6 +1,16 @@
 #pragma once
 #include"Button.h"
 
+static constexpr int ID_MENU = 0x10;
+static constexpr int ID_GAME = 0x11;
+static constexpr int ID_SETTINGS = 0x12;
+static constexpr int ID_JOURNAL = 0x13;
+static constexpr int ID_EXIT = 0x14;
+static constexpr int ID_NEXT = 0x15;
+
+static constexpr int ID_S_ALTAR = 0x100;
+static constexpr int ID_B_ALTAR = 0x101;
+
 template<typename T>
 inline void deleteObject(T* object)
 {

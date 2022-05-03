@@ -124,7 +124,7 @@ void subState::MainMenu::update()
 					if (object->containsCursor(cursor))
 					{
 						playClickEffect();
-						throw stateNow + 1;
+						throw stateNow + ID_MENU + 1;
 						break;
 					}
 				}

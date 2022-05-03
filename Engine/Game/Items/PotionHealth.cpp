@@ -2,6 +2,9 @@
 
 PotionHealth::PotionHealth()
 {
+	textureItem = new sf::Texture;
+	info = L"¬осстанавливает некотоое количнство здоровь€\nнекоторый промежуток времени";
+	loadTexture("resources//Image//Textures//health.png", textureItem);
 }
 
 

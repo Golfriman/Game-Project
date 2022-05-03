@@ -274,6 +274,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>extlibs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -287,6 +288,9 @@ mkdir "$(TargetDir)resources"
 copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"
 </Command>
     </PreBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Dynamic|x64'">
     <ClCompile>
@@ -376,6 +380,7 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClCompile Include="Engine\Exit.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\Game\Characteristics.cpp" />
+    <ClCompile Include="Engine\Game\DeathScreen.cpp" />
     <ClCompile Include="Engine\Game\Dice.cpp" />
     <ClCompile Include="Engine\Game\Hero.cpp" />
     <ClCompile Include="Engine\Game\Inventory.cpp" />

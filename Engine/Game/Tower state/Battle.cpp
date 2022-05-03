@@ -2,19 +2,19 @@
 
 void Battle::createUI()
 {
-	insertButton(0, buttons, 552, 950, 238, 49, &texture[0]);
+	insertButton(0, buttons, 552, 950, 238, 49, &textureButtonUI[0]);
 	setText(L"Легкая атака", text[0], normallFont, 591, 960, *white, 24);
 	buttons[0]->setOnClick(commandHero[0]);
 
-	insertButton(1, buttons, 841, 950, 238, 49, &texture[1]);
+	insertButton(1, buttons, 841, 950, 238, 49, &textureButtonUI[1]);
 	setText(L"Тяжелая атака", text[1], normallFont, 871, 960, *white, 24);
 	buttons[1]->setOnClick(commandHero[1]);
 
-	insertButton(2, buttons, 1132, 950, 238, 49, &texture[0]);
+	insertButton(2, buttons, 1132, 950, 238, 49, &textureButtonUI[0]);
 	setText(L"Парирование", text[2], normallFont, 1164, 960, *white, 24);
 	buttons[2]->setOnClick(commandHero[2]);
 
-	insertButton(3, buttons, 841, 793, 238, 49, &texture[2]);
+	insertButton(3, buttons, 841, 793, 238, 49, &textureButtonUI[2]);
 	setText(L"Передать ход", text[3], normallFont, 875, 808, *white, 24);
 	buttons[3]->setOnClick(passToMove);
 }
@@ -23,52 +23,77 @@ Battle::Battle(System& system, Hero* hero, int level, bool*isLoadingSource)
 {
 	this->levelGenerate = level;
 	turnPlayer = true;
-	trigger = -1;
+	trigger = MONSTER_NOT_SELECTED;
 	init(system, hero, isLoadingSource);
-	commandHero[0] = [&]()
+	commandHero[LIGHT_ATTACK] = [&]()mutable
 	{
-		if (trigger == -1)
+		if (trigger == MONSTER_NOT_SELECTED)
 		{
 			std::cout << "LOG: Enimie wasn't selected\n";
 			return;
 		}
-		hero->attackWithALightAttack(enimiesInTheRoom[trigger]);
+		this->hero->attackWithALightAttack(enimiesInTheRoom[trigger]);
+		healthBars[trigger + 1]->update();
 		if(enimiesInTheRoom[trigger]->isDead())
 		{
 			dropItems.push_back(enimiesInTheRoom[trigger]->kill());
 			auto endItem = dropItems.rbegin();
-			(*endItem)->setPositionTexture(0, 0);
-			insertButton(trigger, dropItemsButton, 0, 0, 0, 0);
+			sf::Vector2f positionItem = enimiesInTheRoom[trigger]->getPosition();
+			(*endItem)->setPositionTexture(positionItem.x, positionItem.y);
+			insertButton(dropItems.size(), dropItemsButton, positionItem.x, positionItem.y, 118, 137);
+
+			//При смерти монстра мы удаляем его
+			auto itMonster = enimiesInTheRoom.begin();
+			for (int i = 0; i < trigger; i++)
+			{
+				++itMonster;
+			}
+			enimiesInTheRoom.erase(itMonster);
+			trigger = MONSTER_NOT_SELECTED;
 		}
 	};
-	commandHero[1] = [&]() {
-		if (trigger = -1)
+	commandHero[HEAVY_ATTACK] = [&]()mutable {
+		if (trigger == MONSTER_NOT_SELECTED)
 		{
 			std::cout << "LOG: Enimie wasn't selected\n";
 			return;
 		}
-		hero->attackWithAHeavyAttack(enimiesInTheRoom[trigger]);
+		this->hero->attackWithAHeavyAttack(enimiesInTheRoom[trigger]);
+		healthBars[trigger + 1]->update();
 		if(enimiesInTheRoom[trigger]->isDead())
 		{
 			dropItems.push_back(enimiesInTheRoom[trigger]->kill());
 			auto endItem = dropItems.rbegin();
-			(*endItem)->setPositionTexture(0, 0);
-			insertButton(trigger, dropItemsButton, 0, 0, 0, 0);
+			sf::Vector2f positionItem = enimiesInTheRoom[trigger]->getPosition();
+			(*endItem)->setPositionTexture(positionItem.x, positionItem.y);
+			insertButton(dropItems.size(), dropItemsButton, positionItem.x, positionItem.y, 118, 137);
+
+			auto itMonster = enimiesInTheRoom.begin();
+			for (int i = 0; i < trigger; i++)
+			{
+				++itMonster;
+			}
+			enimiesInTheRoom.erase(itMonster);
+			trigger = MONSTER_NOT_SELECTED;
 		}
 	};
-	commandHero[2] = [&]()
+	commandHero[SPECIAL_ATTACK] = [&]()mutable
 	{
-		if (trigger == -1)
+		if (trigger == MONSTER_NOT_SELECTED)
 		{
 			std::cout << "LOG: Enimie wasn't selected\n";
 			return;
 		}
-		hero->attackWithASpecialAttack(enimiesInTheRoom[trigger]);
+		this->hero->attackWithASpecialAttack(enimiesInTheRoom[trigger]);
 	};
-	passToMove = [&]()
+	passToMove = [&]()mutable
 	{
 		std::cout << "Pass to move\n";
 		turnPlayer = false;
+	};
+	next = []()
+	{
+		throw ID_NEXT;
 	};
 }
 
@@ -93,7 +118,7 @@ void Battle::update()
 				int i = 0;
 				for (auto& item : dropItemsButton)
 				{
-					/*if (item->containsCursor(cursor))
+					if (item->containsCursor(cursor))
 					{
 						auto itemBegin = dropItems.begin();
 						for (int j = 0; j < i; j++)
@@ -101,7 +126,14 @@ void Battle::update()
 							itemBegin++;
 						}
 						hero->addInventory(*itemBegin);
-					}*/
+						dropItems.erase(itemBegin);
+
+					}
+				}
+
+				if (exitUI->containsCursor(cursor))
+				{
+					exitUI->startClick();
 				}
 			}
 		}
@@ -115,12 +147,22 @@ void Battle::update()
 			{
 				if (ui->containsCursor(coordinate))
 				{
-					//Переключить флаг на true когда будут исходники
 					isHover = false;
 					idHoverButton = ui->getState();
 					return;
 				}
 			}
+			for (int i = 0; i < enimiesUI.size(); i++)
+			{
+				if (enimiesUI[i]->containsCursor(coordinate))
+				{
+					isHoverEnimie = true;
+					idHoverEnimie = i;
+					return;
+				}
+			}
+			enimiesUI[idHoverEnimie]->setIdle();
+			//buttons[idHoverButton]->getIdle();
 		}
 		else if (event->type == sf::Event::MouseButtonPressed)
 		{
@@ -132,18 +174,40 @@ void Battle::update()
 					if (ui->containsCursor(coordinate))
 					{
 						ui->startClick();
-						trigger = -1;
+						return;
+					}
+				}
+				for (auto& ui : enimiesUI)
+				{
+					if (ui->containsCursor(coordinate))
+					{
+						trigger = idHoverEnimie;
+						std::cout << trigger << '\n';
 						return;
 					}
 				}
 			}
 		}
 	}
-	else
+
+}
+
+void Battle::render()
+{
+	if (isHover)
+	{
+		buttons[idHoverButton]->setHover();
+		isHover = false;
+	}
+	else if (isHoverEnimie)
+	{
+		enimiesUI[idHoverEnimie]->setHover();
+		isHoverEnimie = false;
+	}
+	if (!turnPlayer)
 	{
 		bool turn = enimiesInTheRoom[monsterID]->makeADecision(hero);
-		//0 - это номер нашего игрока
-		healthBars[0]->update();
+		healthBars[HERO_HEALTHBAR]->update();
 		if (!turn)
 		{
 			monsterID++;
@@ -160,16 +224,6 @@ void Battle::update()
 				monsterID = 0;
 			}
 		}
-	}
-
-}
-
-void Battle::render()
-{
-	if (isHover)
-	{
-		buttons[idHoverButton]->setHover();
-		isHover = false;
 	}
 }
 
@@ -204,29 +258,38 @@ void Battle::hud()
 	{
 		handle->draw(*bar);
 	}
+	for (auto& ui: enimiesUI)
+	{
+		handle->draw(ui->getRect());
+	}
+	//handle->draw(exitUI->getRect());
 }
 
 void Battle::createSource()
 {
 	isDelete = false;
 	wallpaper = new sf::Texture;
-
+	isHoverEnimie = false;
+	idHoverEnimie = 0;
 	monsterID = 0;
 	std::uniform_int_distribution<int> numEnimies(1, 3);
 	std::random_device rd;
 
 	white = new sf::Color(sf::Color::White);
-	texture = new sf::Texture[3];
+	textureButtonUI = new sf::Texture[3];
+	textureButtonEnimies = new sf::Texture[2];
 	commandAreaTexture = new sf::Texture;
 	text = new sf::Text[4];
-	loadTexture("resources//Image//Textures//teal.png", &texture[0]);
-	loadTexture("resources//Image//Textures//red.png", &texture[1]);
-	loadTexture("resources//Image//Textures//Color(28,25,37).png", &texture[2]);
+	loadTexture("resources//Image//Textures//teal.png", &textureButtonUI[0]);
+	loadTexture("resources//Image//Textures//red.png", &textureButtonUI[1]);
+	loadTexture("resources//Image//Textures//Color(28,25,37).png", &textureButtonUI[2]);
 	loadTexture("resources//Image//Textures//command Area.png", commandAreaTexture);
+	loadTexture("resources//Image//Textures//transparent.png", &textureButtonEnimies[0]);
+	loadTexture("resources//Image//Textures//hoverEnimies.png", &textureButtonEnimies[1]);
 	commandAreaTexture->setSmooth(true);
 	area = new sf::RectangleShape;
 	area->setSize(sf::Vector2f(935.f, 133.f));
-	area->setPosition(494, 898);
+	area->setPosition(494.f, 898.f);
 	area->setTexture(commandAreaTexture, true);
 	createUI();
 
@@ -237,11 +300,9 @@ void Battle::createSource()
 	std::mt19937 randomEngine{ reinterpret_cast<unsigned>(this) };
 	std::uniform_int_distribution<> nEnimies{ 1, 3 };
 	int var = 1;//nEnimies(randomEngine);
-	enimiesInTheRoom.resize(1);
 	healthBars.resize(1 + var);
-	//Health bar heo 
-	
-	healthBars[0] = new HealthBar(500, 490, titleFont, hero);
+	exitRoom = new sf::Texture;
+	healthBars[HERO_HEALTHBAR] = new HealthBar(414.f, 793.f, titleFont, hero);
 
 	//Generate Enimies
 	// Правила размещение врагов? Кол-во от 1 до 3
@@ -250,35 +311,49 @@ void Battle::createSource()
 	case 1:
 	{
 		loadTexture("resources//Image//Textures//1st floor.png", wallpaper);
+		loadTexture("resources//Image//Textures//door 1st floor.png", exitRoom);
 		//Как генерируем врага?
 		for (size_t i = 0; i < var; i++)
 		{
-			enimiesInTheRoom[i] = new Enimies(1300, 500, "resources//Image//Textures//spider.png");
-			healthBars[i + 1] = new HealthBar(1300, 800, titleFont, enimiesInTheRoom[i]);
+			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//spider.png"));
+			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
+			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
+			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
 		}
 		break;
 	}
 	case 2:
 	{
 		loadTexture("resources//Image//Textures//2nd floor.png", wallpaper);
+		loadTexture("resources//Image//Textures//door 2st floor.png", exitRoom);
 		for (size_t i = 0; i < var; i++)
 		{
-
+			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//monster.png"));
+			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
+			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
+			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
 		}
 		break;
 	}
 	case 3:
 	{
 		loadTexture("resources//Image//Textures//3rd floor.png", wallpaper);
+		loadTexture("resources//Image//Textures//door 3st floor.png", exitRoom);
 		for (size_t i = 0; i < var; i++)
 		{
-
+			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//necro.png"));
+			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
+			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
+			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
 		}
 		break;
 	}
 	//Продолжение следует
 	}
 	wall.setTexture(*wallpaper);
+	short int xPos(1716), yPos(0), width(206), height(670);
+	exitUI = new Button(0, xPos, yPos, width, height, exitRoom);
+	exitUI->setOnClick(next);
 	*isLoadSource = true;
 }
 
@@ -289,8 +364,10 @@ void Battle::removeSource()
 		deleteObject(ui);
 	}
 	buttons.clear();
-
-	deleteArrayObject(texture);
+	deleteObject(exitRoom);
+	deleteObject(exitUI);
+	deleteArrayObject(textureButtonUI);
+	deleteArrayObject(textureButtonEnimies);
 	deleteArrayObject(text);
 	deleteObject(white);
 	deleteObject(wallpaper);

@@ -41,21 +41,21 @@ void Unit::showHealthBar(bool showHealth)
 
 void Unit::attackWithALightAttack(Unit* unit)
 {
-    uint8_t& number = characterisitcs->getNumberOfAction();
-    number -= 1;
+    uint16_t* number = &this->characterisitcs->getNumberOfAction();
+    *number -= 1;
     if (unit->block)
     {
         /*Процент блока*/
         unit->getCharacteristics()->changeHealth(0);
         return;
     }
-    unit->getCharacteristics()->changeHealth(-this->getCharacteristics()->getDamage());
+    unit->getCharacteristics()->changeHealth(-1 * this->getCharacteristics()->getDamage());
 }
 
 void Unit::attackWithAHeavyAttack(Unit* unit)
 {
 
-    uint8_t& number = unit->getCharacteristics()->getNumberOfAction();
+    uint16_t& number = unit->getCharacteristics()->getNumberOfAction();
     number -= 2;
 
     if (unit->block)
@@ -64,7 +64,7 @@ void Unit::attackWithAHeavyAttack(Unit* unit)
         unit->getCharacteristics()->changeHealth(0);
         return;
     }
-    unit->getCharacteristics()->changeHealth(this->getCharacteristics()->getDamage()*1.5f);
+    unit->getCharacteristics()->changeHealth(-1*this->getCharacteristics()->getDamage()*1.5f);
 }
 
 Characteristics* Unit::getCharacteristics()

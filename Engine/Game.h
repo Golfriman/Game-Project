@@ -18,8 +18,7 @@ class Game : public State
 	Settings* settings;
 	std::vector<TowerState*> towerstates;
 	std::vector<Button*> buttons;
-	static constexpr int idInventory = 0;
-	static constexpr int idSettings = -2;
+	static constexpr int ID_INVENTORY = 0;
 	InventoryScreen* inventoryScreen;
 	bool isDropMenu;
 	int idGame;

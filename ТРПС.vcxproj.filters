@@ -160,7 +160,10 @@
       <Filter>Source Files\LoadAndSave</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithEvent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\DeathScreen.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

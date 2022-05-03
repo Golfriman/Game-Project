@@ -26,14 +26,15 @@ Engine::Engine()
 {
 	system = new System;
 	isLoadSource = false;
-	stateGame.resize(5);
-	stateGame[ID_MENU] = new Menu(*system, &isLoadSource);
-	stateGame[ID_GAME] = new Game(*system, &isLoadSource);
-	stateGame[ID_SETTINGS] = new Settings(*system, &isLoadSource, ID_MENU);
-	stateGame[ID_JOURNAL] = new Journal(*system, &isLoadSource);
-	stateGame[ID_EXIT] = new Exit(*system, &isLoadSource);
+	stateGame = { 
+		std::make_pair(ID_MENU, new Menu(*system, &isLoadSource)),
+		std::make_pair(ID_GAME, new Game(*system, &isLoadSource)),
+		std::make_pair(ID_SETTINGS, new Settings(*system, &isLoadSource, ID_MENU)),
+		std::make_pair(ID_JOURNAL, new Journal(*system, &isLoadSource)),
+		std::make_pair(ID_EXIT, new Exit(*system, &isLoadSource))
+	};
 	window = system->getHandle();
-	stateEngine = 0;
+	stateEngine = ID_MENU;
 	stateGame[stateEngine]->createSource();
 	system->getAudio().playBackgroundMusic(system->getAudio().getBackgroundPath("Crushed Dreams"));
 }
@@ -75,7 +76,7 @@ Engine::~Engine()
 	stateGame[stateEngine]->removeSource();
 	for (auto object : stateGame)
 	{
-		deleteObject(object);
+		deleteObject(object.second);
 	}
 	stateGame.clear();
 	deleteObject(system);

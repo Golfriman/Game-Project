@@ -4,6 +4,11 @@
 
 class Battle: public TowerState
 {
+	static constexpr int MONSTER_NOT_SELECTED = -1;
+	static constexpr int HERO_HEALTHBAR = 0;
+	static constexpr int LIGHT_ATTACK = 0;
+	static constexpr int HEAVY_ATTACK = 1;
+	static constexpr int SPECIAL_ATTACK = 2;
 	int levelGenerate;
 	size_t monsterID;
 	bool isDelete;
@@ -11,21 +16,25 @@ class Battle: public TowerState
 	int trigger;
 	bool isHover;
 	size_t idHoverButton;
+	bool isHoverEnimie;
+	size_t idHoverEnimie;
 	std::vector<Enimies*> enimiesInTheRoom;
-	//Это нужно для того чтобы взаимодействовать с врагами...
 	std::vector<Button*> enimiesUI;
 	std::vector<Button*> buttons;
 	std::list<Items*> dropItems;
 	std::list<Button*> dropItemsButton;
-	sf::Texture* texture;
+	sf::Texture* textureButtonUI;
+	sf::Texture* textureButtonEnimies;
 	sf::Texture* commandAreaTexture;
+	sf::Texture* exitRoom;
 	sf::RectangleShape* area;
 	sf::Text* text;
 	sf::Color* white;
 	sf::Sprite wall;
 	std::function<void()> commandHero[3];
 	std::function<void()> passToMove;
-
+	std::function<void()> next;
+	Button* exitUI;
 	//HealthBar
 	struct HealthBar:sf::Drawable
 	{
