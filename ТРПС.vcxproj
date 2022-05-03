@@ -392,8 +392,10 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
     <ClCompile Include="Engine\Game\Tower state\Battle.cpp" />
     <ClCompile Include="Engine\Game\Tower state\Blacksmith.cpp" />
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithEvent.cpp" />
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.cpp" />
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\Dialog.cpp" />
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\Farewell.cpp" />
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.h" />
     <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\UpgradeWeapon.cpp" />
     <ClCompile Include="Engine\Game\Tower state\Enimies\Enimies.cpp" />
     <ClCompile Include="Engine\Game\Tower state\RandomEvent.cpp" />
