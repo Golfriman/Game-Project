@@ -1,8 +1,4 @@
 #include "BlacksmithEvent.h"
-#include "../../System.h"
-#include "../../Global/Button.h"
-#include "../../Global/Support function.h"
-
 
 
 class BlacksmithMenu : public BlacksmithEvent
@@ -30,7 +26,4 @@ class BlacksmithMenu : public BlacksmithEvent
  void hud()override;
 	 void createSource()override;
 	 void removeSource()override;
-	
-
-
 };

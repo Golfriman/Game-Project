@@ -4,6 +4,8 @@
 
 class Unit: public sf::Drawable
 {
+	float blockDamage();
+	void critDamage(auto& damage);
 protected:
 	bool block;
 	Characteristics* characterisitcs;

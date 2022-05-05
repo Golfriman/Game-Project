@@ -25,7 +25,7 @@ Battle::Battle(System& system, Hero* hero, int level, bool*isLoadingSource)
 	turnPlayer = true;
 	trigger = MONSTER_NOT_SELECTED;
 	init(system, hero, isLoadingSource);
-	commandHero[LIGHT_ATTACK] = [&]()mutable
+	commandHero[LIGHT_ATTACK] = [&]()
 	{
 		if (trigger == MONSTER_NOT_SELECTED)
 		{
@@ -52,7 +52,7 @@ Battle::Battle(System& system, Hero* hero, int level, bool*isLoadingSource)
 			trigger = MONSTER_NOT_SELECTED;
 		}
 	};
-	commandHero[HEAVY_ATTACK] = [&]()mutable {
+	commandHero[HEAVY_ATTACK] = [&]() {
 		if (trigger == MONSTER_NOT_SELECTED)
 		{
 			std::cout << "LOG: Enimie wasn't selected\n";
@@ -77,7 +77,7 @@ Battle::Battle(System& system, Hero* hero, int level, bool*isLoadingSource)
 			trigger = MONSTER_NOT_SELECTED;
 		}
 	};
-	commandHero[SPECIAL_ATTACK] = [&]()mutable
+	commandHero[SPECIAL_ATTACK] = [&]()
 	{
 		if (trigger == MONSTER_NOT_SELECTED)
 		{
@@ -86,7 +86,7 @@ Battle::Battle(System& system, Hero* hero, int level, bool*isLoadingSource)
 		}
 		this->hero->attackWithASpecialAttack(enimiesInTheRoom[trigger]);
 	};
-	passToMove = [&]()mutable
+	passToMove = [&]()
 	{
 		std::cout << "Pass to move\n";
 		turnPlayer = false;
@@ -384,6 +384,11 @@ void Battle::removeSource()
 	}
 	healthBars.clear();
 	enimiesInTheRoom.clear();
+	for (auto& ui : enimiesUI)
+	{
+		deleteObject(ui);
+	}
+	enimiesUI.clear();
 	//Устанавливаем не модифицированные характеристики
 	hero->resetCharacteristics();
 	isDelete = true;

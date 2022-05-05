@@ -56,6 +56,12 @@ void Game::createUI()
 	setText(L"Главное меню", text[3], normallFont, 115, 185, *white, 36);
 	insertButton(5, buttons, 115, 185, 280, 50, &texture[2]);
 	buttons[5]->setOnClick(clickMainMenu);
+
+	setText(L"Урон", textAreaHeroInfo[0], normallFont, 1604, 843, *white, 24);
+	setText(L"Здоровье", textAreaHeroInfo[1], normallFont, 1604, 882, *white, 24);
+	setText(L"Ловкость", textAreaHeroInfo[2], normallFont, 1604, 921, * white, 24);
+	setText(L"Шанс крита", textAreaHeroInfo[3], normallFont, 1604, 960, * white, 24);
+	setText(L"Монеты", textAreaHeroInfo[4], normallFont, 1604, 999, *white, 24);
 }
 
 Game::Game(System& system, bool *isLoadSource)
@@ -133,6 +139,13 @@ void Game::createSource()
 	textureHero->setSmooth(true);
 	loadTexture("resources//Image//Textures//heroFloor1.png", textureHero);
 	hero->setTextureHero(textureHero);
+	textureAreaHeroInfo = new sf::Texture;
+	loadTexture("resources//Image//Textures//areaCharacteristics.png", textureAreaHeroInfo);
+	textureAreaHeroInfo->setSmooth(true);
+	areaHeroInfo = new sf::RectangleShape(sf::Vector2f(296, 228));
+	areaHeroInfo->setPosition(1580, 816);
+	areaHeroInfo->setTexture(textureAreaHeroInfo, true);
+	textAreaHeroInfo = new sf::Text[5];
 	createUI();
 
 	*isLoadSource = true;
@@ -169,6 +182,9 @@ void Game::removeSource()
 	{
 		deleteObject(elem);
 	}
+	deleteArrayObject(textAreaHeroInfo);
+	deleteObject(areaHeroInfo);
+	deleteObject(textureAreaHeroInfo);
 	buttons.clear();
 	level = 1;
 	isDropMenu = false;
@@ -177,7 +193,12 @@ void Game::removeSource()
 void Game::update()
 {
 	try {
-		if (flag)
+		if (hero->isDead())
+		{
+			//Когда будет готов ui поменять на throw ID_DEATH_SCREEN
+			throw ID_MENU;
+		}
+		else if (flag)
 		{
 			while (handle->pollEvent(*event))
 			{
@@ -256,6 +277,8 @@ void Game::update()
 				{
 					deleteObject(towerstates[i]);
 				}
+				towerstates.erase(towerstates.begin() + 1, towerstates.end());
+
 				generateLevel(*system);
 				idGame = 1;
 				level++;
@@ -324,6 +347,13 @@ void Game::draw()
 				handle->draw(*infoLevel);
 				handle->draw(*numberLevel);
 			}
+
+			handle->draw(*areaHeroInfo);
+			for (int i = 0; i < 5; i++)
+			{
+				handle->draw(textAreaHeroInfo[i]);
+			}
+
 			towerstates[idGame]->hud();
 		}
 	}

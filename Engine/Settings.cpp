@@ -13,8 +13,8 @@ void Settings::createUI(sf::Color& white, sf::Color& red)
 	setText(L"Настройки", text[0], titleFont, 863, 230, red, 64);
 	setText(L"Video", text[1], normallFont, 466, 338, white, 36);
 	setText(L"Fullscreen mode", text[2], normallFont, 476, 398, white, 24);
-	loadTexture("resources//Image//Textures//switchOn.jpg", &textureButton[2]);
-	loadTexture("resources//Image//Textures//switchOff.jpg", &textureButton[3]);
+	loadTexture("resources//Image//Textures//switchOn.jpg", &textureButton[3]);
+	loadTexture("resources//Image//Textures//switchOff.jpg", &textureButton[2]);
 	insertButton(0, settingsButton, 767, 399, 28, 24, nullptr, nullptr, nullptr, &textureButton[2], &textureButton[3]);
 	settingsButton[0]->setOnClick(switchFullscreen);
 	setText(L"FPS", text[3], normallFont, 466, 443, white, 24);

@@ -4,11 +4,9 @@
 #include"Settings.h"
 #include"Journal.h"
 #include"Exit.h"
-#include<unordered_map>
 
 class Engine
 {
-
 	int stateEngine;
 	std::unordered_map<int,State*> stateGame;
 	System* system;

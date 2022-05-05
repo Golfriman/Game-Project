@@ -3,18 +3,18 @@
 class Characteristics
 {
 	uint16_t damage;
-	uint16_t healthPoint;
+	int16_t healthPoint;
 	uint16_t maxHealth;
 	uint16_t lucky;
 	uint16_t dexterity;
-	uint16_t numberOfActionsPerTurn;
+	int16_t numberOfActionsPerTurn;
 	uint16_t armorPoints;
-	uint16_t numberOfActionsPerTurn_copy;
+	int16_t numberOfActionsPerTurn_copy;
 	bool decased;
 	bool isBuffHealth;
 	bool isDebuffBleeding;
 public:
-	Characteristics(uint16_t damage, uint16_t maxHP, uint16_t lucky, uint16_t dexterity, uint16_t numberOfActionsPerTurn, uint16_t armorPoints);
+	Characteristics(uint16_t damage, uint16_t maxHP, uint16_t lucky, uint16_t dexterity, int16_t numberOfActionsPerTurn, uint16_t armorPoints);
 	void changeHealth(int16_t variable);
 	void changeCharacterisitics(uint16_t damage, uint16_t hp, uint16_t maxHP, uint16_t lucky, uint16_t dexterity, uint16_t numberOfActionsPerTurn);
 	void setBuff(bool variable);
@@ -24,9 +24,12 @@ public:
 	void changeArmorPoints(uint16_t armorPoints);
 	bool isDead();
 	void setBleeding(bool isBleeding);
-	uint16_t& getNumberOfAction();
+	int16_t& getNumberOfAction();
 	uint16_t getDamage();
 	uint16_t getMaxHealth();
-	uint16_t getHealthPoint();
+	int16_t getHealthPoint();
+	void setHealth(int16_t hp);
 	void resetNumOfActionPerTurn();
+	int16_t getDexterity();
+	int16_t getLucky();
 };

@@ -9,6 +9,7 @@ class Battle: public TowerState
 	static constexpr int LIGHT_ATTACK = 0;
 	static constexpr int HEAVY_ATTACK = 1;
 	static constexpr int SPECIAL_ATTACK = 2;
+
 	int levelGenerate;
 	size_t monsterID;
 	bool isDelete;

@@ -12,7 +12,15 @@ Hero::Hero(Characteristics* character)
 
 void Hero::attackWithASpecialAttack(Unit* unit)
 {
-	unit->setBlock();
+	int16_t& number = this->characterisitcs->getNumberOfAction();
+	if (number >= 3)
+	{
+		number -= 3;
+		unit->setBlock();
+		return;
+	}
+	std::cout << "haha\n";
+	return;
 }
 
 
@@ -50,32 +58,32 @@ void Hero::updateCharacteristics(sf::Vector2u diceValue)
 		{
 		case 1:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(1.1 * characterisitcs->getDamage(), 0, 0, 0, 0, 0);
 			break;
 		}
 		case 2:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(0, 0, 0, 1.1*characterisitcs->getLucky(), 0, 0);
 			break;
 		}
 		case 3:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 1.1*characterisitcs->getDexterity(), 0);
 			break;
 		}
 		case 4:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(0.9 * characterisitcs->getDamage(), 0, 0, 0, 0, 0);
 			break;
 		}
 		case 5:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0.9 * characterisitcs->getLucky(), 0, 0);
 			break;
 		}
 		case 6:
 		{
-			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0, 0);
+			this->characterisitcs->changeCharacterisitics(0, 0, 0, 0, 0.9 * characterisitcs->getDexterity(), 0);
 			break;
 		}
 		}
@@ -91,7 +99,9 @@ void Hero::setTextureHero(sf::Texture* textureHero)
 
 void Hero::resetCharacteristics()
 {
+	int healthPoint = characterisitcs->getHealthPoint();
 	*characterisitcs = *no_modifyCharacteristics;
+	characterisitcs->setHealth(healthPoint);
 }
 
 Hero::~Hero()

@@ -36,6 +36,9 @@ class Game : public State
 	sf::Text* infoLevel;
 	sf::Text* numberLevel;
 	sf::Color *white;
+	sf::Texture* textureAreaHeroInfo;
+	sf::RectangleShape* areaHeroInfo;
+	sf::Text* textAreaHeroInfo;
 	void generateLevel(System& system);
 	void createUI();
 

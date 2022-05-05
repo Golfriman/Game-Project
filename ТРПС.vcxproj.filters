@@ -165,6 +165,12 @@
     <ClCompile Include="Engine\Game\DeathScreen.cpp">
       <Filter>Source Files\Engine\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.h">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Tower state\BlacksmithEvent\BlacksmithMenu.cpp">
+      <Filter>Source Files\Engine\Game\Tower State\BlacksmithEvent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="extlibs\bin\x64\sfml-audio-2.dll">
