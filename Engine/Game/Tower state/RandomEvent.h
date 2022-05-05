@@ -3,9 +3,11 @@
 
 class RandomEvent : public TowerState
 {
+	sf::Color white;
 	std::vector<Button*> buttons;
 	sf::Texture* texture;
-	sf::Text* text;
+	std::vector<sf::Text> text;
+	void createAltarEvent();
 public:
 	RandomEvent(System& system, Hero* hero, bool *isLoadSource);
 	void update();
