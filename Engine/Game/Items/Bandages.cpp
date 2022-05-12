@@ -3,7 +3,7 @@
 Bandages::Bandages()
 {
 	textureItem = new sf::Texture;
-	info = L"Ѕинты хорошее средство, чтобы остановить кровотечение,\nи немного позвол€ет восстановить здоровь€";
+	info = L"Ѕинты - это хорошее средство чтобы остановить кровотечение,\nтакже они немного позвол€ют восстановить здоровье";
 	loadTexture("resources//Image//Textures//band.png", textureItem);
 }
 

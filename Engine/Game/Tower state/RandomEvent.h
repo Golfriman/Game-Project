@@ -8,6 +8,7 @@ class RandomEvent : public TowerState
 	std::vector<Button*> buttons;
 	sf::Texture* texture;
 	std::vector<sf::Text> text;
+<<<<<<< Updated upstream
 	sf::RectangleShape area;
 	void CreateRect();
 	void EventEffectSurprise();
@@ -28,6 +29,13 @@ class RandomEvent : public TowerState
 	void EventCorpse();
 	void EventReflections();
 
+=======
+	sf::Text history;
+	std::vector<sf::String> textHistory;
+	std::function<void()> next;
+	size_t countHistory;
+	void createAltarEvent();
+>>>>>>> Stashed changes
 public:
 	RandomEvent(System& system, Hero* hero, bool *isLoadSource);
 	void update();

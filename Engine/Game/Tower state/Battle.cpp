@@ -104,7 +104,7 @@ void Battle::update()
 		return;
 	}
 	//ѕосле того как закончатс€ противники, то есть возможность куда-нибудь потыкать
-	else if (enimiesInTheRoom.size() == 0)
+	else if (enimiesInTheRoom.empty())
 	{
 		if (event->type == sf::Event::MouseMoved)
 		{
@@ -127,8 +127,12 @@ void Battle::update()
 						}
 						hero->addInventory(*itemBegin);
 						dropItems.erase(itemBegin);
-
 					}
+				}
+				if (exitUI->containsCursor(cursor))
+				{
+					exitUI->startClick();
+					return;
 				}
 
 				if (exitUI->containsCursor(cursor))
@@ -225,6 +229,10 @@ void Battle::render()
 			}
 		}
 	}
+	if (trigger != MONSTER_NOT_SELECTED)
+	{
+		enimiesUI[trigger]->setActive();
+	}
 }
 
 void Battle::draw()
@@ -234,6 +242,10 @@ void Battle::draw()
 	for (auto& enimie : enimiesInTheRoom)
 	{
 		handle->draw(*enimie);
+	}
+	if (enimiesInTheRoom.empty())
+	{
+		handle->draw(exitUI->getRect());
 	}
 }
 
@@ -258,11 +270,13 @@ void Battle::hud()
 	{
 		handle->draw(*bar);
 	}
-	for (auto& ui: enimiesUI)
+	if (!enimiesInTheRoom.empty())
 	{
-		handle->draw(ui->getRect());
+		for (auto& ui : enimiesUI)
+		{
+			handle->draw(ui->getRect());
+		}
 	}
-	//handle->draw(exitUI->getRect());
 }
 
 void Battle::createSource()
@@ -277,7 +291,7 @@ void Battle::createSource()
 
 	white = new sf::Color(sf::Color::White);
 	textureButtonUI = new sf::Texture[3];
-	textureButtonEnimies = new sf::Texture[2];
+	textureButtonEnimies = new sf::Texture[3];
 	commandAreaTexture = new sf::Texture;
 	text = new sf::Text[4];
 	loadTexture("resources//Image//Textures//teal.png", &textureButtonUI[0]);
@@ -285,7 +299,7 @@ void Battle::createSource()
 	loadTexture("resources//Image//Textures//Color(28,25,37).png", &textureButtonUI[2]);
 	loadTexture("resources//Image//Textures//command Area.png", commandAreaTexture);
 	loadTexture("resources//Image//Textures//transparent.png", &textureButtonEnimies[0]);
-	loadTexture("resources//Image//Textures//hoverEnimies.png", &textureButtonEnimies[1]);
+	
 	commandAreaTexture->setSmooth(true);
 	area = new sf::RectangleShape;
 	area->setSize(sf::Vector2f(935.f, 133.f));
@@ -315,10 +329,12 @@ void Battle::createSource()
 		// ак генерируем врага?
 		for (size_t i = 0; i < var; i++)
 		{
-			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//spider.png"));
+			loadTexture("resources//Image//Textures//spider2.png", &textureButtonEnimies[1]);
+			loadTexture("resources//Image//Textures//spider3.png", &textureButtonEnimies[2]);
+			enimiesInTheRoom.push_back(new Enimies(1300, 450, "resources//Image//Textures//spider1.png"));
 			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
 			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
-			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
+			insertButton(i, enimiesUI, 1300, 450, size.x, size.y, &textureButtonEnimies[0], &textureButtonEnimies[1], &textureButtonEnimies[2]);
 		}
 		break;
 	}
@@ -328,10 +344,12 @@ void Battle::createSource()
 		loadTexture("resources//Image//Textures//door 2st floor.png", exitRoom);
 		for (size_t i = 0; i < var; i++)
 		{
-			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//monster.png"));
+			loadTexture("resources//Image//Textures//monster2.png", &textureButtonEnimies[1]);
+			loadTexture("resources//Image//Textures//monster3.png", &textureButtonEnimies[2]);
+			enimiesInTheRoom.push_back(new Enimies(1300, 450, "resources//Image//Textures//monster1.png"));
 			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
 			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
-			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
+			insertButton(i, enimiesUI, 1300, 450, size.x, size.y, &textureButtonEnimies[0], &textureButtonEnimies[1], &textureButtonEnimies[2]);
 		}
 		break;
 	}
@@ -341,10 +359,12 @@ void Battle::createSource()
 		loadTexture("resources//Image//Textures//door 3st floor.png", exitRoom);
 		for (size_t i = 0; i < var; i++)
 		{
-			enimiesInTheRoom.push_back(new Enimies(1300, 500, "resources//Image//Textures//necro.png"));
+			loadTexture("resources//Image//Textures//necromancer2.png", &textureButtonEnimies[1]);
+			loadTexture("resources//Image//Textures//necromancer3.png", &textureButtonEnimies[2]);
+			enimiesInTheRoom.push_back(new Enimies(1300, 450, "resources//Image//Textures//necromancer1.png"));
 			healthBars[i + 1] = new HealthBar(1300, 793, titleFont, enimiesInTheRoom[i]);
 			sf::Vector2f size = enimiesInTheRoom[i]->getSize();
-			insertButton(i, enimiesUI, 1300, 500, size.x, size.y + 200, &textureButtonEnimies[0], &textureButtonEnimies[1]);
+			insertButton(i, enimiesUI, 1300, 450, size.x, size.y, &textureButtonEnimies[0], &textureButtonEnimies[1], &textureButtonEnimies[2]);
 		}
 		break;
 	}
@@ -385,6 +405,14 @@ void Battle::removeSource()
 	healthBars.clear();
 	enimiesInTheRoom.clear();
 	for (auto& ui : enimiesUI)
+	{
+		deleteObject(ui);
+	}
+	for (auto& item : dropItems)
+	{
+		deleteObject(item);
+	}
+	for (auto& ui : dropItemsButton)
 	{
 		deleteObject(ui);
 	}

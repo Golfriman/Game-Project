@@ -3,6 +3,7 @@
 
 void RandomEvent::EventEffectSurprise()
 {
+<<<<<<< Updated upstream
 	
 	
 	////Текстура 
@@ -174,17 +175,56 @@ void RandomEvent ::CreateRect()
 	area.setPosition(486, 719);
 	area.setSize(sf::Vector2f(944, 334));
 	area.setTexture(&texture[0], true);
+=======
+	textHistory.resize(0);
+
+	//Текстура 
+	texture = new sf::Texture[4];
+	//Загрузка текстуры
+	loadTexture("resources//Image//Textures//rect.png", &texture[0]);
+	//Размер массива текста
+	text.resize(1);
+	//Установить текст
+	setText(L"Продолжить\n", text[0], normallFont, 500, 500, white, 12);
+	//Установить кнопку
+	insertButton(0, buttons, 500, 500, 200, 200, &texture[0]);
+	buttons[0]->setOnClick(next);
+>>>>>>> Stashed changes
 }
 
 RandomEvent::RandomEvent(System& system, Hero* hero, bool*isLoadSource)
 {
 	init(system, hero, isLoadSource);
 	white = sf::Color::White;
+	countHistory = 0;
+	next = [&]()
+	{
+		if (countHistory < textHistory.size())
+		{
+			countHistory++;
+			history.setString(textHistory[countHistory]);
+		}
+		else
+		{
+			std::cout << "NEXT";
+			throw ID_NEXT;
+		}
+	};
 }
 
 void RandomEvent::update()
 {
-	
+	if (event->type == sf::Event::MouseButtonReleased)
+	{
+		sf::Vector2f coordinate = mouse->getCoordinate();
+		for (auto& ui : buttons)
+		{
+			if (ui->containsCursor(coordinate))
+			{
+				ui->startClick();
+			}
+		}
+	}
 }
 
 void RandomEvent::render()
@@ -206,13 +246,18 @@ void RandomEvent::hud()
 	{
 		handle->draw(uiText);
 	}
+<<<<<<< Updated upstream
 	
+=======
+	handle->draw(history);
+>>>>>>> Stashed changes
 }
 
 void RandomEvent::createSource()
 {
 	*isLoadSource = true;
 	std::mt19937 mersenne{ reinterpret_cast<unsigned>(this) };
+<<<<<<< Updated upstream
 	std::uniform_int_distribution<int> num(0, 3);
 	texture = new sf::Texture[4];
 	loadTexture("resources//Image//Textures//RandomFrame.png", &texture[0]);
@@ -293,10 +338,19 @@ void RandomEvent::createSource()
 		EventReflections();
 	}break;
 	}
+=======
+	std::uniform_int_distribution<int> num(0, 40);
+	createAltarEvent();
+>>>>>>> Stashed changes
 }
 
 void RandomEvent::removeSource()
 {
+	deleteArrayObject(texture);
+	for (auto& ui : buttons)
+	{
+		deleteObject(ui);
+	}
 }
 
 RandomEvent::~RandomEvent()
