@@ -12,6 +12,8 @@ class Engine
 	System* system;
 	sf::RenderWindow* window;
 	bool isLoadSource;
+	sf::Texture t_loadScreen;
+	sf::RectangleShape wallpaperScreen;
 public:
 	Engine();
 	void update();

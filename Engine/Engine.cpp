@@ -3,12 +3,16 @@
 
 void Engine::showLoadScreen()
 {
+
 	sf::Clock clock;
+	sf::Text text;
+	text.setCharacterSize(128);
+	text.setFillColor(sf::Color::Red);
+	text.setPosition(711, 293);
+	sf::String point;
 	while (!isLoadSource)
 	{
-		sf::Text text;
-		sf::String point;
-		sf::String string = "Loading";
+		sf::String string = L"Загрузка";
 		text.setFont(*system->getTitleFont());
 		if (clock.getElapsedTime().asMilliseconds() > 200)
 		{
@@ -16,6 +20,7 @@ void Engine::showLoadScreen()
 			clock.restart();
 		}
 		window->clear();
+		window->draw(wallpaperScreen);
 		text.setString(string + point);
 		window->draw(text);
 		window->display();
@@ -35,8 +40,15 @@ Engine::Engine()
 	};
 	window = system->getHandle();
 	stateEngine = ID_MENU;
-	stateGame[stateEngine]->createSource();
 	system->getAudio().playBackgroundMusic(system->getAudio().getBackgroundPath("Crushed Dreams"));
+	loadTexture("resources//Image//Textures//Экран загрузки.png", &t_loadScreen);
+	wallpaperScreen.setTexture(&t_loadScreen, true);
+	wallpaperScreen.setSize(sf::Vector2f(1920, 1080));
+
+	isLoadSource = false;
+	sf::Thread createSource([this]() { stateGame[stateEngine]->createSource(); });
+	createSource.launch();
+	showLoadScreen();
 }
 
 void Engine::update()

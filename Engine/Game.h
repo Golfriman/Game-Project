@@ -5,6 +5,7 @@
 #include"./Game/Tower state/RandomEvent.h"
 #include"Game/Tower state/Blacksmith.h"
 #include"Game/InventoryScreen.h"
+#include"Game/DeathScreen.h"
 
 #include"./Game/Hero.h"
 #include<random>
@@ -24,6 +25,7 @@ class Game : public State
 	int idGame;
 	int level;
 	Hero* hero;
+	bool deathScreen = false;
 	bool showHUD;
 	bool isDelete;
 	bool isPressedInventory;
@@ -39,6 +41,7 @@ class Game : public State
 	sf::Texture* textureAreaHeroInfo;
 	sf::RectangleShape* areaHeroInfo;
 	sf::Text* textAreaHeroInfo;
+	sf::Text characterHeroText[5];
 	void generateLevel(System& system);
 	void createUI();
 

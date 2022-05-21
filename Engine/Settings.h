@@ -28,6 +28,7 @@ class Settings : public State
 	int backgroundVolume;
 	int effectVolume;
 	int dialogVolume;
+	bool isDelete;
 	sf::Texture* textureButton;
 	bool isFullscreen, isLimitFPS;
 	void playEffects();
@@ -39,4 +40,5 @@ public:
 	void update();
 	void render();
 	void draw();
+	~Settings();
 };

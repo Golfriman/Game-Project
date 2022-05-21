@@ -2,20 +2,20 @@
 
 void Battle::createUI()
 {
-	insertButton(0, buttons, 552, 950, 238, 49, &textureButtonUI[0]);
+	insertButton(0, buttons, 552, 950, 238, 49, &textureButtonUI[0], &textureButtonUI[3]);
 	setText(L"Легкая атака", text[0], normallFont, 591, 960, *white, 24);
 	buttons[0]->setOnClick(commandHero[0]);
 
-	insertButton(1, buttons, 841, 950, 238, 49, &textureButtonUI[1]);
+	insertButton(1, buttons, 841, 950, 238, 49, &textureButtonUI[1], &textureButtonUI[4]);
 	setText(L"Тяжелая атака", text[1], normallFont, 871, 960, *white, 24);
 	buttons[1]->setOnClick(commandHero[1]);
 
-	insertButton(2, buttons, 1132, 950, 238, 49, &textureButtonUI[0]);
+	insertButton(2, buttons, 1132, 950, 238, 49, &textureButtonUI[0], &textureButtonUI[3]);
 	setText(L"Парирование", text[2], normallFont, 1164, 960, *white, 24);
 	buttons[2]->setOnClick(commandHero[2]);
 
-	insertButton(3, buttons, 841, 793, 238, 49, &textureButtonUI[2]);
-	setText(L"Передать ход", text[3], normallFont, 875, 808, *white, 24);
+	insertButton(3, buttons, 841, 793, 238, 49, &textureButtonUI[2], &textureButtonUI[5]);
+	setText(L"Передать ход", text[3], normallFont, 875, 801, *white, 24);
 	buttons[3]->setOnClick(passToMove);
 }
 
@@ -149,11 +149,10 @@ void Battle::update()
 			sf::Vector2f coordinate = mouse->getCoordinate();
 			for (auto& ui : buttons)
 			{
+				ui->setIdle();
 				if (ui->containsCursor(coordinate))
 				{
-					isHover = false;
-					idHoverButton = ui->getState();
-					return;
+					ui->setHover();
 				}
 			}
 			for (int i = 0; i < enimiesUI.size(); i++)
@@ -198,12 +197,7 @@ void Battle::update()
 
 void Battle::render()
 {
-	if (isHover)
-	{
-		buttons[idHoverButton]->setHover();
-		isHover = false;
-	}
-	else if (isHoverEnimie)
+	if (isHoverEnimie)
 	{
 		enimiesUI[idHoverEnimie]->setHover();
 		isHoverEnimie = false;
@@ -290,13 +284,16 @@ void Battle::createSource()
 	std::random_device rd;
 
 	white = new sf::Color(sf::Color::White);
-	textureButtonUI = new sf::Texture[3];
+	textureButtonUI = new sf::Texture[6];
 	textureButtonEnimies = new sf::Texture[3];
 	commandAreaTexture = new sf::Texture;
 	text = new sf::Text[4];
-	loadTexture("resources//Image//Textures//teal.png", &textureButtonUI[0]);
-	loadTexture("resources//Image//Textures//red.png", &textureButtonUI[1]);
+	loadTexture("resources//Image//Textures//RandomEventButton.png", &textureButtonUI[0]);
+	loadTexture("resources//Image//Textures//Button.png", &textureButtonUI[1]);
 	loadTexture("resources//Image//Textures//Color(28,25,37).png", &textureButtonUI[2]);
+	loadTexture("resources//Image//Textures//HoverButton0.png", &textureButtonUI[3]);
+	loadTexture("resources//Image//Textures//HoverButton1.png", &textureButtonUI[4]);
+	loadTexture("resources//Image//Textures//HoverButton2.png", &textureButtonUI[5]);
 	loadTexture("resources//Image//Textures//command Area.png", commandAreaTexture);
 	loadTexture("resources//Image//Textures//transparent.png", &textureButtonEnimies[0]);
 	

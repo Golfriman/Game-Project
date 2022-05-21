@@ -187,7 +187,7 @@ void InventoryScreen::createSource()
 	texture = new sf::Texture[4];
 	loadTexture("resources//Image//Textures//rect.png", &texture[0]);
 	loadTexture("resources//Image//Textures//hover.png", &texture[1]);
-	loadTexture("resources//Image//Textures//red.png", &texture[2]);
+	loadTexture("resources//Image//Textures//Button.png", &texture[2]);
 	loadTexture("resources//Image//Textures//activate.png", &texture[3]);
 	inventoryAreaTexture = new sf::Texture;
 	loadTexture("resources//Image//Textures//inventoryArea.png", inventoryAreaTexture);

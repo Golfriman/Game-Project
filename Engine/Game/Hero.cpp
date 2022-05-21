@@ -104,6 +104,7 @@ void Hero::resetCharacteristics()
 	characterisitcs->setHealth(healthPoint);
 }
 
+
 Hero::~Hero()
 {
 	delete inventory;

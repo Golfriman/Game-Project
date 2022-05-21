@@ -4,13 +4,15 @@
 class RandomEvent : public TowerState
 {
 	sf::Color white;
-	int n = 24;
-	std::vector<Button*> buttons;
+	static constexpr int n = 24;
+	std::vector<Button*> action_btn;
+	std::vector<Button*> next_btn;
 	sf::Texture* texture;
 	std::vector<sf::Text> text;
-<<<<<<< Updated upstream
+	std::vector<sf::Text> t_btn;
+	size_t max;
 	sf::RectangleShape area;
-	void CreateRect();
+	bool btn_enabled = false;
 	void EventEffectSurprise();
 	void EventChest();
 	void EventMimik();
@@ -28,14 +30,11 @@ class RandomEvent : public TowerState
 	void EventHallucinations();
 	void EventCorpse();
 	void EventReflections();
-
-=======
+	sf::RectangleShape shape;
 	sf::Text history;
 	std::vector<sf::String> textHistory;
 	std::function<void()> next;
 	size_t countHistory;
-	void createAltarEvent();
->>>>>>> Stashed changes
 public:
 	RandomEvent(System& system, Hero* hero, bool *isLoadSource);
 	void update();

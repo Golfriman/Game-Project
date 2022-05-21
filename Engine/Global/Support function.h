@@ -7,6 +7,7 @@ static constexpr int ID_SETTINGS = 0x12;
 static constexpr int ID_JOURNAL = 0x13;
 static constexpr int ID_EXIT = 0x14;
 static constexpr int ID_NEXT = 0x15;
+static constexpr int ID_DEATH = 0x16;
 
 template<typename T>
 inline void deleteObject(T* object)

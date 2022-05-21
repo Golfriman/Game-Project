@@ -11,7 +11,8 @@ class DeathScreen : public TowerState
 	sf::Text* text;
 	sf::RectangleShape desk;
 	bool isDelete;
-	sf::Color colorText = sf::Color::White;
+	sf::Color colorText0 = sf::Color::White;
+	sf::Color colorText1 = sf::Color::Red;
 	std::function<void()> restartGame;
 	std::function<void()> returnMainMenu;
 	void createUI();
@@ -20,6 +21,7 @@ public:
 	void update()override;
 	void render()override;
 	void draw()override;
+	void hud() override;
 	void createSource() override;
 	void removeSource() override;
 };

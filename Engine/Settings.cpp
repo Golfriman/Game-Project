@@ -75,7 +75,7 @@ Settings::Settings(System& system, bool* isLoadSource, const int& id):id(id)
 	wallpaper.setFillColor(sf::Color(72, 111, 106));
 	wallpaper.setPosition(416, 206);
 	initSystemComponent(system);
-
+	isDelete = false;
 	text = nullptr;
 	sound.setVolume(audio->getEffectVolume());
 	sound.setBuffer(audio->getEffects("Click"));
@@ -216,6 +216,7 @@ Settings::Settings(System& system, bool* isLoadSource, const int& id):id(id)
 
 void Settings::createSource()
 {
+	isDelete = false;
 	isFullscreen = window->isFull();
 	isLimitFPS= window->isLimit();
 
@@ -236,6 +237,8 @@ void Settings::createSource()
 
 void Settings::removeSource()
 {
+	if (isDelete) return;
+	isDelete = true;
 	deleteArrayObject(text);
 	deleteArrayObject(textureButton);
 	for (auto& object : settingsButton)
@@ -310,4 +313,13 @@ void Settings::draw()
 	{
 		handle->draw(text[i]);
 	}
+}
+
+Settings::~Settings()
+{
+	if (isDelete)
+	{
+		return;
+	}
+	this->removeSource();
 }
