@@ -5,7 +5,7 @@ void RandomEvent::EventEffectSurprise()
 {
 	text.resize(2);
 	setText(L"Привет\n", text[0], normallFont, 553, 799, white, n);
-	setText(L"Продолжить\n", text[0], normallFont, 646, 959, white, n);
+	setText(L"Продолжить\n", text[1], normallFont, 646, 959, white, n);
 }
 void RandomEvent::EventChest()
 {
@@ -16,7 +16,7 @@ void RandomEvent::EventChest()
 Я подошел и увидел гравировку A.B.B.A..\n\
 Кажется это был  фамильный герб владельцев башни. \n\
 Что ж посмотрим, какие драгоценности здесь есть.\n", text[0], normallFont, 553, 799, white, n);
-	setText(L"Открыть\n", text[0], normallFont, 646, 959, white, n);
+	setText(L"Открыть\n", text[1], normallFont, 646, 959, white, n);
 
 }
 void RandomEvent::EventMimik()
@@ -279,6 +279,7 @@ void RandomEvent::hud()
 
 void RandomEvent::createSource()
 {
+	isDelete = false;
 	*isLoadSource = true;
 	std::mt19937 mersenne{ reinterpret_cast<unsigned>(this) };
 
@@ -374,8 +375,13 @@ void RandomEvent::createSource()
 
 void RandomEvent::removeSource()
 {
+	isDelete = true;
 	deleteArrayObject(texture);
 	for (auto& ui : action_btn)
+	{
+		deleteObject(ui);
+	}
+	for (auto& ui : next_btn)
 	{
 		deleteObject(ui);
 	}
@@ -383,4 +389,6 @@ void RandomEvent::removeSource()
 
 RandomEvent::~RandomEvent()
 {
+	if (isDelete) return;
+	this->removeSource();
 }

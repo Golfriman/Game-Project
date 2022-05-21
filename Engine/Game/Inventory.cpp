@@ -19,8 +19,6 @@ void Inventory::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Inventory::Inventory()
 {
 	inventory.resize(maxSizeInventory);
-	Items* item = new Bandages;
-	inventory[7] = std::move(item);
 }
 
 void Inventory::addItem(Items&& item)
@@ -43,7 +41,8 @@ void Inventory::removeItem(size_t position)
 
 void Inventory::useItem(size_t position, Unit* hero)
 {
-	inventory[position]->use(hero);
+	Unit* _hero = hero;
+	inventory[position]->use(_hero);
 	removeItem(position);
 }
 

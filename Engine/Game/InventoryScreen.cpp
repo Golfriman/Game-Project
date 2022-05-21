@@ -23,20 +23,6 @@ void InventoryScreen::createDropMenu()
 		insertButton(i, buttonsDropMenu, 564 + i * 299, 949, 238, 49, &texture[2]);
 		setText(textDropMenu[i], dropMenuUI[i], normallFont, 564 + i * 299, 949, white, 24);
 	}
-	dropItem = [this]()
-	{
-		inventory->removeItem(positionCreateDropMenu);
-		itemInfo->setString(L"");
-		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
-		isCreated = false;
-	};
-	useItem = [this]()
-	{
-		inventory->useItem(positionCreateDropMenu, hero);
-		itemInfo->setString(L"");
-		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
-		isCreated = false;
-	};
 	buttonsDropMenu[1]->setOnClick(dropItem);
 	buttonsDropMenu[0]->setOnClick(useItem);
 	isCreated = true;
@@ -68,6 +54,20 @@ InventoryScreen::InventoryScreen(System& system, Hero* hero)
 	inventoryArea.setPosition(460, 172);
 	sf::Color area(0x19, 0x1C, 0x25);
 	textArea.setFillColor(area);
+	dropItem = [&]()
+	{
+		inventory->removeItem(positionCreateDropMenu);
+		itemInfo->setString(L"");
+		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
+		isCreated = false;
+	};
+	useItem = [&]()
+	{
+		inventory->useItem(positionCreateDropMenu, hero);
+		itemInfo->setString(L"");
+		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
+		isCreated = false;
+	};
 }
 
 void InventoryScreen::update()

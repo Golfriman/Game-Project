@@ -122,6 +122,7 @@ void Game::createSource()
 	isDropMenu = false;
 	idGame = 1;
 	isPressedInventory = false;
+	showHUD = true;
 	isPressedSettings = false;
 	mersenne = new std::mt19937({ reinterpret_cast<unsigned int>(this) });
 	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1));
@@ -163,7 +164,7 @@ void Game::createSource()
 void Game::removeSource()
 {
 	isDelete = true;
-	towerstates[ID_INVENTORY]->removeSource();
+
 	deleteObject(settings);
 	flag = true;
 	if (idGame == ID_INVENTORY)
@@ -172,6 +173,7 @@ void Game::removeSource()
 	}
 	else
 	{
+		towerstates[ID_INVENTORY]->removeSource();
 		towerstates[idGame]->removeSource();
 	}
 	for (size_t i = 0, size = towerstates.size(); i < size; i++)

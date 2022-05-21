@@ -35,6 +35,7 @@ class RandomEvent : public TowerState
 	std::vector<sf::String> textHistory;
 	std::function<void()> next;
 	size_t countHistory;
+	bool isDelete = false;
 public:
 	RandomEvent(System& system, Hero* hero, bool *isLoadSource);
 	void update();

@@ -165,7 +165,6 @@ void Battle::update()
 				}
 			}
 			enimiesUI[idHoverEnimie]->setIdle();
-			//buttons[idHoverButton]->getIdle();
 		}
 		else if (event->type == sf::Event::MouseButtonPressed)
 		{

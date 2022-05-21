@@ -21,7 +21,7 @@ void Characteristics::changeHealth(int16_t variable)
 		healthPoint = 0;
 		return;
 	}
-	else if (maxHealth - healthPoint < variable)
+	else if (variable + healthPoint > maxHealth)
 	{
 		healthPoint = maxHealth;
 		return;
