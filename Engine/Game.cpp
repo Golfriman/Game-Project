@@ -286,7 +286,7 @@ void Game::update()
 				towerstates[idGame]->update();
 			}
 		}
-		else
+		else 
 		{
 			settings->update();
 		}
@@ -342,10 +342,7 @@ void Game::update()
 		else if (id == ID_DEATH)
 		{
 			towerstates[idGame]->removeSource();
-			towerstates[ID_INVENTORY]->removeSource();
-			towerstates.clear();
-			towerstates.push_back(new DeathScreen(*system, hero, isLoadSource));
-			idGame = 0;
+			towerstates.insert(towerstates.begin()+idGame, (new DeathScreen(*system, hero, isLoadSource)));
 			towerstates[idGame]->createSource();
 			deathScreen = true;
 			showHUD = false;
