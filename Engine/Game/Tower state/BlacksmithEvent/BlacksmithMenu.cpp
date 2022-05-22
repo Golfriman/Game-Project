@@ -1,18 +1,22 @@
 #include "BlacksmithMenu.h"
 
 void BlacksmithMenu::createUI()
-{
-	insertButton(0, menuButton, 1500, 201, 359, 100, &textureButton[0]);
-	setText("Talk about tower", textButton[0], normallFont, 1529, 229, *white, 36);
+{    
+	insertButton(3, menuButton, 1494, 150, 407, 442, &textureButton[1]);
+
+	insertButton(0, menuButton, 1529, 201, 341, 100, &textureButton[0]);
+	setText(L"Поговорить с кузнецом", textButton[0], normallFont, 1553, 207, *white, 24);
 	menuButton[0]->setOnClick(pressToTalk);
 
-	insertButton(1, menuButton, 1500, 321, 359, 100, &textureButton[0]);
-	setText("Modification arms", textButton[1], normallFont, 1515,349, *white, 36);
+	insertButton(1, menuButton, 1529, 321, 341, 100, &textureButton[0]);
+	setText(L"Улучшить предметы", textButton[1], normallFont, 1573,328, *white, 24);
 	menuButton[1]->setOnClick(pressToMod);
 
-	insertButton(2, menuButton, 1500, 440, 359, 100, &textureButton[0]);
-	setText("Get away", textButton[2], normallFont, 1583, 469, *white, 36);
+	insertButton(2, menuButton, 1529, 440, 341, 100, &textureButton[0]);
+	setText(L"Уйти", textButton[2], normallFont, 1675, 469, *white, 24);
 	menuButton[2]->setOnClick(pressToExit);
+
+	
 
 
 }
@@ -90,15 +94,16 @@ void BlacksmithMenu::hud()
 	{
 		handle->draw(textButton[i]);
 	}
-}
+};
 
 void BlacksmithMenu::createSource()
 {
-	textureButton = new sf::Texture[1];
+	textureButton = new sf::Texture[2];
 	white = new sf::Color(sf::Color::White);
 	commandAreaTexture = new sf::Texture;
 	textButton = new sf::Text[3];
 	loadTexture("resources//Image//Textures//rect.png", &textureButton[0]);
+	loadTexture("resources//Image//Textures//BlackSmithSquare.png", &textureButton[1]);
 	createUI();
 
 }

@@ -1,15 +1,10 @@
 #include "BlacksmithEvent.h"
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-
+	
 class BlacksmithMenu : public BlacksmithEvent
 {
 	std::vector <Button*> menuButton;
 	void createUI();
 	bool hoverButton;
-	size_t idHoverButton;
 	std::function <void()> startDialog;
 	std::function <void()> modification;
 	std::function <void()> exit;
@@ -31,7 +26,7 @@ class BlacksmithMenu : public BlacksmithEvent
 	 void update()override;
 	 void render()override;
 	 void draw()override;
- void hud()override;
+     void hud()override;
 	 void createSource()override;
 	 void removeSource()override;
 };
