@@ -57,7 +57,7 @@ void BlackSmith::hud()
 void BlackSmith::createSource()
 {
 	t_wallpaper = new sf::Texture;
-	loadTexture("resources//Image//Textures//giga.png", t_wallpaper);
+	loadTexture("resources//Image//Textures//Blacksmith.png", t_wallpaper);
 	wallpaper = new sf::RectangleShape(sf::Vector2f(1920,1080));
 	wallpaper->setPosition(0, 0);
 	wallpaper->setTexture(t_wallpaper, true);

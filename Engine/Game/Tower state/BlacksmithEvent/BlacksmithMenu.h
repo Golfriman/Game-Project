@@ -11,6 +11,7 @@ class BlacksmithMenu : public BlacksmithEvent
 	sf::Texture* textureButton;
 	sf::Text* textButton;
 	sf::Color* white;
+	sf::RectangleShape board;
 	std::function<void()> pressToTalk;
 	std::function<void()> pressToMod;
 	std::function<void()> pressToExit;
@@ -19,6 +20,7 @@ class BlacksmithMenu : public BlacksmithEvent
 
 	sf::Texture* commandAreaTexture;
 	sf::RectangleShape* area;
+
   public:
 	  BlacksmithMenu(System& system, Hero* hero, bool* isLoadSource);
 	  

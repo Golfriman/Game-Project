@@ -122,12 +122,8 @@ void Game::createSource()
 	flag = true;
 	isDelete = false;
 	isDropMenu = false;
-<<<<<<< HEAD
 	idGame = 1;
 	level = 1;
-=======
-	
->>>>>>> 5619336e09f2e430f8a91480d245e08f64dca076
 	isPressedInventory = false;
 	showHUD = true;
 	isPressedSettings = false;
@@ -166,7 +162,6 @@ void Game::createSource()
 	areaHeroInfo->setTexture(textureAreaHeroInfo, true);
 	textAreaHeroInfo = new sf::Text[5];
 	createUI();
-
 	*isLoadSource = true;
 }
 
@@ -310,6 +305,11 @@ void Game::update()
 			idGame++;
 			if (idGame < towerstates.size())
 			{
+				if (id == towerstates.size() - 1)
+				{
+					infoLevel->setString(L"Кузница");
+					numberLevel->setString(L"");
+				}
 				towerstates[idGame]->createSource();
 			}
 			else
@@ -324,6 +324,7 @@ void Game::update()
 				generateLevel(*system);
 				idGame = 1;
 				level++;
+				infoLevel->setString(L"Dream Tower уровень");
 				sf::String path = "resources//Image//Textures//heroFloor" + std::to_string(level) + ".png";
 				loadTexture(path, textureHero);
 				hero->setTextureHero(textureHero);

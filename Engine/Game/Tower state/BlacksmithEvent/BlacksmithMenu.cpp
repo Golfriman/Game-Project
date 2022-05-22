@@ -2,22 +2,20 @@
 
 void BlacksmithMenu::createUI()
 {    
-	insertButton(3, menuButton, 1494, 150, 407, 442, &textureButton[1]);
-
-	insertButton(0, menuButton, 1529, 201, 341, 100, &textureButton[0]);
-	setText(L"Поговорить с кузнецом", textButton[0], normallFont, 1553, 207, *white, 24);
+	board.setPosition(1476, 150);
+	board.setSize(sf::Vector2f(407, 442));
+	board.setTexture(&textureButton[1], true);
+	insertButton(0, menuButton, 1509, 201, 341, 100, &textureButton[0], &textureButton[2]);
+	setText(L"Поговорить\nс кузнецом", textButton[0], normallFont, 1563, 207, *white, 36);
 	menuButton[0]->setOnClick(pressToTalk);
 
-	insertButton(1, menuButton, 1529, 321, 341, 100, &textureButton[0]);
-	setText(L"Улучшить предметы", textButton[1], normallFont, 1573,328, *white, 24);
+	insertButton(1, menuButton, 1509, 321, 341, 100, &textureButton[0], &textureButton[2]);
+	setText(L"Улучшить\nпредметы", textButton[1], normallFont, 1583,328, *white, 36);
 	menuButton[1]->setOnClick(pressToMod);
 
-	insertButton(2, menuButton, 1529, 440, 341, 100, &textureButton[0]);
-	setText(L"Уйти", textButton[2], normallFont, 1675, 469, *white, 24);
+	insertButton(2, menuButton, 1509, 440, 341, 100, &textureButton[0], &textureButton[2]);
+	setText(L"Уйти", textButton[2], normallFont, 1635, 469, *white, 36);
 	menuButton[2]->setOnClick(pressToExit);
-
-	
-
 
 }
 
@@ -38,10 +36,6 @@ BlacksmithMenu::BlacksmithMenu(System& system, Hero* hero, bool* isLoadSource)
 		throw ID_EXIT_B;
 	};
 	
-
-	
-	
-
 }
 
 void BlacksmithMenu::update()
@@ -49,7 +43,15 @@ void BlacksmithMenu::update()
 
 	if (event->type == sf::Event::MouseMoved)
 	{
-		
+			sf::Vector2f cursor = mouse->getCoordinate();
+			for (auto& ui : menuButton)
+			{
+				ui->setIdle();
+				if (ui->containsCursor(cursor))
+				{
+					ui->setHover();
+				}
+			}
 	}
 	else if (event->type == sf::Event::MouseButtonPressed)
 	{
@@ -85,6 +87,7 @@ void BlacksmithMenu::draw()
 
 void BlacksmithMenu::hud()
 {
+	handle->draw(board);
 	for (auto& ui : menuButton)
 	{
 		handle->draw(ui->getRect());
@@ -98,12 +101,14 @@ void BlacksmithMenu::hud()
 
 void BlacksmithMenu::createSource()
 {
-	textureButton = new sf::Texture[2];
+	textureButton = new sf::Texture[3];
 	white = new sf::Color(sf::Color::White);
 	commandAreaTexture = new sf::Texture;
 	textButton = new sf::Text[3];
-	loadTexture("resources//Image//Textures//rect.png", &textureButton[0]);
+	loadTexture("resources//Image//Textures//RandomEventButton.png", &textureButton[0]);
 	loadTexture("resources//Image//Textures//BlackSmithSquare.png", &textureButton[1]);
+	textureButton[2].setSmooth(true);
+	loadTexture("resources//Image//Textures//HoverButton0.png", &textureButton[2]);
 	createUI();
 
 }
