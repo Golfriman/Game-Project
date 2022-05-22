@@ -7,7 +7,20 @@ static constexpr int ID_SETTINGS = 0x12;
 static constexpr int ID_JOURNAL = 0x13;
 static constexpr int ID_EXIT = 0x14;
 static constexpr int ID_NEXT = 0x15;
+<<<<<<< Updated upstream
 static constexpr int ID_DEATH = 0x16;
+=======
+
+static constexpr int ID_TALK_B = 0x19;
+static constexpr int ID_MOD_B = 0x16;
+static constexpr int ID_EXIT_B = 0x17;
+static constexpr int ID_MENU_B = 0x18;
+
+static constexpr int ID_S_ALTAR = 0x100;
+static constexpr int ID_B_ALTAR = 0x101;
+>>>>>>> Stashed changes
+
+
 
 template<typename T>
 inline void deleteObject(T* object)

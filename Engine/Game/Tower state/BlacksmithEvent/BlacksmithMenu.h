@@ -1,5 +1,8 @@
 #include "BlacksmithEvent.h"
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 class BlacksmithMenu : public BlacksmithEvent
 {
@@ -13,7 +16,12 @@ class BlacksmithMenu : public BlacksmithEvent
 	sf::Texture* textureButton;
 	sf::Text* textButton;
 	sf::Color* white;
-	std::function<void()> pressToMove;
+	std::function<void()> pressToTalk;
+	std::function<void()> pressToMod;
+	std::function<void()> pressToExit;
+	
+
+
 	sf::Texture* commandAreaTexture;
 	sf::RectangleShape* area;
   public:
