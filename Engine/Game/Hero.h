@@ -11,7 +11,7 @@ class Hero : public Unit
 	Dice *dice;
 	Characteristics* no_modifyCharacteristics;
 public:
-	Hero(Characteristics* characteristics);
+	Hero(Characteristics* characteristics, int& level);
 	void attackWithASpecialAttack(Unit* unit) override;
 	void addInventory(Items* item);
 	Inventory* openInventory();

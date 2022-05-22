@@ -10,7 +10,7 @@ PotionHealth::PotionHealth()
 
 void PotionHealth::use(Unit* unit)
 {
-	unit->getCharacteristics()->changeHealth(5);
+	unit->getCharacteristics()->changeHealth(unit->getCharacteristics()->getMaxHealth()*0.1f);
 }
 
 PotionHealth::~PotionHealth()

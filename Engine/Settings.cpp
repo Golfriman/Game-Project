@@ -56,7 +56,7 @@ void Settings::createUI(sf::Color& white, sf::Color& red)
 	insertButton(10, settingsButton, 432, 808, 187, 50, &textureButton[4]);
 	settingsButton[10]->setOnClick(cancel);
 
-	loadTexture("resources//Image//Textures//red.png", &textureButton[5]);
+	loadTexture("resources//Image//Textures//Button.png", &textureButton[5]);
 	insertButton(11, settingsButton, 1301, 808, 187, 50, &textureButton[5]);
 	settingsButton[11]->setOnClick(applySettings);
 

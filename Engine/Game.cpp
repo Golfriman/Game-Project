@@ -121,14 +121,15 @@ void Game::createSource()
 	isDelete = false;
 	isDropMenu = false;
 	idGame = 1;
+	level = 1;
 	isPressedInventory = false;
 	showHUD = true;
 	isPressedSettings = false;
 	mersenne = new std::mt19937({ reinterpret_cast<unsigned int>(this) });
-	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1));
-	inventoryScreen = new InventoryScreen(*system, hero);
+	hero = new Hero(new Characteristics(5, 255, 3, 4, 5, 1), level);
+	inventoryScreen = new InventoryScreen(*system, hero, level);
 	towerstates.push_back(inventoryScreen);
-	level = 1;
+
 	isPressedInventory = false;
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
@@ -309,8 +310,9 @@ void Game::update()
 				{
 					deleteObject(towerstates[i]);
 				}
+				towerstates[ID_INVENTORY]->removeSource();
+				towerstates[ID_INVENTORY]->createSource();
 				towerstates.erase(towerstates.begin() + 1, towerstates.end());
-
 				generateLevel(*system);
 				idGame = 1;
 				level++;

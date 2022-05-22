@@ -106,6 +106,7 @@ void Battle::update()
 	//ѕосле того как закончатс€ противники, то есть возможность куда-нибудь потыкать
 	else if (enimiesInTheRoom.empty())
 	{
+		healthBars[HERO_HEALTHBAR]->update(); // ѕомен€ть 
 		if (event->type == sf::Event::MouseMoved)
 		{
 			sf::Vector2f cursor = mouse->getCoordinate();

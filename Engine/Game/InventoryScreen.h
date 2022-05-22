@@ -17,6 +17,8 @@ class InventoryScreen: public TowerState
 	sf::Text* itemInfo;
 	sf::Texture* texture;
 	sf::Texture* inventoryAreaTexture;
+	sf::Texture* inventoryScreen;
+	sf::RectangleShape wallpaper;
 	sf::RectangleShape textArea;
 	sf::RectangleShape inventoryArea;
 	size_t positionItem;
@@ -26,13 +28,14 @@ class InventoryScreen: public TowerState
 	bool isHover;
 	bool isDropMenu;
 	bool isCreated;
+	int& level;
 	void createUI();
 	void createDropMenu();
 	void removeDropMenu();
 	std::function<void()> dropItem;
 	std::function<void()> useItem;
 public:
-	InventoryScreen(System& system, Hero* hero);
+	InventoryScreen(System& system, Hero* hero, int& level);
 	void update() override;
 	void draw() override;
 	void render() override;

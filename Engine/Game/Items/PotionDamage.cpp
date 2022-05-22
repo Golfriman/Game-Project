@@ -9,7 +9,7 @@ PotionDamage::PotionDamage()
 
 void PotionDamage::use(Unit* unit)
 {
-	unit->getCharacteristics()->buff();
+	unit->getCharacteristics()->changeCharacterisitics(5, 0, 0, 0, 0, 0);
 }
 
 PotionDamage::~PotionDamage()

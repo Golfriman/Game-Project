@@ -21,7 +21,7 @@ void Dice::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (int i = 0; i < 2; i++)
 	{
 		diceCOPY[i] = const_cast<sf::RectangleShape*>(&dice[i]);
-		diceCOPY[i]->setTextureRect(sf::IntRect(countSprite * 50, 0, 50, 50));
+		diceCOPY[i]->setTextureRect(sf::IntRect(count / 18 * 128, count % 18 * 128, 128, 128));
 		target.draw(dice[i]);
 	}
 	if (count == 179)
@@ -37,7 +37,7 @@ void Dice::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-Dice::Dice(float x, float y)
+Dice::Dice(float x, float y, int& level):level(level)
 {
 	mersenne = new std::mt19937(reinterpret_cast<unsigned int>(this));
 	random = new std::uniform_int_distribution<int>(0, 5);
@@ -65,6 +65,8 @@ void Dice::roll()
 	countSprite = 0;
 	dice[0].setTexture(resultRoll[firstDice], true);
 	dice[1].setTexture(resultRoll[secondDice], true);
+	dice[0].setFillColor(state[level-1]);
+	dice[1].setFillColor(state[level-1]);
 }
 
 bool Dice::rollEnd()

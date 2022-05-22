@@ -2,16 +2,16 @@
 
 void DeathScreen::createUI()
 {
-	insertButton(0, buttons, 662, 647, 235, 50, &texture[1], &texture[2]);
-	insertButton(1, buttons, 1033, 647, 235, 50, &texture[1], &texture[2]);
+	insertButton(0, buttons, 652, 738, 235, 50, &texture[1], &texture[2]);
+	insertButton(1, buttons, 1033, 738, 235, 50, &texture[1], &texture[2]);
 
 	buttons[0]->setOnClick(restartGame);
 	buttons[1]->setOnClick(returnMainMenu);
 
-	setText(L"Вы умерли", text[0], titleFont, 688, 401, colorText1, 128);
-	setText(L"К сожалению, вы больше не сможете проснуться", text[1], normallFont, 662, 608, colorText1, 24);
-	setText(L"Начать заново", text[2], normallFont, 677, 657, colorText0, 24);
-	setText(L"Главное меню", text[3], normallFont, 1057, 657, colorText0, 24);
+	setText(L"Вы умерли", text[0], titleFont, 688, 492, colorText1, 128);
+	setText(L"К сожалению, вы больше не сможете проснуться", text[1], normallFont, 652, 659, colorText0, 24);
+	setText(L"Начать заново", text[2], normallFont, 677, 748, colorText0, 24);
+	setText(L"Главное меню", text[3], normallFont, 1057, 748, colorText0, 24);
 }
 
 DeathScreen::DeathScreen(System& system, Hero* hero, bool* isLoadSreen)
@@ -88,8 +88,8 @@ void DeathScreen::createSource()
 	loadTexture("resources//Image//Textures//HoverButton1.png", &texture[2]);
 
 	desk.setTexture(&texture[0], true);
-	desk.setSize(sf::Vector2f(1058, 572));
-	desk.setPosition(441, 254);
+	desk.setSize(sf::Vector2f(347, 272));
+	desk.setPosition(787, 227);
 	createUI();
 
 }

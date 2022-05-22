@@ -13,7 +13,6 @@ class RandomEvent : public TowerState
 	size_t max;
 	sf::RectangleShape area;
 	bool btn_enabled = false;
-	void EventEffectSurprise();
 	void EventChest();
 	void EventMimik();
 	void EventSacredAltar();
@@ -22,14 +21,7 @@ class RandomEvent : public TowerState
 	void EventStone();
 	void EventBoiler();
 	void EventTitle();
-	void EventDeadFriend();
-	void EventNoiseFighting();
-	void EventOffice();
-	void EventStrawDoll();
 	void EventViewTower();
-	void EventHallucinations();
-	void EventCorpse();
-	void EventReflections();
 	sf::RectangleShape shape;
 	sf::Text history;
 	std::vector<sf::String> textHistory;

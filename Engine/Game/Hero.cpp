@@ -1,12 +1,12 @@
 #include"Hero.h"
 
-Hero::Hero(Characteristics* character)
+Hero::Hero(Characteristics* character, int& level)
 {
 	spriteUnit->setPosition(576.f,333.f);
 	spriteUnit->setSize(sf::Vector2f(233, 450));
 	this->characterisitcs = character;
 	inventory = new Inventory;
-	dice = new Dice(97.f, 850.f);
+	dice = new Dice(97.f, 850.f, level);
 	no_modifyCharacteristics = new Characteristics(*character);
 }
 

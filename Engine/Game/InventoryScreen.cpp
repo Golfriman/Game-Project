@@ -39,7 +39,7 @@ void InventoryScreen::removeDropMenu()
 	isCreated = false;
 }
 
-InventoryScreen::InventoryScreen(System& system, Hero* hero)
+InventoryScreen::InventoryScreen(System& system, Hero* hero, int& level):level(level)
 {
 	positionCreateDropMenu = 0;
 	this->inventory = hero->openInventory();
@@ -49,9 +49,9 @@ InventoryScreen::InventoryScreen(System& system, Hero* hero)
 	isCreated = false;
 	isDropMenu = false;
 	textArea.setSize(sf::Vector2f(869, 273));
-	inventoryArea.setSize(sf::Vector2f(999, 571));
+	inventoryArea.setSize(sf::Vector2f(1033, 598));
 	textArea.setPosition(512, 758);
-	inventoryArea.setPosition(460, 172);
+	inventoryArea.setPosition(441, 172);
 	sf::Color area(0x19, 0x1C, 0x25);
 	textArea.setFillColor(area);
 	dropItem = [&]()
@@ -63,7 +63,7 @@ InventoryScreen::InventoryScreen(System& system, Hero* hero)
 	};
 	useItem = [&]()
 	{
-		inventory->useItem(positionCreateDropMenu, hero);
+		inventory->useItem(positionCreateDropMenu, this->hero);
 		itemInfo->setString(L"");
 		buttonsInventoryScreen[positionCreateDropMenu]->setIdle();
 		isCreated = false;
@@ -145,7 +145,7 @@ void InventoryScreen::update()
 
 void InventoryScreen::draw()
 {
-	handle->clear(sf::Color(0xC4, 0xC4, 0xC4));
+	handle->draw(wallpaper);
 	handle->draw(inventoryArea);
 
 	for (auto& ui : buttonsInventoryScreen)
@@ -185,12 +185,16 @@ void InventoryScreen::createSource()
 {
 	itemInfo = new sf::Text;
 	texture = new sf::Texture[4];
+	inventoryScreen = new sf::Texture;
+	loadTexture("resources//Image//Textures//bag " + std::to_string(level) + ".png", inventoryScreen);
+	wallpaper.setSize(sf::Vector2f(1920, 1080));
+	wallpaper.setTexture(inventoryScreen, true);
 	loadTexture("resources//Image//Textures//rect.png", &texture[0]);
-	loadTexture("resources//Image//Textures//hover.png", &texture[1]);
+	loadTexture("resources//Image//Textures//hover"+ std::to_string(level) + ".png", &texture[1]);
 	loadTexture("resources//Image//Textures//Button.png", &texture[2]);
-	loadTexture("resources//Image//Textures//activate.png", &texture[3]);
+	loadTexture("resources//Image//Textures//activate" + std::to_string(level) + ".png", &texture[3]);
 	inventoryAreaTexture = new sf::Texture;
-	loadTexture("resources//Image//Textures//inventoryArea.png", inventoryAreaTexture);
+	loadTexture("resources//Image//Textures//inventoryArea" + std::to_string(level) + ".png", inventoryAreaTexture);
 	inventoryAreaTexture->setSmooth(true);
 	inventoryArea.setTexture(inventoryAreaTexture);
 	title = new sf::Text;
@@ -212,6 +216,7 @@ void InventoryScreen::removeSource()
 		removeDropMenu();
 	}
 	deleteObject(inventoryAreaTexture);
+	deleteObject(inventoryScreen);
 }
 
 void InventoryScreen::hud()
