@@ -3,15 +3,24 @@
 #include"BlacksmithEvent/Dialog.h"
 #include"BlacksmithEvent/UpgradeWeapon.h"
 #include"BlacksmithEvent/Farewell.h"
+#include"BlacksmithEvent/BlacksmithMenu.h"
+
 
 BlackSmith::BlackSmith(System& system, Hero* hero, bool *isLoadSource)
 {
 	init(system, hero, isLoadSource);
-	bEvents.resize(3);
-	bEvents[0] = new Dialog(system, hero, isLoadSource);
-	bEvents[1] = new UpgradeWeapon(system, hero, isLoadSource);
-	bEvents[2] = new Farewell(system, hero, isLoadSource);
-	stateBlack = 0;
+	bEvents =
+	{
+		std::make_pair(ID_MENU_B, new BlacksmithMenu(system, hero, isLoadSource)),
+		std::make_pair(ID_TALK_B, new Dialog(system, hero, isLoadSource)),
+		std::make_pair(ID_MOD_B, new UpgradeWeapon(system, hero, isLoadSource)),
+		std::make_pair(ID_EXIT_B, new Farewell(system, hero, isLoadSource))
+	};
+
+	
+	stateBlack = ID_MENU_B;
+
+	bEvents[stateBlack]->createSource();
 }
 
 void BlackSmith::update()
@@ -20,7 +29,7 @@ void BlackSmith::update()
 	{
 		bEvents[stateBlack]->update();
 	}
-	catch (size_t id) 
+	catch (int id) 
 	{
 		bEvents[stateBlack]->removeSource();
 		stateBlack = id;
@@ -36,21 +45,32 @@ void BlackSmith::render()
 
 void BlackSmith::draw()
 {
+	handle->draw(*wallpaper);
 	bEvents[stateBlack]->draw();
 }
 
 void BlackSmith::hud()
 {
-	return;
+	bEvents[stateBlack]->hud();
 }
 
 void BlackSmith::createSource()
 {
+	t_wallpaper = new sf::Texture;
+	loadTexture("resources//Image//Textures//giga.png", t_wallpaper);
+	wallpaper = new sf::RectangleShape(sf::Vector2f(1920,1080));
+	wallpaper->setPosition(0, 0);
+	wallpaper->setTexture(t_wallpaper, true);
+
+
+
 	//фон, звук
 }
 
 void BlackSmith::removeSource()
 {
+	deleteObject(t_wallpaper);
+	deleteObject(wallpaper);
 	//фон, звук
 }
 
@@ -58,7 +78,7 @@ BlackSmith::~BlackSmith()
 {
 	for (auto& blacksmith : bEvents)
 	{
-		deleteObject(blacksmith);
+		deleteObject(blacksmith.second);
 	}
 	bEvents.clear();
 }

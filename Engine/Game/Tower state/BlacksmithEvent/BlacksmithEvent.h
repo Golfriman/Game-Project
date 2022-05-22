@@ -1,5 +1,6 @@
 #pragma once
 #include"../Blacksmith.h"
+
 class BlacksmithEvent
 {
 protected:
@@ -22,4 +23,6 @@ public:
 	virtual void createSource() = 0;
 	virtual void removeSource() = 0;
 	virtual ~BlacksmithEvent() = default;
+
+	
 };
