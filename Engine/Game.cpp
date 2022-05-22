@@ -26,6 +26,8 @@ void Game::generateLevel(System& system)
 	}
 
 	towerstates.push_back(new BlackSmith(system, hero, isLoadSource ));
+
+
 }
 
 void Game::createUI()
@@ -120,8 +122,12 @@ void Game::createSource()
 	flag = true;
 	isDelete = false;
 	isDropMenu = false;
+<<<<<<< HEAD
 	idGame = 1;
 	level = 1;
+=======
+	
+>>>>>>> 5619336e09f2e430f8a91480d245e08f64dca076
 	isPressedInventory = false;
 	showHUD = true;
 	isPressedSettings = false;
@@ -133,6 +139,8 @@ void Game::createSource()
 	isPressedInventory = false;
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
+	idGame = towerstates.size()-1;
+
 	towerstates[idGame]->createSource();
 	towerstates[0]->createSource();
 	texture = new sf::Texture[6];
