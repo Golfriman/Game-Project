@@ -135,7 +135,6 @@ void Game::createSource()
 	isPressedInventory = false;
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
-	idGame = towerstates.size()-1;
 
 	towerstates[idGame]->createSource();
 	towerstates[0]->createSource();
@@ -321,11 +320,13 @@ void Game::update()
 				towerstates[ID_INVENTORY]->removeSource();
 				towerstates[ID_INVENTORY]->createSource();
 				towerstates.erase(towerstates.begin() + 1, towerstates.end());
+				level++;
 				generateLevel(*system);
 				idGame = 1;
-				level++;
+				towerstates[idGame]->createSource();
 				infoLevel->setString(L"Dream Tower уровень");
 				sf::String path = "resources//Image//Textures//heroFloor" + std::to_string(level) + ".png";
+
 				loadTexture(path, textureHero);
 				hero->setTextureHero(textureHero);
 				numberLevel->setString(std::to_string(level));

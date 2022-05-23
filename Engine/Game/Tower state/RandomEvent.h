@@ -26,6 +26,8 @@ class RandomEvent : public TowerState
 	sf::Text history;
 	std::vector<sf::String> textHistory;
 	std::function<void()> next;
+	std::function<void()> act1;
+	std::function<void()> act2;
 	size_t countHistory;
 	bool isDelete = false;
 public:

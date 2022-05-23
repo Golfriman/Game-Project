@@ -7,6 +7,7 @@ Farewell::Farewell(System& system, Hero* hero, bool* isLoadSource)
 
 void Farewell::update()
 {
+	throw ID_NEXT;
 }
 
 void Farewell::render()

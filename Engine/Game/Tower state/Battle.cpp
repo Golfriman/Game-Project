@@ -314,7 +314,6 @@ void Battle::createSource()
 	healthBars.resize(1 + var);
 	exitRoom = new sf::Texture;
 	healthBars[HERO_HEALTHBAR] = new HealthBar(414.f, 793.f, titleFont, hero);
-
 	//Generate Enimies
 	// Правила размещение врагов? Кол-во от 1 до 3
 	switch (levelGenerate)

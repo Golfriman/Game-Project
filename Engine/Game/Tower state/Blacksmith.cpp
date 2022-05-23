@@ -31,6 +31,10 @@ void BlackSmith::update()
 	}
 	catch (int id) 
 	{
+		if (id == ID_NEXT)
+		{
+			throw ID_NEXT;
+		}
 		bEvents[stateBlack]->removeSource();
 		stateBlack = id;
 		bEvents[stateBlack]->createSource();

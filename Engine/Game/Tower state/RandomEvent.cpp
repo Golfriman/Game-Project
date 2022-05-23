@@ -9,9 +9,9 @@ void RandomEvent::EventChest()
 	setText(L" Я отворил дверь в одну из комнат. Комната была богато убрана,\n\
 со стен свисали портьеры, а пол устлан коврами.\n\
 В середине комнаты стоял большой красивый сундук.\n\
-Я подошел и увидел гравировку A.B.B.A..\n\
-Кажется это был  фамильный герб владельцев башни...", text[0], normallFont, 553, 799, white, n);
-	setText(L"Что ж посмотрим, какие драгоценности здесь есть.\n", text[1], normallFont, 553, 799, white, n);
+Я подошел и увидел гравировку A.B.B.A.\n\
+Кажется, это был  фамильный герб владельцев башни...", text[0], normallFont, 553, 799, white, n);
+	setText(L"Что ж, посмотрим, какие драгоценности здесь есть.\n", text[1], normallFont, 553, 799, white, n);
 	setText(L"Продолжить\n", t_btn[0], normallFont, 646, 959, white, n);
 	setText(L"Открыть\n", t_btn[1], normallFont, 646, 959, white, n);
 	setText(L"Открыть\n", t_btn[2], normallFont, 1024, 959, white, n);
@@ -22,8 +22,8 @@ void RandomEvent::EventMimik()
 	text.resize(2);
 	t_btn.resize(3);
 	max = 1;
-	setText(L"Комната в которую я вошел, была роскошной, вся в позолоте\n\
-и мебели, ручной работы. Очень дорого и вызывающе.\n\
+	setText(L"Комната, в которую я вошел, была роскошной, вся в позолоте\n\
+и мебели ручной работы. Очень дорого и вызывающе.\n\
 В центре комнате был пьедестал, на котором возвышался\n\
 огромный сундук. Он был весь в драгоценных камнях и\n\
 притягивал внимание.Он будто манил к себе и хотел чтобы...", text[0], normallFont, 553, 799, white, n);
@@ -40,9 +40,9 @@ void RandomEvent::EventSacredAltar()
 	max = 1;
 	text.resize(2);
 	t_btn.resize(3);
-	setText(L"Я стоял в грязном темном коридоре, уставший и раненый.\n\
+	setText(L"Я стоял в грязном темном коридоре, уставший и раненный.\n\
 Посмотрев вокруг себя, я увидел недалеко приоткрытую\n\
-дверь. Из просвета исходил голубой цвет. Я подошел и заглянул \n\
+дверь. Из просвета исходил голубой свет. Я подошел и заглянул \n\
 внутрь. В комнате находилась скульптура плачущей женщины, из\n\
 глаз которой капали слезы...\n", text[0], normallFont, 553, 799, white, n);
 	setText(L"Они стекали к ее ногам, у которых стоял кубок, наполненый чем-то.\n\
@@ -67,7 +67,7 @@ void RandomEvent::EventTrap()
 	text.resize(3);
 	max = 0;
 	t_btn.resize(3);
-			  
+
 	setText(L"Лестница на следующий этаж двигается! И как мне пройти дальше?\n\
 Придется прыгать по ступенькам и надеяться, что я\n\
 не свалюсь на пики точеные. Но я вижу еще неподалеку\n\
@@ -110,7 +110,7 @@ void RandomEvent::EventTitle()
 {
 	text.resize(2);
 	max = 1;
-	t_btn.resize(2); 
+	t_btn.resize(2);
 	setText(L"	Я осмотрелся и увидел на стенах еле заметные надписи:\n\
 There's not a soul out there No one to hear my prayer\n\
 Кажется кто то просил о помощи. \n\
@@ -139,10 +139,10 @@ void RandomEvent::EventViewTower()
 огромное расстояние? \nЛес выглядел зловеще,\n\
 но через его макушки проглядывали первые лучи\n\
 солнца. Надо спешить, уже светает.\n ", text[0], normallFont, 553, 799, white, n);
-	
+
 }
 
-RandomEvent::RandomEvent(System& system, Hero* hero, bool*isLoadSource)
+RandomEvent::RandomEvent(System& system, Hero* hero, bool* isLoadSource)
 {
 	init(system, hero, isLoadSource);
 	white = sf::Color::White;
