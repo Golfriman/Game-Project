@@ -136,6 +136,8 @@ void Game::createSource()
 	//Генерируем первый этаж, так как не имеет смысла держать другие этажи
 	generateLevel(*system);
 
+	idGame = towerstates.size() - 1;
+
 	towerstates[idGame]->createSource();
 	towerstates[0]->createSource();
 	texture = new sf::Texture[6];
@@ -304,7 +306,7 @@ void Game::update()
 			idGame++;
 			if (idGame < towerstates.size())
 			{
-				if (id == towerstates.size() - 1)
+				if (idGame == towerstates.size() - 1)
 				{
 					infoLevel->setString(L"Кузница");
 					numberLevel->setString(L"");

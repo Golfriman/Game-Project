@@ -29,7 +29,7 @@ BlacksmithMenu::BlacksmithMenu(System& system, Hero* hero, bool* isLoadSource)
 	};
 	pressToMod = [&]()
 	{
-		throw ID_MOD_B;
+		throw ID_TALK_B;//ID_MOD_B
 	};
 	pressToExit = [&]()
 	{
@@ -117,6 +117,7 @@ void BlacksmithMenu::removeSource()
 {
 	deleteArrayObject(textureButton);
 	deleteArrayObject(textButton);
+	
 	/*deleteObject(white);
 	deleteObject(commandAreaTexture);
 	deleteObject(area);*/
