@@ -3,27 +3,32 @@
 
 void RandomEvent::EventChest()
 {
-	text.resize(2);
+	text.resize(3);
 	max = 1;
 	t_btn.resize(3);
 	setText(L" Я отворил дверь в одну из комнат. Комната была богато убрана,\n\
 со стен свисали портьеры, а пол устлан коврами.\n\
 В середине комнаты стоял большой красивый сундук.\n\
-Я подошел и увидел гравировку A.B.B.A.\n\
-Кажется, это был  фамильный герб владельцев башни...", text[0], normallFont, 553, 799, white, n);
-	setText(L"Что ж, посмотрим, какие драгоценности здесь есть.\n", text[1], normallFont, 553, 799, white, n);
+Я подошел и увидел гравировку A.B.B.A..\n\
+Кажется это был  фамильный герб владельцев башни...", text[0], normallFont, 553, 799, white, n);
+	setText(L"Что ж посмотрим, какие драгоценности здесь есть.\n", text[1], normallFont, 553, 799, white, n);
 	setText(L"Продолжить\n", t_btn[0], normallFont, 646, 959, white, n);
 	setText(L"Открыть\n", t_btn[1], normallFont, 646, 959, white, n);
 	setText(L"Открыть\n", t_btn[2], normallFont, 1024, 959, white, n);
 
+	act1 = [&]() {hero->setCoins(hero->getCoins()+100); };
+	act2 = [&]() {act1(); };
+	action_btn[0]->setOnClick(act1);
+	action_btn[1]->setOnClick(act2);
+	setText(L"Вы получили 100 монет!", text[2], normallFont, 553, 799, white, n);
 }
 void RandomEvent::EventMimik()
 {
-	text.resize(2);
+	text.resize(3);
 	t_btn.resize(3);
 	max = 1;
-	setText(L"Комната, в которую я вошел, была роскошной, вся в позолоте\n\
-и мебели ручной работы. Очень дорого и вызывающе.\n\
+	setText(L"Комната в которую я вошел, была роскошной, вся в позолоте\n\
+и мебели, ручной работы. Очень дорого и вызывающе.\n\
 В центре комнате был пьедестал, на котором возвышался\n\
 огромный сундук. Он был весь в драгоценных камнях и\n\
 притягивал внимание.Он будто манил к себе и хотел чтобы...", text[0], normallFont, 553, 799, white, n);
@@ -34,23 +39,63 @@ void RandomEvent::EventMimik()
 	setText(L"Продолжить", t_btn[0], normallFont, 646, 959, white, n);
 	setText(L"Отдернуть руку\n", t_btn[1], normallFont, 646, 959, white, n);
 	setText(L"Открыть крышку\n", t_btn[2], normallFont, 1024, 959, white, n);
+	setText(L"", text[2], normallFont, 553, 799, white, n);
+	act1 = [&]() {text[2].setString(L"Это оказался мимик, и я в страхе убежал от него..."); };
+	act2 = [&]() {text[2].setString(L"Это оказался мимик, он укусил меня за руку.\nВам нанесли 10 урона..."); hero->getCharacteristics()->changeHealth(-10); };
+	action_btn[0]->setOnClick(act1);
+	action_btn[1]->setOnClick(act2);
+
+
 }
 void RandomEvent::EventSacredAltar()
 {
 	max = 1;
-	text.resize(2);
+	text.resize(3);
 	t_btn.resize(3);
-	setText(L"Я стоял в грязном темном коридоре, уставший и раненный.\n\
+	setText(L"Я стоял в грязном темном коридоре, уставший и раненый.\n\
 Посмотрев вокруг себя, я увидел недалеко приоткрытую\n\
-дверь. Из просвета исходил голубой свет. Я подошел и заглянул \n\
+дверь. Из просвета исходил голубой цвет. Я подошел и заглянул \n\
 внутрь. В комнате находилась скульптура плачущей женщины, из\n\
 глаз которой капали слезы...\n", text[0], normallFont, 553, 799, white, n);
 	setText(L"Они стекали к ее ногам, у которых стоял кубок, наполненый чем-то.\n\
 Атмосфера комнаты не выглядела зловеще, а была скорее\n\
 сострадающей. Я подошел к кубку и...\n", text[1], normallFont, 553, 799, white, n);
+	setText(L"", text[2], normallFont, 553, 799, white, n);
+
 	setText(L"Продолжить\n", t_btn[0], normallFont, 646, 959, white, n);
 	setText(L"Вылил\n", t_btn[1], normallFont, 646, 959, white, n);
 	setText(L"Бросил в стену\n", t_btn[2], normallFont, 1024, 959, white, n);
+
+	act1 = [&]() {text[2].setString(L"Зелье разбилось, и в тот же момент испарилось."); };
+	act2 = [&]() {text[2].setString(L"");
+	std::mt19937 mersene;
+	mersene.seed(time(nullptr));
+	std::uniform_int_distribution<> n(0, 3);
+	switch (n(mersene))
+	{
+	case 0:
+		hero->getCharacteristics()->changeHealth(10);
+		text[2].setString(L"Вы успешно восстановили здоровье");
+		break;
+	case 1:
+		hero->getCharacteristics()->changeCharacterisitics(10, 0, 0, 0, 0, 0);
+		text[2].setString(L"Вы увеличили наносимый урон");
+		break;
+	case 2:
+		hero->getCharacteristics()->changeCharacterisitics(0, 0, 0, 0, 10, 0);
+		text[2].setString(L"Вы стали более ловким");
+		break;
+	case 3:
+		hero->getCharacteristics()->changeCharacterisitics(0, 0, 0, 10, 0, 0);
+		text[2].setString(L"Вы повысили шанс критического урона");
+		break;
+	default:
+		break;
+	}
+ };
+
+	action_btn[1]->setOnClick(act1);
+	action_btn[0]->setOnClick(act2);
 
 }
 void RandomEvent::EventBloodyAltar()
@@ -61,13 +106,15 @@ void RandomEvent::EventBloodyAltar()
 	setText(L"Чето делает\n ", text[0], normallFont, 553, 799, white, n);
 	setText(L"Выпил\n", t_btn[1], normallFont, 646, 959, white, n);
 	setText(L"Вылил\n", t_btn[2], normallFont, 946, 959, white, n);
+
+	//Лень
 }
 void RandomEvent::EventTrap()
 {
 	text.resize(3);
 	max = 0;
 	t_btn.resize(3);
-
+			  
 	setText(L"Лестница на следующий этаж двигается! И как мне пройти дальше?\n\
 Придется прыгать по ступенькам и надеяться, что я\n\
 не свалюсь на пики точеные. Но я вижу еще неподалеку\n\
@@ -110,7 +157,7 @@ void RandomEvent::EventTitle()
 {
 	text.resize(2);
 	max = 1;
-	t_btn.resize(2);
+	t_btn.resize(2); 
 	setText(L"	Я осмотрелся и увидел на стенах еле заметные надписи:\n\
 There's not a soul out there No one to hear my prayer\n\
 Кажется кто то просил о помощи. \n\
@@ -124,37 +171,42 @@ Gimme gimme gimme a man after midnight  Won't...", text[0], normallFont, 553, 79
 
 void RandomEvent::EventViewTower()
 {
-	text.resize(1);
+	text.resize(3);
+	max = 1;
 	setText(L"Почему в башнях всегда проблемы со светом?\n\
 Я хочу узнать обстановку снаружи, в какой местности я\n\
 нахожусь и сколько сейчас времени. О кажется впереди\n\
 туннеля есть какой-то свет... Ха ха это всего лишь\n\
-окошко, замечательно, могло быть и хуже.\n\
-Я выглянул из маленького окошка в конце\n\
+окошко, замечательно, могло быть и хуже...", text[0], normallFont, 553, 799, white, n);
+	setText("Я выглянул из маленького окошка в конце\n\
 длинного коридора.Вид, который мне открылся,\n\
-был завораживающим.\nНа небе розоватая луна,\n\
+был завораживающим. На небе розоватая луна,\n\
 освещала развалины башни, равнину и темный\n\
-лес.Больше ничего не было.Как так получилось,\n\
-что башня одна единственная постройка на такое\n\
-огромное расстояние? \nЛес выглядел зловеще,\n\
+лес.Больше ничего не было.Как так получилось...", text[1], normallFont, 553, 799, white, n);
+	setText(L"что башня одна единственная постройка на такое\n\
+огромное расстояние? Лес выглядел зловеще,\n\
 но через его макушки проглядывали первые лучи\n\
-солнца. Надо спешить, уже светает.\n ", text[0], normallFont, 553, 799, white, n);
-
+солнца. Надо спешить, уже светает.\n ", text[2], normallFont, 553, 799, white, n);
+	
 }
 
-RandomEvent::RandomEvent(System& system, Hero* hero, bool* isLoadSource)
+RandomEvent::RandomEvent(System& system, Hero* hero, bool*isLoadSource)
 {
 	init(system, hero, isLoadSource);
 	white = sf::Color::White;
 	countHistory = 0;
 	next = [&]()
 	{
+		countHistory++;
 		if (countHistory < text.size())
 		{
-			countHistory++;
 			if (max == countHistory)
 			{
 				btn_enabled = true;
+			}
+			else
+			{
+				btn_enabled = false;
 			}
 		}
 		else
@@ -259,7 +311,7 @@ void RandomEvent::createSource()
 	*isLoadSource = true;
 	std::mt19937 mersenne{ reinterpret_cast<unsigned>(this) };
 
-	std::uniform_int_distribution<int> num(0, 3);
+	std::uniform_int_distribution<int> num(0, 2);
 	texture = new sf::Texture[3];
 	loadTexture("resources//Image//Textures//RandomFrame.png", &texture[0]);
 	loadTexture("resources//Image//Textures//RandomEventButton.png", &texture[1]);
@@ -270,8 +322,7 @@ void RandomEvent::createSource()
 	shape.setTexture(&texture[0], true);
 	shape.setSize(sf::Vector2f(texture[0].getSize().x, texture[0].getSize().y));
 	shape.setPosition(486.f, 719.f);
-	int test = 5;
-	switch (test)
+	switch (num(mersenne))
 	{
 	case 0:
 	{
@@ -287,25 +338,21 @@ void RandomEvent::createSource()
 	}break;
 	case 3:
 	{
-		EventBloodyAltar();
+		EventTrap();
 	}break;
 	case 4:
 	{
-		EventTrap();
+		EventStone();
 	}break;
 	case 5:
 	{
-		EventStone();
+		EventBoiler();
 	}break;
 	case 6:
 	{
-		EventBoiler();
-	}break;
-	case 7:
-	{
 		EventTitle();
 	}break;
-	case 8:
+	case 7:
 	{
 		EventViewTower();
 	}break;
