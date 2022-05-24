@@ -18,7 +18,7 @@ class Dialog : public BlacksmithEvent
 	sf::Texture* st_button;
 	//Инициализация текста, тип какой текст нам нужно отображать
 	int stateText;
-	std::function<void()> next;
+	std::function<void()> enoughTalk;
 	std::function<void()> hello;
 	std::function<void()> whereIam;
 	std::function<void()> wantExit;
